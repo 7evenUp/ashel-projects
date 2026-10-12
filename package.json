@@ -1,0 +1,12 @@
+{
+  "name": "crypton-questbook",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node site/serve.mjs",
+    "start": "node site/serve.mjs",
+    "content": "node site/generate-content.mjs",
+    "test": "node --test site/tests/content.test.mjs"
+  }
+}
