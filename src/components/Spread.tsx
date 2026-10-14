@@ -42,7 +42,7 @@ export function Spread({project:p, index, variant, source, onVariant, onNotes, r
       <div className="chapter-label">ГЛАВА {chapter}<span> / </span>{p.category}</div>
       <div data-variant-content className="project-heading flex items-center gap-3"><h1 id="project-title">{p.name}</h1></div><p data-variant-content className="tagline">{p.tagline}</p>
       <div className="project-links flex flex-wrap gap-2.5"><a className="project-link primary" href={source.deploy} target="_blank" rel="noopener noreferrer"><Icon name="arrow"/>{variant === 'mini' ? 'Сайт Academy' : 'Открыть проект'}</a>{source.code === 'NDA' ? <button className="project-link nda" onClick={()=>onNotes('nda')} aria-label="Исходный код закрыт по NDA"><Icon name="lock"/>Код под NDA</button> : <a className="project-link secondary" href={source.code} target="_blank" rel="noopener noreferrer"><Icon name="code"/>Исходный код</a>}</div>
-      <Art project={p}/>
+      <Art project={p} variant={variant}/>
       <section className="note about-note tape"><h2>Об этом приключении</h2><p data-variant-content>{p.description}</p></section>
       <section className="stack"><h2 className="stack-heading"><Icon name="code"/>В моём рюкзаке</h2><div data-variant-content className="stack-tags flex flex-wrap gap-1.5">{p.stack.map(s=><span key={s}>{s}</span>)}</div></section>
       <Folio name={'ПОРТФОЛИО / '+p.name.toUpperCase()} number={index*2+1}/>

@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 export type SymbolName = 'key' | 'spark' | 'crown' | 'gift' | 'sword' | 'leaf' | 'book' | 'code' | 'arrow' | 'lock' | 'check';
-export type IllustrationName = 'passport' | 'signal' | 'crown' | 'gift' | 'winter-quest' | 'nft-assembly' | 'farming' | 'academy';
+export type IllustrationName = 'id-ui' | 'partner-ui' | 'prime-ui' | 'academy-ui' | 'winter-quest' | 'nft-assembly' | 'farming';
 export interface ProjectContent {
   name: string; category: string; tagline: string; description: string; role: string;
   contribution: string[]; cases: [string, string][]; stack: string[];
