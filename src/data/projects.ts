@@ -1,4 +1,5 @@
-export const projects = [
+import type { Project } from '../types';
+export const projects: Project[] = [
   {
     id: 'crypton-id', name: 'Crypton ID', label: 'ID', symbol: 'key', category: 'ЛИЧНЫЙ КАБИНЕТ · WEB3', color: '#8576af', pale: '#e8e1f3', active: true,
     tagline: 'Один ключ ко всей экосистеме.',
@@ -37,7 +38,7 @@ export const projects = [
     contribution: ['Развивал страницы события, три этапа квеста, сюжетные эпизоды, профиль и инвентарь.', 'Реализовал открытие боксов: от проверки доступности до показа награды и обновления баланса.', 'Интегрировал Crypton ID, вход через кошелёк и синхронизацию XP с Zealy.', 'Подключил получение наград, выпуск NFT в TON, аудиоплеер и мобильные сценарии.'],
     cases: [['Адвент с сюжетом', 'Восемь глав открываются по расписанию, у каждой свой цвет.'], ['Common → Legendary', 'Уровни боксов открываются по мере участия.'], ['Вторая жизнь NFT', 'Восстановление NFT по хешу транзакции сжигания.']],
     stack: ['React', 'TypeScript', 'RTK Query', 'Tailwind CSS', 'Framer Motion', 'Howler.js', 'Wagmi', 'Vite'],
-    note: 'У каждого подарка своя история', seal: 'WINTER QUEST', illustration: 'gift',
+    note: 'У каждого подарка своя история', seal: 'WINTER QUEST', illustration: 'winter-quest',
   },
   {
     id: 'nutcracker', name: 'Nutcracker', label: 'Nutcracker', symbol: 'sword', category: 'NFT-КОНСТРУКТОР · TON', color: '#b0757a', pale: '#f1dfe1', active: false,
@@ -47,7 +48,7 @@ export const projects = [
     contribution: ['Создал три раздела: инструкцию, NFT-коллекцию и экран сборки и минта.', 'Подключил TON Connect и загрузку NFT через TonAPI, распознавание деталей и бустеров.', 'Реализовал отправку NFT, отслеживание транзакций и проверку на бэкенде.', 'Разработал пошаговые диалоги, состояния ошибок, адаптивный интерфейс и RU / EN.'],
     cases: [['Конструктор в блокчейне', 'Учёт шести деталей, нескольких наборов и использованных NFT.'], ['Два этапа ожидания', 'Подпись в кошельке и подтверждение транзакции в сети.'], ['Переводы вне сайта', 'Учёт отправленных напрямую NFT по хешу транзакции.']],
     stack: ['React', 'TypeScript', 'RTK Query', 'TON Connect', 'TON SDK', 'Tailwind CSS', 'Radix UI', 'i18next'],
-    note: 'Собрать героя — тоже приключение', seal: 'СОБРАНО В TON', illustration: 'nutcracker',
+    note: 'Собрать героя — тоже приключение', seal: 'СОБРАНО В TON', illustration: 'nft-assembly',
   },
   {
     id: 'nutsfarm', name: 'NutsFarm', label: 'NutsFarm', symbol: 'leaf', category: 'TELEGRAM · ИГРЫ И ОБУЧЕНИЕ', color: '#849361', pale: '#e5ebd4', active: false,
@@ -57,7 +58,7 @@ export const projects = [
     contribution: ['Разрабатывал фарминг, задания, реферальную систему, рейтинги и профиль.', 'Создал учебную карту, интерактивные вопросы и сопоставление ответов.', 'Реализовал пазлы на Canvas, развивал Flip Cards, магазины и покупку энергии.', 'Подключил NutsPass, Stars и TON, анимации, звук, виброотклик и локализацию.'],
     cases: [['Собственная логика пазлов', 'Canvas, сенсорные жесты, сложность, ходы и время.'], ['Прогресс без границ', 'Игры, обучение и задания объединены опытом NutsPass.'], ['Цвет имеет значение', 'Рамка карточки автоматически подстраивается под изображение.']],
     stack: ['React', 'TypeScript', 'RTK Query', 'Telegram SDK', 'TON Connect', 'Canvas', 'Rive', 'Framer Motion'],
-    note: 'Ещё один урок — ещё один уровень', seal: 'GROW & PLAY', illustration: 'tree',
+    note: 'Щёлк! Орех — монета — новый уровень.', seal: 'FARM & PLAY', illustration: 'farming',
   },
   {
     id: 'academy', name: 'Academy', label: 'Academy', symbol: 'book', category: 'ОБРАЗОВАНИЕ · WEB3', color: '#6f8ca9', pale: '#dce7ef', active: true,

@@ -1,12 +1,35 @@
 {
   "name": "crypton-questbook",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node site/serve.mjs",
-    "start": "node site/serve.mjs",
     "content": "node site/generate-content.mjs",
-    "test": "node --test site/tests/content.test.mjs"
+    "predev": "npm run content",
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "start": "npm run dev",
+    "prebuild": "npm run content",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "typecheck": "tsc --noEmit",
+    "pretest": "npm run content",
+    "test": "vitest run site/tests",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/node": "^24.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0",
+    "@playwright/test": "^1.56.0"
   }
 }

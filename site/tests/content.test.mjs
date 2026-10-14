@@ -1,8 +1,8 @@
-import test from 'node:test';
+import { test } from 'vitest';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { projects } from '../dist/projects.js';
-import { sourceNotes } from '../dist/source-notes.js';
+import { projects } from '../../src/data/projects';
+import sourceNotes from '../../src/data/source-notes.json';
 
 test('Every supplied project is represented once, with its original links and full story', () => {
   assert.equal(projects.length, 7);
