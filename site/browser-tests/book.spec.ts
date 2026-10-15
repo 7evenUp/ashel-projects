@@ -1,5 +1,28 @@
 import { test, expect } from '@playwright/test';
 const chapters = ['crypton-id','x-program','in-prime','web3-xms','nutcracker','nutsfarm','academy','academy/mini'];
+test('Mobile project tabs stay reachable while reading and return to the new chapter',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='mobile','Mobile navigation layout');
+  for(const width of [320,375,800]){
+    await page.setViewportSize({width,height:812});
+    await page.goto('/#academy/mini');
+    const nav=page.getByRole('navigation',{name:'Проекты'});
+    const active=nav.locator('[aria-current="page"]');
+    await expect(active).toHaveAccessibleName('Academy');
+    const navBox=(await nav.boundingBox())!;
+    const activeBox=(await active.boundingBox())!;
+    expect(activeBox.x).toBeGreaterThanOrEqual(navBox.x);
+    expect(activeBox.x+activeBox.width).toBeLessThanOrEqual(navBox.x+navBox.width);
+    await page.evaluate(()=>window.scrollTo(0,900));
+    await expect.poll(async()=>(await nav.boundingBox())!.y).toBe(0);
+    await expect(page.locator('.book-controls')).toBeHidden();
+    await nav.evaluate(el=>el.scrollTo({left:0,behavior:'instant'}));
+    await nav.getByRole('button',{name:'Crypton ID',exact:true}).click();
+    await expect(page.locator('h1')).toHaveText('Crypton ID');
+    await expect(nav.locator('[aria-current="page"]')).toHaveAccessibleName('Crypton ID');
+    await expect.poll(()=>page.evaluate(()=>window.scrollY)).toBe(0);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  }
+});
 test('Academy variants stay above the title and reveal ink without turning the book',async({page})=>{
   await page.goto('/#academy');
   const tabs=page.getByRole('group',{name:'Версия Academy'});
@@ -46,11 +69,11 @@ test('All views load with favicon, stable composition, and no overflow',async({p
   expect(errors).toEqual([]);
 });
 test('Navigation, history, Academy variants, notes, and NDA',async({page})=>{
-  await page.goto('/');await expect(page.getByRole('button',{name:'Предыдущий проект'})).toBeDisabled();
+  await page.goto('/');await expect(page.getByRole('button',{name:'Предыдущий проект',includeHidden:true})).toBeDisabled();
   await page.keyboard.press('ArrowRight');await expect(page).toHaveURL(/#x-program$/);
   await page.goBack();await expect(page.locator('h1')).toHaveText('Crypton ID');
   await page.getByRole('button',{name:'Academy',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Следующий проект'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'Следующий проект',includeHidden:true})).toBeDisabled();
   await page.getByRole('button',{name:'Telegram + Base',exact:true}).click();
   await expect(page).toHaveURL(/#academy\/mini$/);await expect(page.locator('h1')).toHaveText('Academy TMA');
   await expect(page.getByRole('button',{name:'Telegram + Base',exact:true})).toBeFocused();

@@ -39,6 +39,12 @@ export function App() {
   useEffect(()=>{const restore=()=>applyRoute(parseRoute(location.hash));window.addEventListener('popstate',restore);window.addEventListener('hashchange',restore);return()=>{window.removeEventListener('popstate',restore);window.removeEventListener('hashchange',restore);};},[applyRoute]);
   useEffect(()=>{if(reduced)setTurn(null);},[reduced]);
   useEffect(()=>{
+    if(!window.matchMedia('(max-width: 800px)').matches) return;
+    const nav=tabs.current;
+    const active=nav?.querySelector<HTMLButtonElement>(`[data-project="${route.index}"]`);
+    if(nav && active) nav.scrollTo({left:active.offsetLeft-(nav.clientWidth-active.offsetWidth)/2,behavior:'instant'});
+  },[route.index]);
+  useEffect(()=>{
     const keydown=(event:KeyboardEvent)=>{
       const target=event.target instanceof HTMLElement ? event.target : null;
       if(dialog || event.altKey || event.ctrlKey || event.metaKey || target?.closest('input,textarea,select,[contenteditable="true"]'))return;
@@ -56,7 +62,7 @@ export function App() {
     <div className="desk-decoration compass" aria-hidden="true"><span>N</span>✧</div><div className="desk-decoration little-stars" aria-hidden="true">✦<span>✧</span></div>
     <main className="desk relative mx-auto">
       <div className="book-shell relative isolate">
-        <nav ref={tabs} className="bookmarks" aria-label="Проекты">{projects.map((project,i)=><button key={project.id} className="bookmark" data-project={i} data-project-id={project.id} style={{'--tab':project.pale,'--tab-strong':project.color} as ThemeStyle} aria-label={project.name} aria-controls="spread" aria-current={i===route.index?'page':undefined} onClick={()=>navigate(i)}><ProjectFavicon key={project.id+(project.id === 'academy' && route.mode === 'mini' ? '-mini' : '')} id={project.id+(project.id === 'academy' && route.mode === 'mini' ? '-mini' : '')} symbol={project.symbol}/><span>{project.label}</span></button>)}</nav>
+        <nav ref={tabs} className="bookmarks" aria-label="Проекты">{projects.map((project,i)=><button key={project.id} className="bookmark" data-project={i} data-project-id={project.id} style={{'--tab':project.pale,'--tab-strong':project.color} as ThemeStyle} aria-label={project.name} aria-controls="spread" aria-current={i===route.index?'page':undefined} onClick={()=>navigate(i,'web',true)}><ProjectFavicon key={project.id+(project.id === 'academy' && route.mode === 'mini' ? '-mini' : '')} id={project.id+(project.id === 'academy' && route.mode === 'mini' ? '-mini' : '')} symbol={project.symbol}/><span>{project.label}</span></button>)}</nav>
         <div className={'book-cover '+(turn ? turn.direction>=0 ? 'turning-forward' : 'turning-backward' : '')}>
           <div ref={book} className="book grid grid-cols-1 min-[801px]:grid-cols-2" id="spread" tabIndex={-1} aria-label="Разворот проекта"
             onTouchStart={e=>{const target=e.target as HTMLElement;touch.current=e.touches.length===1 && !target.closest('a,button') ? {x:e.touches[0].clientX,y:e.touches[0].clientY}:null;}}
