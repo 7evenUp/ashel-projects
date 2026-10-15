@@ -37,18 +37,16 @@ export function Spread({project:p, index, variant, source, onVariant, onNotes, r
   useEffect(() => () => animations.current.forEach(animation => animation.cancel()), []);
   return <>
     <section ref={leftPage} className="paper-page page-left" aria-labelledby="project-title">
-      <div className="page-running-head"><span>CRYPTON / ДНЕВНИК РАЗРАБОТЧИКА</span><Icon name="spark"/></div>
       {p.mini && <AcademyVariants variant={variant} onChange={(mode,keyboard)=>{keyboardSwitch.current=keyboard;onVariant(mode);}}/>}
-      <div className="chapter-label">ГЛАВА {chapter}<span> / </span>{p.category}</div>
+      <div className="chapter-meta"><div className="chapter-label">ГЛАВА {chapter}<span> / </span>{p.category}</div><span className={'status '+(p.active ? '' : 'archived')}>{p.active ? 'Активный проект' : 'Проект в прошлом'}</span></div>
       <div data-variant-content className="project-heading flex items-center gap-3"><h1 id="project-title">{p.name}</h1></div><p data-variant-content className="tagline">{p.tagline}</p>
-      <div className="project-links flex flex-wrap gap-2.5"><a className="project-link primary" href={source.deploy} target="_blank" rel="noopener noreferrer"><Icon name="arrow"/>{variant === 'mini' ? 'Сайт Academy' : 'Открыть проект'}</a>{source.code === 'NDA' ? <button className="project-link nda" onClick={()=>onNotes('nda')} aria-label="Исходный код закрыт по NDA"><Icon name="lock"/>Код под NDA</button> : <a className="project-link secondary" href={source.code} target="_blank" rel="noopener noreferrer"><Icon name="code"/>Исходный код</a>}</div>
       <Art project={p} variant={variant}/>
       <section className="note about-note tape"><h2>Об этом приключении</h2><p data-variant-content>{p.description}</p></section>
       <section className="stack"><h2 className="stack-heading"><Icon name="code"/>В моём рюкзаке</h2><div data-variant-content className="stack-tags flex flex-wrap gap-1.5">{p.stack.map(s=><span key={s}>{s}</span>)}</div></section>
       <Folio name={'ПОРТФОЛИО / '+p.name.toUpperCase()} number={index*2+1}/>
     </section>
     <section ref={rightPage} className="paper-page page-right" aria-label="Вклад и особенности проекта">
-      <div className="page-running-head"><span>ЗАПИСИ С ПОЛЕЙ</span><span className={'status '+(p.active ? '' : 'archived')}>{p.active ? 'Активный проект' : 'Проект в прошлом'}</span></div>
+      <nav className="page-running-head project-links" aria-label="Ссылки проекта"><a className="project-link primary" href={source.deploy} target="_blank" rel="noopener noreferrer"><Icon name="arrow"/>{variant === 'mini' ? 'Сайт Academy' : 'Открыть проект'}</a>{source.code === 'NDA' ? <button className="project-link nda" onClick={()=>onNotes('nda')} aria-label="Исходный код закрыт по NDA"><Icon name="lock"/>Код под NDA</button> : <a className="project-link secondary" href={source.code} target="_blank" rel="noopener noreferrer"><Icon name="code"/>Исходный код</a>}</nav>
       <section className="note contribution-note tape"><Heading icon="sword">Мой вклад</Heading><p data-variant-content className="role">{p.role}</p><ul data-variant-content className="contribution-list">{p.contribution.map(c=><li key={c}><Icon name="check"/><span>{c}</span></li>)}</ul></section>
       <section className="note cases-note"><Heading icon="spark">Редкие находки</Heading><ol data-variant-content className="case-list">{p.cases.map(([title,text],i)=><li key={title}><span className="case-number">0{i+1}</span><div><strong>{title}</strong><p>{text}</p></div></li>)}</ol></section>
       <div className="notes-footer flex items-start justify-between gap-3"><button className="all-notes" onClick={()=>onNotes('notes')}>Все заметки о проекте <Icon name="arrow"/></button><span className="handwritten" aria-hidden="true">За каждым интерфейсом<br/>есть своя история.</span></div>
