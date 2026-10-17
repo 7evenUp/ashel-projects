@@ -53,8 +53,6 @@
 .cover-corner {position:absolute;z-index:8;width:24px;height:24px;pointer-events:none;border:1px solid #c1ac6b80;background:linear-gradient(135deg,#d3bd7b,#9c874e 40%,#e1d298 50%,#8e7949);box-shadow:1px 2px 3px #453c3025;}
 .corner-tl {left:-5px;top:-4px;clip-path:polygon(0 0,100% 0,0 100%);border-radius:5px 0 0;}
 .corner-br {right:-5px;bottom:-5px;clip-path:polygon(100% 0,100% 100%,0 100%);border-radius:0 0 6px;}
-.page-ornament {display:flex;align-items:center;gap:8px;color:#a3926c;font:18px Georgia,serif;margin-bottom:18px;}
-.page-ornament span {font:8px Commons,sans-serif;letter-spacing:2.5px;color:#9d927a;}
 .paperclip {position:absolute;z-index:3;right:22px;top:3px;width:13px;height:43px;border:2px solid #aba38b;border-radius:9px;transform:rotate(9deg);box-shadow:1px 1px 1px #fff9e8,inset 1px 0 1px #4c41252b;pointer-events:none;}
 .paperclip:after {content:'';position:absolute;inset:5px 2px -2px;border:1px solid #8c8471;border-top:0;border-radius:0 0 7px 7px;}
 .margin-spark {position:absolute;right:14px;top:47%;color:#b09b6266;font:18px Georgia;pointer-events:none;}
@@ -99,7 +97,6 @@
 
 @media(max-width:800px) {
   .binding-stitches {display:none;}
-  .page-ornament {margin-bottom:15px;}
   .paperclip {right:18px;}
   .margin-spark {right:8px;font-size:14px;}
   .turn-scene {overflow:hidden;inset:0 1px 8px;}

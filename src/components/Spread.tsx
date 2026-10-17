@@ -37,9 +37,8 @@ export function Spread({project:p, index, variant, source, onVariant, onNotes, r
   useEffect(() => () => animations.current.forEach(animation => animation.cancel()), []);
   return <>
     <section ref={leftPage} className="paper-page page-left" aria-labelledby="project-title">
-      <div className="page-ornament" aria-hidden="true">✧<span>FIELD NOTES · {chapter}</span></div>
-      {p.mini && <AcademyVariants variant={variant} onChange={(mode,keyboard)=>{keyboardSwitch.current=keyboard;onVariant(mode);}}/>}
       <div className="chapter-meta"><div className="chapter-label">ГЛАВА {chapter}<span> / </span>{p.category}</div><span className={'status '+(p.active ? '' : 'archived')}>{p.active ? 'Активный проект' : 'Проект в прошлом'}</span></div>
+      {p.mini && <AcademyVariants variant={variant} onChange={(mode,keyboard)=>{keyboardSwitch.current=keyboard;onVariant(mode);}}/>}
       <div data-variant-content className="project-heading flex items-center gap-3"><h1 id="project-title">{p.name}</h1></div><p data-variant-content className="tagline">{p.tagline}</p>
       <Art project={p} variant={variant}/>
       <section className="note about-note tape"><h2>Об этом приключении</h2><p data-variant-content>{p.description}</p></section>
