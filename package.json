@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "pretest": "npm run content",
     "test": "vitest run site/tests",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "format": "pnpm exec prettier . --write"
   },
   "dependencies": {
     "react": "^19.2.0",
