@@ -13,7 +13,9 @@ book: <><path d="M12 5v16M12 5C8 2 4 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-2-1-6
 code: <><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></>,
 arrow: <><path d="M5 19 19 5M5 5h14v14"/></>,
 lock: <><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></>,
-check: <><path d="m5 12 4 4L19 6"/></>};
+check: <><path d="m5 12 4 4L19 6"/></>,
+dumbbell: <><path d="m6 6 12 12M3 7l4-4m10 18 4-4M5 9l4-4m6 14 4-4M3 5l2-2m14 18 2-2"/><path d="m2 6 4-4 4 4-4 4Zm12 12 4-4 4 4-4 4Z"/></>,
+copy: <><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></>};
 export function Icon({name, className = ''}: {name: SymbolName; className?: string}) {return <svg className={'icon '+className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;}
 export function Art({project,variant='web'}: {project:Project;variant?:Variant}) {
   switch(project.illustration) {

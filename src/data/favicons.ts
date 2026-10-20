@@ -6,5 +6,7 @@ export const favicons: Record<string, string> = {
   "nutcracker": "assets/projects/nutcracker.svg",
   "nutsfarm": "assets/projects/nutsfarm.png",
   "academy": "assets/projects/academy.png",
-  "academy-mini": "assets/projects/academy-mini.png"
+  "academy-mini": "assets/projects/academy-mini.png",
+  "ashel-gym": "assets/projects/ashel-gym.png",
+  "ashel-front-style": "assets/projects/ashel-front-style.ico"
 };
