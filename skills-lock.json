@@ -25,6 +25,12 @@
       "skillPath": "skills/apple-design/SKILL.md",
       "computedHash": "f3f1d2cbc8f3e79ccddff05f4e42d34d995f057fb30ff670e4edf8c87d568b69"
     },
+    "ashel-front-style": {
+      "source": "7evenUp/ashel-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ashel-front-style/SKILL.md",
+      "computedHash": "d43499900d003f52fd91f9691ec141a977220454b1942e499b1ee13bae70902c"
+    },
     "ask-sonner": {
       "source": "emilkowalski/skill",
       "sourceType": "github",
