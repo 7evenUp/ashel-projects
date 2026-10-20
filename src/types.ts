@@ -21,7 +21,7 @@ export type IllustrationName =
   | "winter-quest"
   | "nft-assembly"
   | "farming"
-  
+
 export interface ProjectContent {
   name: string
   category: string
@@ -47,9 +47,7 @@ export interface Project extends ProjectContent {
 export type Variant = "web" | "mini"
 export type ProjectRoute = { page: "project"; index: number; mode: Variant }
 export type Route =
-  | { page: "intro" }
-  | { page: "personal"; index: number }
-  | ProjectRoute
+  { page: "intro" } | { page: "personal"; index: number } | ProjectRoute
 export interface Composition {
   about: number
   contribution: number

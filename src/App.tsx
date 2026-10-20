@@ -19,7 +19,8 @@ import type { Route, ThemeStyle, Variant } from "./types"
 
 import { parseRoute, routeHash } from "./routing"
 
-const routePosition = (route: Route) => route.page === "intro" ? -1 : route.index
+const routePosition = (route: Route) =>
+  route.page === "intro" ? -1 : route.index
 
 const routeStyle = (route: Route): ThemeStyle => {
   if (route.page === "personal") {
@@ -29,11 +30,17 @@ const routeStyle = (route: Route): ThemeStyle => {
   const project = projects[route.page === "project" ? route.index : 0]
   const isMini = route.page === "project" && route.mode === "mini"
 
-  return compositionStyle(project.id + (isMini ? "-mini" : ""), project.color, project.pale)
+  return compositionStyle(
+    project.id + (isMini ? "-mini" : ""),
+    project.color,
+    project.pale
+  )
 }
 
 const useReducedMotion = () => {
-  const [isReduced, setIsReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+  const [isReduced, setIsReduced] = useState(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  )
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -60,53 +67,77 @@ export function App() {
   const [dialog, setDialog] = useState<"notes" | "nda" | null>(null)
   const closeDialog = useCallback(() => setDialog(null), [])
 
-  const applyRoute = useCallback((next: Route, animate = true) => {
-    const previous = routeRef.current
-    if (routeHash(next) === routeHash(previous)) return
+  const applyRoute = useCallback(
+    (next: Route, animate = true) => {
+      const previous = routeRef.current
+      if (routeHash(next) === routeHash(previous)) return
 
-    const direction = routePosition(next) - routePosition(previous)
-    const front = book.current?.querySelector(direction > 0 ? ".page-right" : ".page-left")
-    const resting = book.current?.querySelector(direction > 0 ? ".page-left" : ".page-right")
-    const isMobile = window.matchMedia("(max-width: 800px)").matches
+      const direction = routePosition(next) - routePosition(previous)
+      const front = book.current?.querySelector(
+        direction > 0 ? ".page-right" : ".page-left"
+      )
+      const resting = book.current?.querySelector(
+        direction > 0 ? ".page-left" : ".page-right"
+      )
+      const isMobile = window.matchMedia("(max-width: 800px)").matches
 
-    setTurn(isReduced || !animate || !direction || !front || !resting ? null : {
-      direction,
-      serial: ++turnSerial.current,
-      front: copyPage(isMobile && book.current ? book.current : front),
-      resting: copyPage(resting),
-      style: routeStyle(previous),
-    })
+      setTurn(
+        isReduced || !animate || !direction || !front || !resting
+          ? null
+          : {
+              direction,
+              serial: ++turnSerial.current,
+              front: copyPage(isMobile && book.current ? book.current : front),
+              resting: copyPage(resting),
+              style: routeStyle(previous),
+            }
+      )
 
-    routeRef.current = next
-    setRoute(next)
-    setDialog(null)
+      routeRef.current = next
+      setRoute(next)
+      setDialog(null)
 
-    if (next.page !== previous.page) {
-      requestAnimationFrame(() => book.current?.focus({ preventScroll: true }))
-    }
-  }, [isReduced])
+      if (next.page !== previous.page) {
+        requestAnimationFrame(() =>
+          book.current?.focus({ preventScroll: true })
+        )
+      }
+    },
+    [isReduced]
+  )
 
-  const navigate = useCallback((next: Route, scroll = false, animate = true) => {
-    if (routeHash(next) === routeHash(routeRef.current)) return
+  const navigate = useCallback(
+    (next: Route, scroll = false, animate = true) => {
+      if (routeHash(next) === routeHash(routeRef.current)) return
 
-    history.pushState(null, "", routeHash(next))
-    applyRoute(next, animate)
+      history.pushState(null, "", routeHash(next))
+      applyRoute(next, animate)
 
-    if (scroll && window.matchMedia("(max-width: 800px)").matches) {
-      window.scrollTo({ top: 0, behavior: isReduced ? "instant" : "smooth" })
-    }
-  }, [applyRoute, isReduced])
+      if (scroll && window.matchMedia("(max-width: 800px)").matches) {
+        window.scrollTo({ top: 0, behavior: isReduced ? "instant" : "smooth" })
+      }
+    },
+    [applyRoute, isReduced]
+  )
 
-  const navigateChapter = useCallback((index: number, scroll = false, animate = true) => {
-    const isPersonal = routeRef.current.page === "personal"
-    const chapterCount = isPersonal ? personalProjects.length : projects.length
-    if (index < -1 || index >= chapterCount) return
+  const navigateChapter = useCallback(
+    (index: number, scroll = false, animate = true) => {
+      const isPersonal = routeRef.current.page === "personal"
+      const chapterCount = isPersonal
+        ? personalProjects.length
+        : projects.length
+      if (index < -1 || index >= chapterCount) return
 
-    const next: Route = index === -1 ? { page: "intro" } : isPersonal
-      ? { page: "personal", index }
-      : { page: "project", index, mode: "web" }
-    navigate(next, scroll, animate)
-  }, [navigate])
+      const next: Route =
+        index === -1
+          ? { page: "intro" }
+          : isPersonal
+            ? { page: "personal", index }
+            : { page: "project", index, mode: "web" }
+      navigate(next, scroll, animate)
+    },
+    [navigate]
+  )
 
   useEffect(() => {
     const handleRestore = () => applyRoute(parseRoute(location.hash))
@@ -131,35 +162,58 @@ export function App() {
   const chapterName = bookProjects[isIntro ? 0 : activeIndex].name
   const base = projects[route.page === "project" ? route.index : 0]
   const variant = route.page === "project" ? route.mode : "web"
-  const project = variant === "mini" && base.mini ? { ...base, ...base.mini } : base
+  const project =
+    variant === "mini" && base.mini ? { ...base, ...base.mini } : base
 
   useEffect(() => {
-    document.title = isIntro ? `${profile.name} — дневник frontend-разработчика` : isPersonal
-      ? `${chapterName} — личные проекты Артёма`
-      : `${project.name} — дневник разработчика Crypton`
+    document.title = isIntro
+      ? `${profile.name} — дневник frontend-разработчика`
+      : isPersonal
+        ? `${chapterName} — личные проекты Артёма`
+        : `${project.name} — дневник разработчика Crypton`
   }, [isIntro, isPersonal, chapterName, project.name])
 
   useEffect(() => {
     if (!window.matchMedia("(max-width: 800px)").matches) return
 
     const nav = tabs.current
-    const active = nav?.querySelector<HTMLButtonElement>(`[data-project="${activeIndex}"]`)
+    const active = nav?.querySelector<HTMLButtonElement>(
+      `[data-project="${activeIndex}"]`
+    )
     if (nav && active) {
-      nav.scrollTo({ left: active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2, behavior: "instant" })
+      nav.scrollTo({
+        left: active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2,
+        behavior: "instant",
+      })
     }
   }, [activeIndex, isPersonal])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target instanceof HTMLElement ? event.target : null
-      if (dialog || event.altKey || event.ctrlKey || event.metaKey || target?.closest('input,textarea,select,[contenteditable="true"]')) return
+      if (
+        dialog ||
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        target?.closest('input,textarea,select,[contenteditable="true"]')
+      )
+        return
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
 
       event.preventDefault()
-      navigateChapter(routePosition(routeRef.current) + (event.key === "ArrowRight" ? 1 : -1), false, false)
+      navigateChapter(
+        routePosition(routeRef.current) + (event.key === "ArrowRight" ? 1 : -1),
+        false,
+        false
+      )
 
       if (target?.closest(".bookmark")) {
-        tabs.current?.querySelector<HTMLButtonElement>(`[data-project="${routePosition(routeRef.current)}"]`)?.focus()
+        tabs.current
+          ?.querySelector<HTMLButtonElement>(
+            `[data-project="${routePosition(routeRef.current)}"]`
+          )
+          ?.focus()
       }
     }
 
@@ -169,9 +223,10 @@ export function App() {
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement
-    touch.current = event.touches.length === 1 && !target.closest("a,button")
-      ? { x: event.touches[0].clientX, y: event.touches[0].clientY }
-      : null
+    touch.current =
+      event.touches.length === 1 && !target.closest("a,button")
+        ? { x: event.touches[0].clientX, y: event.touches[0].clientY }
+        : null
   }
 
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
@@ -192,26 +247,40 @@ export function App() {
     book.current?.scrollIntoView({ block: "start", behavior: "instant" })
   }
 
-  const handleOpenProject = (index: number) => navigate({ page: "project", index, mode: "web" }, true)
-  const handleOpenPersonalProject = (index: number) => navigate({ page: "personal", index }, true)
+  const handleOpenProject = (index: number) =>
+    navigate({ page: "project", index, mode: "web" }, true)
+  const handleOpenPersonalProject = (index: number) =>
+    navigate({ page: "personal", index }, true)
   const handleOpenIntro = () => navigate({ page: "intro" }, true)
   const handlePreviousProject = () => navigateChapter(activeIndex - 1, true)
   const handleNextProject = () => navigateChapter(activeIndex + 1, true)
-  const handleVariantChange = (mode: Variant) => navigate({ page: "project", index: activeIndex, mode })
-  const handleTurnFinish = () => setTurn(current => current?.serial === turn?.serial ? null : current)
+  const handleVariantChange = (mode: Variant) =>
+    navigate({ page: "project", index: activeIndex, mode })
+  const handleTurnFinish = () =>
+    setTurn((current) => (current?.serial === turn?.serial ? null : current))
 
   return (
     <div style={routeStyle(route)}>
-      <a className="skip-link" href="#spread" onClick={handleSkipToSpread}>К развороту</a>
-      <div className="desk-decoration compass" aria-hidden="true"><span>N</span>✧</div>
-      <div className="desk-decoration little-stars" aria-hidden="true">✦<span>✧</span></div>
+      <a className="skip-link" href="#spread" onClick={handleSkipToSpread}>
+        К развороту
+      </a>
+      <div className="desk-decoration compass" aria-hidden="true">
+        <span>N</span>✧
+      </div>
+      <div className="desk-decoration little-stars" aria-hidden="true">
+        ✦<span>✧</span>
+      </div>
 
-      <main className={`desk relative mx-auto${isIntro ? " intro-desk" : " project-desk"}`}>
+      <main
+        className={`desk relative mx-auto${isIntro ? "intro-desk" : "project-desk"}`}
+      >
         <div className="book-shell relative isolate">
           {!isIntro && (
             <nav
               ref={tabs}
-              className={isPersonal ? "bookmarks bookmarks-personal" : "bookmarks"}
+              className={
+                isPersonal ? "bookmarks bookmarks-personal" : "bookmarks"
+              }
               aria-label={isPersonal ? "Личные проекты" : "Проекты"}
             >
               {bookProjects.map((item, index) => (
@@ -220,15 +289,34 @@ export function App() {
                   className="bookmark"
                   data-project={index}
                   data-project-id={item.id}
-                  style={{ "--tab": item.pale, "--tab-strong": item.color } as ThemeStyle}
+                  style={
+                    {
+                      "--tab": item.pale,
+                      "--tab-strong": item.color,
+                    } as ThemeStyle
+                  }
                   aria-label={item.name}
                   aria-controls="spread"
                   aria-current={index === activeIndex ? "page" : undefined}
-                  onClick={() => isPersonal ? handleOpenPersonalProject(index) : handleOpenProject(index)}
+                  onClick={() =>
+                    isPersonal
+                      ? handleOpenPersonalProject(index)
+                      : handleOpenProject(index)
+                  }
                 >
                   <ProjectFavicon
-                    key={item.id + (item.id === "academy" && variant === "mini" ? "-mini" : "")}
-                    id={item.id + (item.id === "academy" && variant === "mini" ? "-mini" : "")}
+                    key={
+                      item.id +
+                      (item.id === "academy" && variant === "mini"
+                        ? "-mini"
+                        : "")
+                    }
+                    id={
+                      item.id +
+                      (item.id === "academy" && variant === "mini"
+                        ? "-mini"
+                        : "")
+                    }
                     symbol={item.symbol}
                   />
                   <span>{item.label}</span>
@@ -237,7 +325,9 @@ export function App() {
             </nav>
           )}
 
-          <div className={`book-cover${turn ? turn.direction >= 0 ? " turning-forward" : " turning-backward" : ""}`}>
+          <div
+            className={`book-cover${turn ? (turn.direction >= 0 ? "turning-forward" : "turning-backward") : ""}`}
+          >
             <div className="binding-stitches" aria-hidden="true" />
             <div className="cover-corner corner-tl" aria-hidden="true" />
             <div className="cover-corner corner-br" aria-hidden="true" />
@@ -247,15 +337,25 @@ export function App() {
               className="book grid grid-cols-1 min-[801px]:grid-cols-2"
               id="spread"
               tabIndex={-1}
-              aria-label={isIntro ? "Личная и рабочая стороны" : "Разворот проекта"}
+              aria-label={
+                isIntro ? "Личная и рабочая стороны" : "Разворот проекта"
+              }
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
-              onTouchCancel={() => { touch.current = null }}
+              onTouchCancel={() => {
+                touch.current = null
+              }}
             >
               {route.page === "intro" ? (
-                <IntroSpread onOpenProject={handleOpenProject} onOpenPersonalProject={handleOpenPersonalProject} />
+                <IntroSpread
+                  onOpenProject={handleOpenProject}
+                  onOpenPersonalProject={handleOpenPersonalProject}
+                />
               ) : route.page === "personal" ? (
-                <PersonalSpread project={personalProjects[route.index]} index={route.index} />
+                <PersonalSpread
+                  project={personalProjects[route.index]}
+                  index={route.index}
+                />
               ) : (
                 <Spread
                   project={project}
@@ -269,7 +369,14 @@ export function App() {
               )}
             </div>
 
-            {turn && <PageTurn key={turn.serial} turn={turn} book={book.current} onFinish={handleTurnFinish} />}
+            {turn && (
+              <PageTurn
+                key={turn.serial}
+                turn={turn}
+                book={book.current}
+                onFinish={handleTurnFinish}
+              />
+            )}
           </div>
           {isIntro ? (
             <div className="ribbon" aria-hidden="true" />
@@ -295,17 +402,33 @@ export function App() {
           <footer className="book-controls">
             <button
               className="page-button"
-              aria-label={activeIndex === 0 ? "Вернуться к выбору" : "Предыдущий проект"}
+              aria-label={
+                activeIndex === 0 ? "Вернуться к выбору" : "Предыдущий проект"
+              }
               onClick={handlePreviousProject}
             >
               <span aria-hidden="true">←</span>
-              <span className="nav-label">{activeIndex === 0 ? "К началу" : "Назад"}</span>
+              <span className="nav-label">
+                {activeIndex === 0 ? "К началу" : "Назад"}
+              </span>
             </button>
 
             <div className="reading-progress">
-              <span className="chapter-counter">ГЛАВА {String(activeIndex + 1).padStart(2, "0")} ИЗ {String(chapterCount).padStart(2, "0")}</span>
-              <div className="progress-dots" aria-hidden="true">{bookProjects.map((item, index) => <i key={item.id} className={index === activeIndex ? "current" : ""} />)}</div>
-              <span className="keyboard-hint">Листайте историю <kbd>←</kbd> <kbd>→</kbd></span>
+              <span className="chapter-counter">
+                ГЛАВА {String(activeIndex + 1).padStart(2, "0")} ИЗ{" "}
+                {String(chapterCount).padStart(2, "0")}
+              </span>
+              <div className="progress-dots" aria-hidden="true">
+                {bookProjects.map((item, index) => (
+                  <i
+                    key={item.id}
+                    className={index === activeIndex ? "current" : ""}
+                  />
+                ))}
+              </div>
+              <span className="keyboard-hint">
+                Листайте историю <kbd>←</kbd> <kbd>→</kbd>
+              </span>
             </div>
 
             <button
@@ -314,15 +437,27 @@ export function App() {
               aria-label="Следующий проект"
               onClick={handleNextProject}
             >
-              <span className="nav-label">Дальше</span><span aria-hidden="true">→</span>
+              <span className="nav-label">Дальше</span>
+              <span aria-hidden="true">→</span>
             </button>
           </footer>
         )}
       </main>
 
-      <p className="sr-only" role="status" aria-live="polite">{isIntro ? "Начало книги: личные и рабочие проекты" : `Глава ${activeIndex + 1} из ${chapterCount}: ${chapterName}`}</p>
+      <p className="sr-only" role="status" aria-live="polite">
+        {isIntro
+          ? "Начало книги: личные и рабочие проекты"
+          : `Глава ${activeIndex + 1} из ${chapterCount}: ${chapterName}`}
+      </p>
 
-      {route.page === "project" && <NotesDialog kind={dialog} name={project.name} body={sourceNotes[route.index].body} onClose={closeDialog} />}
+      {route.page === "project" && (
+        <NotesDialog
+          kind={dialog}
+          name={project.name}
+          body={sourceNotes[route.index].body}
+          onClose={closeDialog}
+        />
+      )}
     </div>
   )
 }

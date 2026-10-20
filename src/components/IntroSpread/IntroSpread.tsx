@@ -6,7 +6,10 @@ import WorkPeriod from "./WorkPeriod"
 import { projects } from "../../data/projects"
 import { personalProjects, profile } from "../../data/profile"
 
-const IntroSpread = ({ onOpenProject, onOpenPersonalProject }: {
+const IntroSpread = ({
+  onOpenProject,
+  onOpenPersonalProject,
+}: {
   onOpenProject: (index: number) => void
   onOpenPersonalProject: (index: number) => void
 }) => {
@@ -15,10 +18,18 @@ const IntroSpread = ({ onOpenProject, onOpenPersonalProject }: {
 
   return (
     <>
-      <section className="paper-page page-left intro-page personal-page" aria-labelledby="personal-title">
+      <section
+        className="paper-page page-left intro-page personal-page"
+        aria-labelledby="personal-title"
+      >
         <div className="mode-meta flex items-center justify-between gap-3">
           <span>01 / Личная сторона</span>
-          <span className="difficulty"><i /><i /><i /><span>Easy</span></span>
+          <span className="difficulty">
+            <i />
+            <i />
+            <i />
+            <span>Easy</span>
+          </span>
         </div>
 
         <header className="mode-heading">
@@ -36,14 +47,26 @@ const IntroSpread = ({ onOpenProject, onOpenPersonalProject }: {
           </div>
           <h2>Привет, я {profile.name}.</h2>
           <p className="profile-role">{profile.role}</p>
-          <p>Создаю интерфейсы и немношко дизайню. А в свободном режиме — пробую новое и делаю свои проекты.</p>
-          <span className="profile-experience">{profile.experience} · React · TypeScript</span>
+          <p>
+            Создаю интерфейсы и немношко дизайню. А в свободном режиме — пробую
+            новое и делаю свои проекты.
+          </p>
+          <span className="profile-experience">
+            {profile.experience} · React · TypeScript
+          </span>
         </section>
 
-        <section className="personal-projects" aria-labelledby="personal-projects-title">
+        <section
+          className="personal-projects"
+          aria-labelledby="personal-projects-title"
+        >
           <div className="flex items-center justify-between gap-3">
-            <h2 className="intro-section-label" id="personal-projects-title">Личные проекты</h2>
-            <span className="project-count">{String(personalProjects.length).padStart(2, "0")} главы</span>
+            <h2 className="intro-section-label" id="personal-projects-title">
+              Личные проекты
+            </h2>
+            <span className="project-count">
+              {String(personalProjects.length).padStart(2, "0")} главы
+            </span>
           </div>
           <div className="campaign-project-list flex flex-wrap gap-2">
             {personalProjects.map((project, index) => (
@@ -60,21 +83,43 @@ const IntroSpread = ({ onOpenProject, onOpenPersonalProject }: {
           </div>
         </section>
 
-        <nav className="personal-links flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Личные ссылки">
-          <a href={profile.github} target="_blank" rel="noopener noreferrer"><Icon name="code" /> Мой GitHub <Icon name="arrow" /></a>
+        <nav
+          className="personal-links flex flex-wrap items-center gap-x-5 gap-y-2"
+          aria-label="Личные ссылки"
+        >
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
+            <Icon name="code" /> Мой GitHub <Icon name="arrow" />
+          </a>
         </nav>
 
-        <button className="campaign-button flex items-center justify-between gap-3" onClick={handleOpenPersonalProjects}>
-          <span><Icon name="leaf" /> Открыть личные проекты</span><span aria-hidden="true">→</span>
+        <button
+          className="campaign-button flex items-center justify-between gap-3"
+          onClick={handleOpenPersonalProjects}
+        >
+          <span>
+            <Icon name="leaf" /> Открыть личные проекты
+          </span>
+          <span aria-hidden="true">→</span>
         </button>
 
-        <div className="intro-folio"><span>Можно свернуть с тропинки</span><span>01</span></div>
+        <div className="intro-folio">
+          <span>Можно свернуть с тропинки</span>
+          <span>01</span>
+        </div>
       </section>
 
-      <section className="paper-page page-right intro-page work-page" aria-labelledby="work-title">
+      <section
+        className="paper-page page-right intro-page work-page"
+        aria-labelledby="work-title"
+      >
         <div className="mode-meta flex items-center justify-between gap-3">
           <span>02 / Рабочая сторона</span>
-          <span className="difficulty"><i /><i /><i /><span>Hard</span></span>
+          <span className="difficulty">
+            <i />
+            <i />
+            <i />
+            <span>Hard</span>
+          </span>
         </div>
 
         <header className="mode-heading">
@@ -91,14 +136,28 @@ const IntroSpread = ({ onOpenProject, onOpenPersonalProject }: {
             <span>Senior frontend / Front lead</span>
           </div>
           <WorkPeriod />
-          <p>Разрабатывал и развивал продукты экосистемы: от лендингов и личного кабинета до игровых и образовательных приложений.</p>
-          <div className="experience-tags flex flex-wrap gap-x-3 gap-y-1"><span>React + TypeScript</span><span>Web3</span><span>Telegram Mini Apps</span></div>
+          <p>
+            Разрабатывал и развивал продукты экосистемы: от лендингов и личного
+            кабинета до игровых и образовательных приложений.
+          </p>
+          <div className="experience-tags flex flex-wrap gap-x-3 gap-y-1">
+            <span>React + TypeScript</span>
+            <span>Web3</span>
+            <span>Telegram Mini Apps</span>
+          </div>
         </section>
 
-        <section className="campaign-projects" aria-labelledby="work-projects-title">
+        <section
+          className="campaign-projects"
+          aria-labelledby="work-projects-title"
+        >
           <div className="flex items-center justify-between gap-3">
-            <h3 className="intro-section-label" id="work-projects-title">Рабочие проекты</h3>
-            <span className="project-count">{String(projects.length).padStart(2, "0")} глав</span>
+            <h3 className="intro-section-label" id="work-projects-title">
+              Рабочие проекты
+            </h3>
+            <span className="project-count">
+              {String(projects.length).padStart(2, "0")} глав
+            </span>
           </div>
           <div className="campaign-project-list flex flex-wrap gap-2">
             {projects.map((project, index) => (
@@ -115,11 +174,20 @@ const IntroSpread = ({ onOpenProject, onOpenPersonalProject }: {
           </div>
         </section>
 
-        <button className="campaign-button flex items-center justify-between gap-3" onClick={handleOpenCampaign}>
-          <span><Icon name="sword" /> Открыть рабочие проекты</span><span aria-hidden="true">→</span>
+        <button
+          className="campaign-button flex items-center justify-between gap-3"
+          onClick={handleOpenCampaign}
+        >
+          <span>
+            <Icon name="sword" /> Открыть рабочие проекты
+          </span>
+          <span aria-hidden="true">→</span>
         </button>
 
-        <div className="intro-folio"><span>У каждого релиза своя история</span><span>02</span></div>
+        <div className="intro-folio">
+          <span>У каждого релиза своя история</span>
+          <span>02</span>
+        </div>
       </section>
     </>
   )
