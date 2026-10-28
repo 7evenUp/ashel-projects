@@ -272,7 +272,10 @@ export function App() {
       </div>
 
       <main
-        className={`desk relative mx-auto${isIntro ? "intro-desk" : "project-desk"}`}
+        className={[
+          "desk relative mx-auto",
+          isIntro ? "intro-desk" : "project-desk",
+        ].join(" ")}
       >
         <div className="book-shell relative isolate">
           {!isIntro && (
@@ -326,7 +329,13 @@ export function App() {
           )}
 
           <div
-            className={`book-cover${turn ? (turn.direction >= 0 ? "turning-forward" : "turning-backward") : ""}`}
+            className={[
+              "book-cover",
+              turn &&
+                (turn.direction > 0 ? "turning-forward" : "turning-backward"),
+            ]
+              .filter(Boolean)
+              .join(" ")}
           >
             <div className="binding-stitches" aria-hidden="true" />
             <div className="cover-corner corner-tl" aria-hidden="true" />

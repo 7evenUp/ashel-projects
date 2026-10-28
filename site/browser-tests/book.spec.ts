@@ -699,3 +699,98 @@ test("Horizontal swipes navigate, vertical gestures and buttons do not", async (
   await swipe(".all-notes", -120, 5)
   await expect(page).toHaveURL(/#x-program$/)
 })
+
+test("Book cover and direction stay correct throughout forward and backward turns", async ({
+  page,
+}, testInfo) => {
+  const isMobile = testInfo.project.name === "mobile"
+  const chapterPairs = [
+    {
+      from: "crypton-id",
+      to: "x-program",
+      firstTab: "Crypton ID",
+      secondTab: "X-Program",
+    },
+    {
+      from: "personal/ashel-gym",
+      to: "personal/ashel-front-style",
+      firstTab: "Ashel Gym",
+      secondTab: "Личный Skill",
+    },
+  ]
+
+  for (const pair of chapterPairs) {
+    await page.goto("/#" + pair.from)
+    const cover = page.locator(".book-cover")
+    await expect(page.locator("main")).toHaveClass(/\bproject-desk\b/)
+    await expect(cover).toBeVisible()
+    const border = await cover.evaluate((element) => {
+      const style = getComputedStyle(element)
+      return { width: style.borderLeftWidth, color: style.borderLeftColor }
+    })
+
+    for (const direction of ["forward", "backward"] as const) {
+      await page
+        .getByRole("button", {
+          name: direction === "forward" ? pair.secondTab : pair.firstTab,
+          exact: true,
+        })
+        .click()
+
+      await expect(page).toHaveURL(
+        new RegExp("#" + (direction === "forward" ? pair.to : pair.from) + "$")
+      )
+      await expect(cover).toHaveCount(1)
+      const leaf = page.locator(".page-turn")
+      await expect(leaf).toHaveCSS(
+        "animation-name",
+        isMobile
+          ? direction === "forward"
+            ? "mobile-leaf"
+            : "mobile-leaf-back"
+          : direction === "forward"
+            ? "leaf-forward"
+            : "leaf-backward"
+      )
+
+      await page.locator(".turn-scene").evaluate(async (element) => {
+        const animations = element.getAnimations({ subtree: true })
+        animations.forEach((animation) => animation.pause())
+        await Promise.all(animations.map((animation) => animation.ready))
+      })
+
+      for (const progress of [0.25, 0.5, 0.75]) {
+        await page.locator(".turn-scene").evaluate(
+          async (element, time) => {
+            element.getAnimations({ subtree: true }).forEach((animation) => {
+              animation.currentTime = time
+            })
+            await new Promise(requestAnimationFrame)
+          },
+          progress * (isMobile ? 300 : 720)
+        )
+        await expect(cover).toHaveCSS("border-left-width", border.width)
+        await expect(cover).toHaveCSS("border-left-color", border.color)
+        const rotation = await leaf.evaluate(
+          (element) => new DOMMatrix(getComputedStyle(element).transform).m13
+        )
+        if (direction === "forward") expect(rotation).toBeGreaterThan(0)
+        else expect(rotation).toBeLessThan(0)
+      }
+
+      await page.screenshot({
+        path: testInfo.outputPath(
+          pair.from.replace("/", "-") + "-" + direction + "-cover.png"
+        ),
+        fullPage: true,
+      })
+      await page.locator(".turn-scene").evaluate((element) => {
+        element
+          .getAnimations({ subtree: true })
+          .forEach((animation) => animation.finish())
+      })
+      await expect(page.locator(".turn-scene")).toHaveCount(0)
+      await expect(cover).toHaveCSS("border-left-color", border.color)
+    }
+  }
+})
