@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Icon } from "../Art"
 
@@ -6,6 +6,14 @@ const InstallCommand = ({ command }: { command: string }) => {
   const [copyStatus, setCopyStatus] = useState<
     "idle" | "copying" | "copied" | "error"
   >("idle")
+
+  useEffect(() => {
+    if (copyStatus !== "copied") return
+
+    const timeout = window.setTimeout(() => setCopyStatus("idle"), 2000)
+
+    return () => window.clearTimeout(timeout)
+  }, [copyStatus])
 
   const handleCopy = async () => {
     if (copyStatus === "copying") return
@@ -35,17 +43,16 @@ const InstallCommand = ({ command }: { command: string }) => {
           }
         >
           <Icon name={copyStatus === "copied" ? "check" : "copy"} />
-          {copyStatus === "copied" ? "Скопировано" : "Копировать"}
         </button>
       </div>
 
       <code>{command}</code>
 
-      <p className="copy-feedback" role="status" aria-live="polite">
-        {copyStatus === "copied" && "Команда скопирована в буфер обмена."}
-        {copyStatus === "error" &&
-          "Не удалось скопировать. Выделите команду и скопируйте вручную."}
-      </p>
+      {copyStatus === "error" && (
+        <p className="copy-feedback" role="status" aria-live="polite">
+          Не удалось скопировать. Выделите команду и скопируйте вручную.
+        </p>
+      )}
     </div>
   )
 }

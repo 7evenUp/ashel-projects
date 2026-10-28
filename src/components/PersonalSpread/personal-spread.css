@@ -86,9 +86,11 @@
 .copy-command {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 5px 7px;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  padding: 0;
   border: 1px solid #a89ab744;
   border-radius: 3px;
   background: #fffdf455;
@@ -105,7 +107,6 @@
   cursor: wait;
 }
 .personal-install .copy-feedback {
-  min-height: 32px;
   margin: 0;
   padding: 0 12px 8px;
   color: #72617e;
@@ -148,7 +149,8 @@
     padding-inline: 8px;
   }
   .copy-command {
-    min-height: 36px;
+    width: 36px;
+    height: 36px;
   }
   .personal-detail .page-number {
     left: 24px;

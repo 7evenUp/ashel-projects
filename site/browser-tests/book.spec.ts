@@ -108,6 +108,9 @@ test("The skill install command copies to the clipboard and reports denied acces
 }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"])
   await page.goto("/#personal/ashel-front-style")
+  const copyButton = page.locator(".copy-command")
+  await expect(copyButton).toHaveText("")
+  const copyIcon = await copyButton.locator("svg").innerHTML()
   await page
     .getByRole("button", { name: "Копировать команду установки", exact: true })
     .click()
@@ -118,9 +121,11 @@ test("The skill install command copies to the clipboard and reports denied acces
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
     command
   )
-  await expect(page.locator('.install-command [role="status"]')).toHaveText(
-    "Команда скопирована в буфер обмена."
-  )
+  await expect(copyButton).toHaveText("")
+  expect(await copyButton.locator("svg").innerHTML()).not.toBe(copyIcon)
+  await expect(page.locator('.install-command [role="status"]')).toHaveCount(0)
+  await expect(copyButton).toHaveAccessibleName("Копировать команду установки")
+  expect(await copyButton.locator("svg").innerHTML()).toBe(copyIcon)
 
   await page.evaluate(() => {
     Object.defineProperty(navigator.clipboard, "writeText", {
@@ -128,7 +133,7 @@ test("The skill install command copies to the clipboard and reports denied acces
     })
   })
   await page
-    .getByRole("button", { name: "Команда скопирована", exact: true })
+    .getByRole("button", { name: "Копировать команду установки", exact: true })
     .click()
   await expect(page.locator('.install-command [role="status"]')).toContainText(
     "Выделите команду и скопируйте вручную"
