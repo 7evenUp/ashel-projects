@@ -65,9 +65,46 @@ const IntroSpread = ({
             проектах делаю приложение для тренировок и собираю соглашения по
             коду для AI-агентов.
           </p>
-          <span className="profile-experience mt-4 block text-[14px] text-[var(--mode-muted)]">
-            {profile.experience}
-          </span>
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <span className="profile-experience text-[14px] text-[var(--mode-muted)]">
+              {profile.experience}
+            </span>
+            <nav
+              className="personal-links flex shrink-0 items-center gap-2 [&_a]:inline-flex [&_a]:size-11 [&_a]:touch-manipulation [&_a]:items-center [&_a]:justify-center [&_a]:border [&_a]:border-solid [&_a]:border-[#46533a40] [&_a]:text-[var(--mode-ink)] [@media(hover:hover)_and_(pointer:fine)]:[&_a:hover]:bg-[#46533a0d]"
+              aria-label="Личные ссылки"
+            >
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
+                <svg
+                  className="size-6"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 .297C5.37.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.123-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.655 1.652.242 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.628-5.479 5.925.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.595 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+              </a>
+              <a
+                href={profile.telegram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+              >
+                <svg
+                  className="size-6"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24Zm5.563 8.161c-.18 1.897-.962 6.502-1.36 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.46-1.9-.902-1.056-.692-1.653-1.123-2.678-1.798-1.185-.78-.417-1.21.259-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.06 3.344-.479.329-.913.489-1.302.48-.428-.009-1.252-.242-1.865-.441-.752-.244-1.35-.374-1.298-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.14.121.098.154.23.17.324.016.093.036.305.02.47Z" />
+                </svg>
+              </a>
+            </nav>
+          </div>
         </section>
 
         <section
@@ -107,20 +144,6 @@ const IntroSpread = ({
             ))}
           </div>
         </section>
-
-        <nav
-          className={cn(
-            "personal-links mx-0 mt-0 mb-6 flex flex-wrap items-center gap-x-5 gap-y-2",
-            "[&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center [&_a]:gap-2 [&_a]:text-[15px] [&_a]:text-[var(--mode-ink)]",
-            "[&_.icon]:size-4",
-            "[@media(hover:hover)_and_(pointer:fine)]:[&_a:hover]:[text-underline-offset:4px] [@media(hover:hover)_and_(pointer:fine)]:[&_a:hover]:[text-decoration:underline]"
-          )}
-          aria-label="Личные ссылки"
-        >
-          <a href={profile.github} target="_blank" rel="noopener noreferrer">
-            <Icon name="code" /> Мой GitHub <Icon name="arrow" />
-          </a>
-        </nav>
 
         <button
           className={cn(

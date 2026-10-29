@@ -25,6 +25,7 @@ export const profile = {
   age: 25,
   experience: "программирую с 16 лет",
   github: "https://github.com/7evenUp",
+  telegram: "https://t.me/shel_heliks",
 }
 
 export const personalProjects: PersonalProject[] = [

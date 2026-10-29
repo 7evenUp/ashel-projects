@@ -205,10 +205,22 @@ test("The introductory spread opens first and links both sides to real projects"
   await expect(
     intro.getByRole("button", { name: "Открыть личные проекты", exact: true })
   ).toBeVisible()
-  await expect(intro.getByRole("link", { name: "Мой GitHub" })).toHaveAttribute(
-    "href",
-    "https://github.com/7evenUp"
-  )
+  const personalLinks = intro.locator(".profile-note .personal-links")
+  await expect(personalLinks.getByRole("link")).toHaveCount(2)
+  await expect(
+    personalLinks.getByRole("link", { name: "GitHub", exact: true })
+  ).toHaveAttribute("href", "https://github.com/7evenUp")
+  await expect(
+    personalLinks.getByRole("link", { name: "Telegram", exact: true })
+  ).toHaveAttribute("href", "https://t.me/shel_heliks")
+  for (const link of await personalLinks.getByRole("link").all()) {
+    await expect(link).toBeVisible()
+    await expect(link).toHaveText("")
+    await expect(link.locator("svg")).toHaveCount(1)
+    await expect(link).toHaveAttribute("target", "_blank")
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer")
+  }
+  await expect(intro.locator(".personal-links")).toHaveCount(1)
   expect(
     await intro
       .locator(".personal-page")
