@@ -64,7 +64,7 @@ export function NutsFarmArt() {
           />
           <path d="M95 19L163 13L166 32L98 37Z" fill="#d2c7a68c" />
           <text x="34" y="48" className="nutsfarm-art-label" fill="#8b744c">
-            NUTS FARM / ЩЁЛК-ЩЁЛК
+            NUTS FARM / МИНИ-ИГРЫ
           </text>
           <ellipse
             cx="127"
@@ -415,7 +415,7 @@ export function NutsFarmArt() {
           </text>
         </g>
         <text x="29" y="281" className="nutsfarm-art-caption" fill="#8d8063">
-          Щёлк! Орех — монета — новый уровень.
+          Мини-игры, уроки и сезонный пропуск.
         </text>
       </svg>
     </div>

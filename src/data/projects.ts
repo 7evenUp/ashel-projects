@@ -9,7 +9,7 @@ export const projects: Project[] = [
     color: "#8576af",
     pale: "#e8e1f3",
     active: true,
-    tagline: "Один ключ ко всей экосистеме.",
+    tagline: "Личный кабинет экосистемы Crypton.",
     description:
       "Личный кабинет, который объединяет профиль, подписки, платежи и награды Crypton. Обычный вход и Web3 — в одном понятном интерфейсе.",
     role: "Разработка и развитие frontend",
@@ -43,8 +43,6 @@ export const projects: Project[] = [
       "Wagmi",
       "Motion",
     ],
-    note: "Всё начинается с одного ключа",
-    seal: "ЕДИНЫЙ ДОСТУП",
     illustration: "id-ui",
   },
   {
@@ -56,7 +54,7 @@ export const projects: Project[] = [
     color: "#aa775f",
     pale: "#f1ded1",
     active: true,
-    tagline: "Знакомство, которое становится партнёрством.",
+    tagline: "Сайт партнёрской программы Crypton.",
     description:
       "Промосайт партнёрской программы Crypton для авторов и инфлюенсеров. Рассказывает о продуктах и условиях сотрудничества и ведёт к подаче заявки.",
     role: "Frontend с нуля · 17 секций",
@@ -89,8 +87,6 @@ export const projects: Project[] = [
       "Radix UI",
       "Swiper",
     ],
-    note: "Хорошие связи открывают новые пути",
-    seal: "СИЛА СООБЩЕСТВА",
     illustration: "partner-ui",
   },
   {
@@ -102,7 +98,7 @@ export const projects: Project[] = [
     color: "#b29853",
     pale: "#efe6c6",
     active: false,
-    tagline: "Больше возможностей. Один пропуск.",
+    tagline: "Сайт сообщества и оплата подписки.",
     description:
       "Сайт сообщества Crypton Prime: аналитика, обучение, календарь активностей и наставники. От знакомства с продуктом до оплаты подписки — прямо на сайте.",
     role: "Развитие frontend · более двух лет",
@@ -136,8 +132,6 @@ export const projects: Project[] = [
       "Motion",
       "Swiper",
     ],
-    note: "Пропуск в следующий уровень",
-    seal: "PRIME ACCESS",
     illustration: "prime-ui",
   },
   {
@@ -149,7 +143,7 @@ export const projects: Project[] = [
     color: "#74958c",
     pale: "#dfebe5",
     active: false,
-    tagline: "Восемь глав. И немного магии.",
+    tagline: "Рождественский Web3-квест с наградами.",
     description:
       "Сюжетное событие для криптосообщества: задания на Zealy, аудиоистории, XP и подарочные боксы. В инвентаре — NFT, промокоды и призы партнёров.",
     role: "Frontend и игровые сценарии",
@@ -183,8 +177,6 @@ export const projects: Project[] = [
       "Wagmi",
       "Vite",
     ],
-    note: "У каждого подарка своя история",
-    seal: "WINTER QUEST",
     illustration: "winter-quest",
   },
   {
@@ -196,7 +188,7 @@ export const projects: Project[] = [
     color: "#b0757a",
     pale: "#f1dfe1",
     active: false,
-    tagline: "Шесть деталей. Один герой.",
+    tagline: "Минт NFT-персонажа в блокчейне TON.",
     description:
       "Приложение для сборки NFT-Щелкунчика в сети TON. Подключить кошелёк, собрать шесть NFT-деталей и выпустить своего персонажа.",
     role: "Разработка клиентской части",
@@ -230,8 +222,6 @@ export const projects: Project[] = [
       "Radix UI",
       "i18next",
     ],
-    note: "Собрать героя — тоже приключение",
-    seal: "СОБРАНО В TON",
     illustration: "nft-assembly",
   },
   {
@@ -239,11 +229,11 @@ export const projects: Project[] = [
     name: "NutsFarm",
     label: "NutsFarm",
     symbol: "leaf",
-    category: "TELEGRAM · ИГРЫ И ОБУЧЕНИЕ",
+    category: "TELEGRAM · КЛИККЕР",
     color: "#849361",
     pale: "#e5ebd4",
     active: false,
-    tagline: "Учиться. Играть. Расти.",
+    tagline: "Кликкер в Telegram.",
     description:
       "Игровое и образовательное приложение в Telegram. Интерактивные уроки, мини-игры, сезонный NutsPass и награды связаны в общую систему прогресса.",
     role: "Frontend с раннего этапа",
@@ -277,8 +267,6 @@ export const projects: Project[] = [
       "Rive",
       "Framer Motion",
     ],
-    note: "Щёлк! Орех — монета — новый уровень.",
-    seal: "FARM & PLAY",
     illustration: "farming",
   },
   {
@@ -290,7 +278,7 @@ export const projects: Project[] = [
     color: "#6f8ca9",
     pale: "#dce7ef",
     active: true,
-    tagline: "Знания открывают новые миры.",
+    tagline: "Платформа курсов о криптовалютах и Web3.",
     description:
       "Образовательная платформа о криптовалютах и Web3. Курсы, интерактивные уроки, игровой профиль и инструменты для авторов и модераторов.",
     role: "Развитие и обновление frontend",
@@ -323,13 +311,11 @@ export const projects: Project[] = [
       "Rive",
       "Motion",
     ],
-    note: "Самый ценный лут — это знания",
-    seal: "KNOWLEDGE IS XP",
     illustration: "academy-ui",
     mini: {
       name: "Academy TMA",
       category: "TELEGRAM + BASE · MINI APP",
-      tagline: "Большие знания в маленьком приложении.",
+      tagline: "Курсы и оплата в Telegram и Base.",
       description:
         "Мобильный клиент Open Academy в Telegram и Base. Короткие уроки, ежедневные активности, игровые награды и покупка курсов.",
       role: "Frontend и интеграция с Base",

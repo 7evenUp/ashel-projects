@@ -264,13 +264,6 @@ export function App() {
       <a className="skip-link" href="#spread" onClick={handleSkipToSpread}>
         К развороту
       </a>
-      <div className="desk-decoration compass" aria-hidden="true">
-        <span>N</span>✧
-      </div>
-      <div className="desk-decoration little-stars" aria-hidden="true">
-        ✦<span>✧</span>
-      </div>
-
       <main
         className={[
           "desk relative mx-auto",
@@ -405,9 +398,7 @@ export function App() {
           )}
         </div>
 
-        {isIntro ? (
-          <p className="intro-caption">Два режима. Один разработчик.</p>
-        ) : (
+        {!isIntro && (
           <footer className="book-controls">
             <button
               className="page-button"
@@ -436,7 +427,7 @@ export function App() {
                 ))}
               </div>
               <span className="keyboard-hint">
-                Листайте историю <kbd>←</kbd> <kbd>→</kbd>
+                Переключать проекты <kbd>←</kbd> <kbd>→</kbd>
               </span>
             </div>
 

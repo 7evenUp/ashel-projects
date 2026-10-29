@@ -40,7 +40,8 @@ const PersonalSpread = ({
 
         <section className="stack">
           <h2 className="stack-heading">
-            <Icon name="code" />В моём рюкзаке
+            <Icon name="code" />
+            Технологии
           </h2>
           <div className="stack-tags flex flex-wrap gap-1.5">
             {project.stack.map((item) => (
@@ -96,11 +97,8 @@ const PersonalSpread = ({
             <h2>Что внутри</h2>
           </div>
           <ol className="case-list">
-            {project.features.map(([title, description], featureIndex) => (
+            {project.features.map(([title, description]) => (
               <li key={title}>
-                <span className="case-number">
-                  {String(featureIndex + 1).padStart(2, "0")}
-                </span>
                 <div>
                   <strong>{title}</strong>
                   <p>{description}</p>
@@ -121,10 +119,8 @@ const PersonalSpread = ({
           </section>
         )}
 
-        <p className="personal-postscript">Личная идея → рабочий код.</p>
-
         <div className="page-number">
-          <span>СВОБОДНЫЙ РЕЖИМ / {project.name.toUpperCase()}</span>
+          <span>{project.name}</span>
           <span className="folio">
             {String(index * 2 + 2).padStart(2, "0")}
           </span>

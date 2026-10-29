@@ -160,7 +160,7 @@ const AgentSkillArt = () => {
           className="personal-collage-caption"
           fill="#989075"
         >
-          Ваш подход к коду.
+          Правила React и TypeScript
         </text>
         <text
           x="29"
@@ -168,7 +168,7 @@ const AgentSkillArt = () => {
           className="personal-collage-caption"
           fill="#989075"
         >
-          В руках AI-агента.
+          для AI-агентов.
         </text>
       </svg>
     </div>

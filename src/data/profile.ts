@@ -21,7 +21,7 @@ export interface PersonalProject {
 
 export const profile = {
   name: "Артём",
-  role: "Senior Dev",
+  role: "Frontend-разработчик",
   age: 25,
   experience: "программирую с 16 лет",
   github: "https://github.com/7evenUp",
@@ -37,7 +37,7 @@ export const personalProjects: PersonalProject[] = [
     pale: "#e5ebd4",
     category: "ЛИЧНЫЙ ПРОЕКТ · REACT NATIVE",
     description: "Дневник тренировок на React Native",
-    tagline: "Прогресс начинается с одного подхода.",
+    tagline: "Дневник тренировок на React Native.",
     summary:
       "Моё приложение для записи тренировок и подходов, календаря активности и отслеживания прогресса в упражнениях. Разрабатываю его на React Native и Expo; данные хранятся локально на устройстве.",
     features: [
@@ -76,7 +76,7 @@ export const personalProjects: PersonalProject[] = [
     pale: "#e8e1f3",
     category: "АВТОРСКИЙ SKILL · AI-АГЕНТЫ",
     description: "Соглашения React и TypeScript для AI-агентов",
-    tagline: "Мой подход к коду — в одном skill.",
+    tagline: "Правила React и TypeScript для AI-агентов.",
     summary:
       "Собрал свои соглашения по React и TypeScript в skill Ashel Front Style для AI-агентов. Он помогает сохранять понятную структуру компонентов, состояний и обработчиков, учитывая архитектуру и правила конкретного проекта.",
     features: [

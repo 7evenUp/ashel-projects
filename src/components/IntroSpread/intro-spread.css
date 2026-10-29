@@ -1,333 +1,246 @@
 .intro-page {
-  --mode-ink: #556345;
-  --mode-muted: #747765;
+  --mode-ink: #46533a;
+  --mode-muted: #626952;
   display: flex;
   flex-direction: column;
-  padding: 30px 40px 28px;
+  padding: 40px;
   color: var(--mode-ink);
 }
 
 .personal-page {
   background-color: #f3f0dd;
-  background-image:
-    var(--paper-grain), var(--paper-fibers),
-    radial-gradient(ellipse at 55% 30%, #e2e8bb55, transparent 65%);
+  background-image: var(--paper-grain), var(--paper-fibers);
 }
 
 .work-page {
   --mode-ink: #efcf9f;
-  --mode-muted: #c49e88;
+  --mode-muted: #d0b5a2;
   background-color: #35282a;
-  background-image:
-    var(--paper-grain), var(--paper-fibers),
-    radial-gradient(ellipse at 50% 30%, #8c49343d, transparent 64%),
-    linear-gradient(100deg, #15171e38, transparent 20%, #120f1530);
-  box-shadow:
-    inset 20px 0 30px -18px #090c125c,
-    inset -2px 0 4px #e7c89920;
+  background-image: var(--paper-grain), var(--paper-fibers);
 }
 
 .work-page:before {
   border-color: #d1a77825;
 }
 
-.mode-meta {
-  padding-bottom: 17px;
-  border-bottom: 1px solid #8185643d;
-  color: var(--mode-muted);
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.work-page .mode-meta {
-  border-color: #d1a77830;
-}
-.difficulty {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  flex-shrink: 0;
-}
-.difficulty i {
-  width: 4px;
-  height: 9px;
-  background: currentColor;
-  opacity: 0.22;
-  transform: skewX(-15deg);
-}
-.difficulty i:first-child,
-.work-page .difficulty i {
-  opacity: 1;
-}
-.difficulty span {
-  margin-left: 6px;
-  letter-spacing: 1px;
-}
-.work-page .difficulty {
-  color: #e2aa79;
-}
-
 .mode-heading {
-  padding-top: 25px;
-  text-align: center;
+  margin-bottom: 32px;
 }
-.mode-eyebrow {
-  display: block;
-  margin-bottom: 9px;
-  font-size: 11px;
-  letter-spacing: 2.6px;
-  text-transform: uppercase;
-}
+
 .mode-heading h1,
 .mode-heading h2 {
   margin: 0;
   color: var(--mode-ink);
   font:
-    400 clamp(36px, 3.8vw, 54px)/1.1 Georgia,
+    400 clamp(36px, 3.8vw, 54px)/1.08 Georgia,
     serif;
   letter-spacing: -1.8px;
+  text-wrap: balance;
 }
+
 .mode-heading p {
-  margin: 12px 0 0;
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--mode-muted);
-}
-.mode-emblem {
-  margin: 8px -8px 6px;
-}
-.mode-emblem svg {
-  display: block;
-  width: 100%;
-  height: 182px;
-  stroke-width: 1.1;
-}
-.emblem-rule,
-.emblem-orbit {
-  opacity: 0.36;
-}
-.emblem-fill {
-  fill: #82914d16;
-}
-.emblem-diamond {
-  fill: currentColor;
-  stroke: none;
-}
-.work-page .emblem-fill {
-  fill: #ba724c16;
-}
-.emblem-solid {
-  fill: #b77c4940;
-}
-.work-page .mode-emblem {
-  color: #dca875;
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--mode-ink);
+  text-wrap: pretty;
 }
 
 .intro-section-label {
-  display: block;
   margin: 0;
-  color: var(--mode-muted);
-  font-size: 10px;
+  color: var(--mode-ink);
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-.profile-note {
-  padding: 17px 20px;
-  background: #fbf9ecb8;
-  border: 1px solid #abb08c55;
-  box-shadow: 2px 4px 0 #6f77450a;
-  transform: rotate(-0.6deg);
-}
-.profile-note h2 {
-  margin: 8px 0 5px;
-  font:
-    400 25px/1.15 Georgia,
-    serif;
-  letter-spacing: -0.7px;
-}
-.profile-note p {
-  margin: 7px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #6c725f;
-}
-.profile-note .profile-role {
-  font-size: 12px;
-  font-weight: 500;
-  color: #536247;
-}
-.profile-age {
-  color: #747765;
-  font-size: 11px;
-  white-space: nowrap;
-}
-.profile-experience {
-  display: block;
-  margin-top: 12px;
-  color: #7c816a;
-  font-size: 11px;
-}
-.personal-projects {
-  margin-top: 23px;
-  margin-bottom: 16px;
-}
-.personal-page .campaign-project {
-  border-color: #9aa17b66;
-  background: #e8eaca75;
-  color: #5e6d4b;
-}
-.personal-page .campaign-project .icon {
-  width: 15px;
-  height: 15px;
-}
-.personal-page .project-count {
-  color: #7c816a;
-}
-.personal-page .campaign-button {
-  border-color: #78865d;
-  background: #6f8056;
-  color: #fffdf1;
-  box-shadow:
-    inset 0 0 0 3px #fffdf112,
-    0 3px 0 #4f5f3e44;
-}
-.personal-links {
-  margin: 0 0 18px;
-}
-.personal-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 36px;
-  color: #5e6d4b;
-  font-size: 12px;
-}
-.personal-links .icon {
-  width: 15px;
-  height: 15px;
-}
-.personal-links .icon:last-child {
-  width: 12px;
-  height: 12px;
 }
 
+.profile-note,
 .experience-note {
-  padding: 18px 20px;
-  border: 1px solid #b18a654a;
-  background: #1d1c252e;
+  padding: 22px;
 }
+
+.profile-note {
+  background: #fbf9ecb8;
+}
+
+.profile-note h2,
 .experience-heading h3 {
   margin: 0;
   font:
-    400 26px/1.1 Georgia,
+    400 26px/1.15 Georgia,
     serif;
   letter-spacing: -0.6px;
 }
+
+.profile-note p,
+.experience-note p {
+  margin: 14px 0 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--mode-ink);
+  text-wrap: pretty;
+}
+
+.profile-experience {
+  display: block;
+  margin-top: 16px;
+  color: var(--mode-muted);
+  font-size: 14px;
+}
+
+.personal-projects,
+.campaign-projects {
+  margin: 28px 0 24px;
+}
+
+.project-count {
+  color: var(--mode-muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.campaign-project-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
+  gap: 8px;
+}
+
+.personal-projects .campaign-project-list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.campaign-project {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff0b;
+  color: var(--mode-ink);
+  font-size: 15px;
+  text-align: left;
+  touch-action: manipulation;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.campaign-project .bookmark-favicon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.personal-page .campaign-project {
+  background: #e5e7d0;
+}
+
+.project-summary {
+  display: grid;
+  gap: 4px;
+}
+
+.project-summary strong {
+  font-weight: 500;
+}
+
+.project-summary > span {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--mode-muted);
+}
+
+.personal-links {
+  margin: 0 0 24px;
+}
+
+.personal-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--mode-ink);
+  font-size: 15px;
+}
+
+.personal-links .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.experience-note {
+  background: #ffffff08;
+}
+
+.experience-heading {
+  flex-wrap: wrap;
+}
+
 .experience-heading > span {
   max-width: 160px;
-  text-align: right;
-  color: #c9a98b;
-  font-size: 11px;
-  line-height: 1.4;
-}
-.experience-note p {
-  margin: 12px 0 14px;
-  color: #d0b5a2;
+  color: var(--mode-muted);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
+
 .experience-note .experience-period {
-  margin: 8px 0 0;
-  color: #c9a98b;
-  font-size: 12px;
+  margin: 10px 0 0;
+  color: var(--mode-muted);
+  font-size: 14px;
 }
+
 .experience-tags {
-  color: #bd967b;
-  font-size: 10px;
+  margin-top: 16px;
+  color: var(--mode-muted);
+  font-size: 14px;
 }
+
 .experience-tags span + span:before {
   content: "·";
   margin-right: 12px;
 }
-.campaign-projects {
-  margin-top: 23px;
-  margin-bottom: 24px;
-}
-.project-count {
-  color: #b78e71;
-  font-size: 10px;
-  white-space: nowrap;
-}
-.campaign-project-list {
-  margin-top: 10px;
-}
-.campaign-project {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 6px 9px;
-  border: 1px solid #bd946633;
-  background: #ecbd7d08;
-  border-radius: 3px;
-  color: #d5b89c;
-  font-size: 11px;
-}
-.campaign-project .bookmark-favicon {
-  width: 15px;
-  height: 15px;
-}
+
 .campaign-button {
   width: 100%;
   min-height: 52px;
   margin-top: auto;
   padding: 14px 18px;
-  border: 1px solid #e7b477;
-  border-radius: 3px;
+  border: 0;
+  border-radius: 0;
   background: #d8aa73;
   color: #35282a;
-  box-shadow:
-    inset 0 0 0 3px #35282a14,
-    0 3px 0 #17171e55;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
+  touch-action: manipulation;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
 }
+
+.personal-page .campaign-button {
+  background: #637449;
+  color: #fffdf1;
+}
+
 .campaign-button > span:first-child {
   display: inline-flex;
   align-items: center;
   gap: 9px;
 }
+
 .campaign-button > span:last-child {
   font-size: 22px;
   line-height: 1;
 }
-.campaign-projects + .campaign-button {
-  margin-top: auto;
+
+.campaign-button:active,
+.campaign-project:active {
+  transform: translateY(1px);
 }
-.intro-folio {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 20px;
-  padding-top: 13px;
-  border-top: 1px solid #8185643d;
-  color: #8b8b71;
-  font-size: 10px;
-  letter-spacing: 0.4px;
-}
-.intro-folio span:last-child {
-  font:
-    14px Georgia,
-    serif;
-}
-.work-page .intro-folio {
-  border-color: #d1a77830;
-  color: #b08c76;
-}
+
 .work-page a:focus-visible,
 .work-page button:focus-visible {
   outline-color: #f3d2a2;
@@ -336,26 +249,6 @@
 .intro-desk {
   padding-top: 48px;
 }
-.intro-caption {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 28px 0 0;
-  padding: 0 18px;
-  text-align: center;
-  font-size: 10px;
-  line-height: 1.5;
-  text-transform: uppercase;
-  letter-spacing: 2.4px;
-  color: #888775;
-}
-.intro-caption:before,
-.intro-caption:after {
-  content: "✧";
-  font-size: 16px;
-  color: #9a957b;
-}
 
 @media (hover: hover) and (pointer: fine) {
   .personal-links a:hover {
@@ -363,49 +256,30 @@
     text-underline-offset: 4px;
   }
   .campaign-project:hover {
-    border-color: #d1a77899;
-    background: #ecbd7d16;
+    background: #ffffff15;
   }
   .campaign-button:hover {
     background: #ebc38e;
   }
   .personal-page .campaign-project:hover {
-    border-color: #78865d;
-    background: #dde3bf;
+    background: #d8dec0;
   }
   .personal-page .campaign-button:hover {
-    background: #607148;
+    background: #53643b;
   }
 }
 
 @media (min-width: 801px) and (max-width: 1100px) {
   .intro-page {
-    padding-inline: 27px;
-  }
-  .mode-meta {
-    font-size: 9px;
-    letter-spacing: 0.6px;
+    padding: 30px 27px;
   }
   .mode-heading h1,
   .mode-heading h2 {
     font-size: 40px;
   }
-  .mode-heading p {
-    font-size: 13px;
-  }
-  .mode-emblem svg {
-    height: 160px;
-  }
   .profile-note,
   .experience-note {
-    padding: 16px;
-  }
-  .experience-heading {
-    align-items: flex-start;
-  }
-  .experience-heading > span {
-    max-width: 116px;
-    font-size: 10px;
+    padding: 18px;
   }
 }
 
@@ -414,54 +288,18 @@
     padding-top: 20px;
   }
   .intro-page {
-    padding: 26px 28px 23px;
-  }
-  .mode-heading {
-    padding-top: 24px;
+    padding: 30px 28px;
   }
   .mode-heading h1,
   .mode-heading h2 {
-    font-size: clamp(35px, 8vw, 50px);
-  }
-  .mode-heading p {
-    font-size: 14px;
-  }
-  .mode-meta {
-    font-size: 9px;
-    letter-spacing: 1px;
-  }
-  .mode-emblem {
-    margin: 8px 0;
-  }
-  .mode-emblem svg {
-    height: 165px;
+    font-size: clamp(36px, 8vw, 50px);
   }
   .profile-note,
   .experience-note {
-    padding: 17px;
+    padding: 20px;
   }
   .work-page {
     border-top: 5px solid #68654a;
-    box-shadow: inset 0 8px 15px #17141e22;
-  }
-  .work-page .intro-folio {
-    margin-top: 24px;
-  }
-  .intro-caption {
-    margin-top: 24px;
-    font-size: 8px;
-    letter-spacing: 1.8px;
-  }
-  .campaign-project {
-    min-height: 38px;
-    padding-inline: 10px;
-    touch-action: manipulation;
-  }
-  .campaign-button {
-    touch-action: manipulation;
-  }
-  .campaign-projects {
-    margin-bottom: 23px;
   }
 }
 
@@ -469,41 +307,15 @@
   .intro-page {
     padding-inline: 22px;
   }
-  .mode-meta {
-    letter-spacing: 0.5px;
-  }
-  .mode-heading h1,
-  .mode-heading h2 {
-    letter-spacing: -1.5px;
-  }
-  .mode-heading p {
-    font-size: 12px;
-  }
-  .profile-note h2 {
-    font-size: 24px;
-  }
-  .profile-note p,
-  .experience-note p {
-    font-size: 13px;
-  }
-  .profile-note .profile-role {
-    font-size: 11px;
-  }
-  .experience-heading h3 {
-    font-size: 24px;
-  }
-  .experience-heading > span {
-    max-width: 120px;
-    font-size: 10px;
-  }
-  .experience-tags {
-    font-size: 9px;
+  .profile-note,
+  .experience-note {
+    padding: 16px;
   }
   .experience-tags span + span:before {
     margin-right: 5px;
   }
   .campaign-button {
-    padding-inline: 13px;
-    font-size: 12px;
+    padding-inline: 12px;
+    font-size: 14px;
   }
 }

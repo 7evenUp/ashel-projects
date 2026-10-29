@@ -110,7 +110,7 @@ export function Spread({
             {p.category}
           </div>
           <span className={"status " + (p.active ? "" : "archived")}>
-            {p.active ? "Активный проект" : "Проект в прошлом"}
+            {p.active ? "Активный проект" : "Архивный проект"}
           </span>
         </div>
         {p.mini && (
@@ -133,12 +133,13 @@ export function Spread({
         </p>
         <Art project={p} variant={variant} />
         <section className="note about-note tape">
-          <h2>Об этом приключении</h2>
+          <h2>О проекте</h2>
           <p data-variant-content>{p.description}</p>
         </section>
         <section className="stack">
           <h2 className="stack-heading">
-            <Icon name="code" />В моём рюкзаке
+            <Icon name="code" />
+            Технологии
           </h2>
           <div
             data-variant-content
@@ -212,7 +213,7 @@ export function Spread({
           </ul>
         </section>
         <section className="note cases-note">
-          <Heading icon="spark">Редкие находки</Heading>
+          <Heading icon="spark">Уникальные задачи и решения к ним</Heading>
           <ol data-variant-content className="case-list">
             {p.cases.map(([title, text], i) => (
               <li key={title}>
@@ -227,15 +228,10 @@ export function Spread({
         </section>
         <div className="notes-footer flex items-start justify-between gap-3">
           <button className="all-notes" onClick={() => onNotes("notes")}>
-            Все заметки о проекте <Icon name="arrow" />
+            Подробнее о разработке <Icon name="arrow" />
           </button>
-          <span className="handwritten" aria-hidden="true">
-            За каждым интерфейсом
-            <br />
-            есть своя история.
-          </span>
         </div>
-        <Folio name="СОЗДАНО С ВНИМАНИЕМ К ДЕТАЛЯМ" number={index * 2 + 2} />
+        <Folio name={p.name} number={index * 2 + 2} />
       </section>
     </>
   )

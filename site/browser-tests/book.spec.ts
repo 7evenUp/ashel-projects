@@ -191,15 +191,16 @@ test("The introductory spread opens first and links both sides to real projects"
   await page.goto("/")
   await expect(page).toHaveTitle("Артём — дневник frontend-разработчика")
   const intro = page.locator("#spread")
+  await expect(intro.getByRole("heading", { name: "Артём" })).toBeVisible()
   await expect(
-    intro.getByRole("heading", { name: "Ради интереса." })
+    intro.getByRole("heading", { name: "Проекты Crypton" })
   ).toBeVisible()
-  await expect(
-    intro.getByRole("heading", { name: "На результат." })
-  ).toBeVisible()
-  await expect(intro).toContainText("Привет, я Артём.")
+  await expect(intro).toContainText("Frontend-разработчик")
   await expect(intro).toContainText("программирую с 16 лет")
-  await expect(intro).toContainText("25 лет")
+  await expect(
+    intro.locator(".difficulty, .mode-eyebrow, .intro-folio")
+  ).toHaveCount(0)
+  await expect(intro).not.toContainText("Задачи со звёздочкой")
   await expect(intro.locator(".personal-page .campaign-project")).toHaveCount(2)
   await expect(
     intro.getByRole("button", { name: "Открыть личные проекты", exact: true })
@@ -231,9 +232,7 @@ test("The introductory spread opens first and links both sides to real projects"
   ).toBeVisible()
   await expect(intro).toBeFocused()
   await page.goBack()
-  await expect(
-    intro.getByRole("heading", { name: "Ради интереса." })
-  ).toBeVisible()
+  await expect(intro.getByRole("heading", { name: "Артём" })).toBeVisible()
   await page.goForward()
   await expect(
     intro.getByRole("heading", { name: "Crypton ID", exact: true })
@@ -241,11 +240,9 @@ test("The introductory spread opens first and links both sides to real projects"
   await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await expect(page).toHaveURL(/#intro$/)
   await page.reload()
-  await expect(
-    intro.getByRole("heading", { name: "Ради интереса." })
-  ).toBeVisible()
+  await expect(intro.getByRole("heading", { name: "Артём" })).toBeVisible()
   await page
-    .getByRole("button", { name: "Открыть главу Academy", exact: true })
+    .getByRole("button", { name: "Открыть проект Academy", exact: true })
     .click()
   await expect(page).toHaveURL(/#academy$/)
   await page.keyboard.press("ArrowLeft")
@@ -270,9 +267,7 @@ test("The introductory spread fits desktop and phone layouts", async ({
     await page.goto("/#intro")
     const personal = page.locator("#spread .personal-page")
     const work = page.locator("#spread .work-page")
-    await expect(
-      personal.getByRole("heading", { name: "Ради интереса." })
-    ).toBeVisible()
+    await expect(personal.getByRole("heading", { name: "Артём" })).toBeVisible()
     const personalBox = (await personal.boundingBox())!
     const workBox = (await work.boundingBox())!
     if (width > 800) expect(personalBox.y).toBe(workBox.y)
@@ -290,13 +285,20 @@ test("The introductory spread fits desktop and phone layouts", async ({
       expect(
         await content.evaluate((el) => el.scrollWidth <= el.clientWidth)
       ).toBe(true)
-      const footer = (await content.locator(".intro-folio").boundingBox())!
+      const action = (await content.locator(".campaign-button").boundingBox())!
       const previous = await content
-        .locator(".intro-folio")
+        .locator(".campaign-button")
         .evaluate(
           (el) => el.previousElementSibling!.getBoundingClientRect().bottom
         )
-      expect(previous).toBeLessThanOrEqual(footer.y)
+      expect(previous).toBeLessThanOrEqual(action.y)
+      const pageBox = (await content.boundingBox())!
+      expect(action.y + action.height).toBeLessThanOrEqual(
+        pageBox.y + pageBox.height
+      )
+      for (const button of await content.locator("button").all()) {
+        expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44)
+      }
     }
     await page.screenshot({
       path: testInfo.outputPath(`intro-${width}.png`),
@@ -379,7 +381,7 @@ test("The home ribbon sits beside the book and returns to the opening spread", a
     await home.focus()
     await page.keyboard.press("Enter")
     await expect(page).toHaveURL(/#intro$/)
-    await expect(page.locator("#spread h1")).toHaveText("Ради интереса.")
+    await expect(page.locator("#spread h1")).toHaveText("Артём")
   }
 })
 
@@ -630,19 +632,19 @@ test("Navigation, history, Academy variants, notes, and NDA", async ({
   await expect(
     page.getByRole("button", { name: "Telegram + Base", exact: true })
   ).toBeFocused()
-  await page.getByRole("button", { name: "Все заметки о проекте" }).click()
+  await page.getByRole("button", { name: "Подробнее о разработке" }).click()
   await expect(page.locator("dialog")).toBeVisible()
   await page.keyboard.press("ArrowLeft")
   await expect(page).toHaveURL(/#academy\/mini$/)
   await page.keyboard.press("Escape")
   await expect(page.locator("dialog")).not.toBeVisible()
   await expect(
-    page.getByRole("button", { name: "Все заметки о проекте" })
+    page.getByRole("button", { name: "Подробнее о разработке" })
   ).toBeFocused()
   await page.getByRole("button", { name: "Исходный код закрыт по NDA" }).click()
   await expect(page.locator("#dialog-title")).toHaveText("Исходный код под NDA")
   await page.getByRole("button", { name: "Закрыть заметки" }).click()
-  await page.getByRole("button", { name: "Все заметки о проекте" }).click()
+  await page.getByRole("button", { name: "Подробнее о разработке" }).click()
   await page.mouse.click(1, 1)
   await expect(page.locator("dialog")).not.toBeVisible()
 })

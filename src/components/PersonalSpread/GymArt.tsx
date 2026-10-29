@@ -201,7 +201,7 @@ const GymArt = () => {
           className="personal-collage-caption"
           fill="#989075"
         >
-          Каждый подход имеет значение.
+          Календарь и рабочий вес.
         </text>
       </svg>
     </div>

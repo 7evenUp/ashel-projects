@@ -39,8 +39,6 @@ export interface Project extends ProjectContent {
   color: string
   pale: string
   active: boolean
-  note: string
-  seal: string
   illustration: IllustrationName
   mini?: ProjectContent
 }

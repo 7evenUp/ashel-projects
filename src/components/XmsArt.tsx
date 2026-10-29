@@ -106,7 +106,7 @@ export function XmsArt() {
             className="xms-art-small"
             fill="#5b8079"
           >
-            FORD MUSTANG · МЕЧТА ПОД ЁЛКОЙ
+            FORD MUSTANG · РОЗЫГРЫШ
           </text>
         </g>
         <g transform="rotate(3 327 100)">

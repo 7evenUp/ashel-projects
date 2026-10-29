@@ -243,7 +243,7 @@ export function IdArt() {
           УПРАВЛЕНИЕ ДОСТУПОМ
         </text>
       </Paper>
-      <Caption>Профиль, подписки и награды — под одним ключом.</Caption>
+      <Caption>Профиль и управление подписками.</Caption>
     </Frame>
   )
 }
@@ -265,10 +265,10 @@ export function XProgramArt() {
         </text>
         <path d="M17 34H246" stroke="#80649f" />
         <text x="17" y="62" fontSize="13" fontWeight="500" fill="#30243f">
-          ТВОИ СВЯЗИ.
+          ПАРТНЁРСКАЯ
         </text>
         <text x="17" y="80" fontSize="13" fontWeight="500" fill="#30243f">
-          НОВЫЕ ВОЗМОЖНОСТИ.
+          ПРОГРАММА CRYPTON
         </text>
         <Lines x={18} y={102} w={105} color="#d3bfe9" />
         <rect
@@ -331,7 +331,7 @@ export function XProgramArt() {
         stroke="#c3b4a0"
       >
         <text x="11" y="20" className="interface-art-label" fill="#817360">
-          СООБЩЕСТВО РАСТЁТ
+          ПРОДУКТЫ CRYPTON
         </text>
         <path d="M15 77H106M15 77V33" stroke="#d4c7b1" />
         <path
@@ -349,10 +349,10 @@ export function XProgramArt() {
           height="29"
         />
         <text x="16" y="99" fontSize="7" fill="#8b7c69">
-          СВЯЗИ → ДОХОД
+          ЗАЯВКА НА УЧАСТИЕ
         </text>
       </Paper>
-      <Caption>От первого знакомства — к общему росту.</Caption>
+      <Caption>Условия программы и заявка на участие.</Caption>
     </Frame>
   )
 }
@@ -467,7 +467,7 @@ export function PrimeArt() {
           И ПОДАРКИ
         </text>
       </Paper>
-      <Caption>Один пропуск — целая экосистема возможностей.</Caption>
+      <Caption>Подписка, аналитика и календарь активностей.</Caption>
     </Frame>
   )
 }
@@ -803,8 +803,8 @@ export function AcademyArt({ mini }: { mini: boolean }) {
       )}
       <Caption>
         {mini
-          ? "Большие знания — в карманном формате."
-          : "Курс за курсом — от знаний к достижениям."}
+          ? "Уроки, AI-ассистент и оплата в ETH."
+          : "Кабинет ученика и редактор курсов."}
       </Caption>
     </Frame>
   )

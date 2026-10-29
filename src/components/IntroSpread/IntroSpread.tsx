@@ -1,6 +1,5 @@
 import { Icon } from "../Art"
 import { ProjectFavicon } from "../ProjectFavicon"
-import ModeEmblem from "./ModeEmblem"
 import WorkPeriod from "./WorkPeriod"
 
 import { projects } from "../../data/projects"
@@ -22,38 +21,19 @@ const IntroSpread = ({
         className="paper-page page-left intro-page personal-page"
         aria-labelledby="personal-title"
       >
-        <div className="mode-meta flex items-center justify-between gap-3">
-          <span>01 / Личная сторона</span>
-          <span className="difficulty">
-            <i />
-            <i />
-            <i />
-            <span>Easy</span>
-          </span>
-        </div>
-
         <header className="mode-heading">
-          <span className="mode-eyebrow">Свободный режим</span>
-          <h1 id="personal-title">Ради интереса.</h1>
-          <p>Идеи, эксперименты и немного обо мне.</p>
+          <h1 id="personal-title">{profile.name}</h1>
+          <p>{profile.role}. React и TypeScript.</p>
         </header>
 
-        <ModeEmblem mode="personal" />
-
         <section className="profile-note">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="intro-section-label">Игрок за клавиатурой</span>
-            <span className="profile-age">{profile.age} лет</span>
-          </div>
-          <h2>Привет, я {profile.name}.</h2>
-          <p className="profile-role">{profile.role}</p>
+          <h2>Обо мне</h2>
           <p>
-            Создаю интерфейсы и немношко дизайню. А в свободном режиме — пробую
-            новое и делаю свои проекты.
+            Разрабатываю веб-интерфейсы, занимаюсь UI-дизайном. В личных
+            проектах делаю приложение для тренировок и собираю соглашения по
+            коду для AI-агентов.
           </p>
-          <span className="profile-experience">
-            {profile.experience} · React · TypeScript
-          </span>
+          <span className="profile-experience">{profile.experience}</span>
         </section>
 
         <section
@@ -65,7 +45,7 @@ const IntroSpread = ({
               Личные проекты
             </h2>
             <span className="project-count">
-              {String(personalProjects.length).padStart(2, "0")} главы
+              {personalProjects.length} проекта
             </span>
           </div>
           <div className="campaign-project-list flex flex-wrap gap-2">
@@ -77,7 +57,10 @@ const IntroSpread = ({
                 aria-label={`Открыть личный проект ${project.name}`}
               >
                 <ProjectFavicon id={project.id} symbol={project.symbol} />
-                <span>{project.name}</span>
+                <span className="project-summary">
+                  <strong>{project.name}</strong>
+                  <span>{project.description}</span>
+                </span>
               </button>
             ))}
           </div>
@@ -101,34 +84,16 @@ const IntroSpread = ({
           </span>
           <span aria-hidden="true">→</span>
         </button>
-
-        <div className="intro-folio">
-          <span>Можно свернуть с тропинки</span>
-          <span>01</span>
-        </div>
       </section>
 
       <section
         className="paper-page page-right intro-page work-page"
         aria-labelledby="work-title"
       >
-        <div className="mode-meta flex items-center justify-between gap-3">
-          <span>02 / Рабочая сторона</span>
-          <span className="difficulty">
-            <i />
-            <i />
-            <i />
-            <span>Hard</span>
-          </span>
-        </div>
-
         <header className="mode-heading">
-          <span className="mode-eyebrow">Основная кампания</span>
-          <h2 id="work-title">На результат.</h2>
-          <p>Реальные продукты. Задачи со звёздочкой.</p>
+          <h2 id="work-title">Проекты Crypton</h2>
+          <p>Личные кабинеты, игры и образовательные приложения.</p>
         </header>
-
-        <ModeEmblem mode="work" />
 
         <section className="experience-note" aria-labelledby="experience-title">
           <div className="experience-heading flex items-center justify-between gap-3">
@@ -153,11 +118,9 @@ const IntroSpread = ({
         >
           <div className="flex items-center justify-between gap-3">
             <h3 className="intro-section-label" id="work-projects-title">
-              Рабочие проекты
+              Кликни на проект, чтобы изучить его подробнее
             </h3>
-            <span className="project-count">
-              {String(projects.length).padStart(2, "0")} глав
-            </span>
+            <span className="project-count">{projects.length} проектов</span>
           </div>
           <div className="campaign-project-list flex flex-wrap gap-2">
             {projects.map((project, index) => (
@@ -165,10 +128,10 @@ const IntroSpread = ({
                 key={project.id}
                 className="campaign-project"
                 onClick={() => onOpenProject(index)}
-                aria-label={`Открыть главу ${project.name}`}
+                aria-label={`Открыть проект ${project.name}`}
               >
                 <ProjectFavicon id={project.id} symbol={project.symbol} />
-                <span>{project.label}</span>
+                <span>{project.name}</span>
               </button>
             ))}
           </div>
@@ -183,11 +146,6 @@ const IntroSpread = ({
           </span>
           <span aria-hidden="true">→</span>
         </button>
-
-        <div className="intro-folio">
-          <span>У каждого релиза своя история</span>
-          <span>02</span>
-        </div>
       </section>
     </>
   )

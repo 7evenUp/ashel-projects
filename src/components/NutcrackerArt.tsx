@@ -173,7 +173,7 @@ export function NutcrackerArt() {
         />
         <path d="M236 192V204M230 198H242" stroke="#baa16c" strokeWidth="1.5" />
         <text x="27" y="253" className="nutcracker-art-caption" fill="#927d75">
-          Шесть деталей — один герой в TON.
+          Инвентарь деталей и готовый NFT.
         </text>
       </svg>
     </div>

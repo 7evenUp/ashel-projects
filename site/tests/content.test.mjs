@@ -52,3 +52,44 @@ test("External links use HTTPS and NDA does not become a fake repository link", 
     }
   }
 })
+
+test("Portfolio copy does not reintroduce decorative slogans", () => {
+  const paths = [
+    "src/App.tsx",
+    "src/components/IntroSpread/IntroSpread.tsx",
+    "src/components/Spread.tsx",
+    "src/components/PersonalSpread/PersonalSpread.tsx",
+    "src/data/profile.ts",
+    "src/data/projects.ts",
+    "src/components/InterfaceArt.tsx",
+    "src/components/NutsFarmArt.tsx",
+    "src/components/NutcrackerArt.tsx",
+    "src/components/XmsArt.tsx",
+    "src/components/PersonalSpread/AgentSkillArt.tsx",
+    "src/components/PersonalSpread/GymArt.tsx",
+  ]
+  const copy = paths
+    .map((path) =>
+      readFileSync(new URL(`../../${path}`, import.meta.url), "utf8")
+    )
+    .join("\n")
+  for (const phrase of [
+    "Можно свернуть с тропинки",
+    "своя история",
+    "Два режима. Один разработчик.",
+    "Ради интереса.",
+    "На результат.",
+    "Задачи со звёздочкой",
+    "Об этом приключении",
+    "В моём рюкзаке",
+    "Редкие находки",
+    "Личная идея → рабочий код",
+    "Знания открывают новые миры",
+    "Каждый подход имеет значение",
+    "к общему росту",
+    "целая экосистема возможностей",
+    "в карманном формате",
+  ]) {
+    assert.ok(!copy.includes(phrase), `Remove decorative copy: ${phrase}`)
+  }
+})

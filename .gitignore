@@ -5,3 +5,4 @@ test-results/
 site/qa/
 
 .npm-cache/
+.taste-skill/
