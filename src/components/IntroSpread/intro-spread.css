@@ -24,7 +24,46 @@
 }
 
 .mode-heading {
-  margin-bottom: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.mode-emblem {
+  margin: 0 -8px 22px;
+  color: #6f7e53;
+}
+
+.mode-emblem svg {
+  display: block;
+  width: 100%;
+  height: 148px;
+  stroke-width: 1.1;
+}
+
+.emblem-rule,
+.emblem-orbit {
+  opacity: 0.4;
+}
+
+.emblem-fill {
+  fill: #82914d16;
+}
+
+.emblem-diamond {
+  fill: currentColor;
+  stroke: none;
+}
+
+.emblem-solid {
+  fill: #b77c4940;
+}
+
+.work-page .mode-emblem {
+  color: #dca875;
+}
+
+.work-page .emblem-fill {
+  fill: #ba724c16;
 }
 
 .mode-heading h1,
@@ -293,6 +332,9 @@
   .mode-heading h1,
   .mode-heading h2 {
     font-size: clamp(36px, 8vw, 50px);
+  }
+  .mode-emblem svg {
+    height: 130px;
   }
   .profile-note,
   .experience-note {

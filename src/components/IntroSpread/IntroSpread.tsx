@@ -1,6 +1,7 @@
 import { Icon } from "../Art"
 import { ProjectFavicon } from "../ProjectFavicon"
 import WorkPeriod from "./WorkPeriod"
+import ModeEmblem from "./ModeEmblem"
 
 import { projects } from "../../data/projects"
 import { personalProjects, profile } from "../../data/profile"
@@ -25,6 +26,8 @@ const IntroSpread = ({
           <h1 id="personal-title">{profile.name}</h1>
           <p>{profile.role}. React и TypeScript.</p>
         </header>
+
+        <ModeEmblem mode="personal" />
 
         <section className="profile-note">
           <h2>Обо мне</h2>
@@ -94,6 +97,8 @@ const IntroSpread = ({
           <h2 id="work-title">Проекты Crypton</h2>
           <p>Личные кабинеты, игры и образовательные приложения.</p>
         </header>
+
+        <ModeEmblem mode="work" />
 
         <section className="experience-note" aria-labelledby="experience-title">
           <div className="experience-heading flex items-center justify-between gap-3">

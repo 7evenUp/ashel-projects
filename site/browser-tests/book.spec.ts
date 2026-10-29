@@ -307,6 +307,57 @@ test("The introductory spread fits desktop and phone layouts", async ({
   }
 })
 
+test("Game scenery stays outside the book and respects reduced motion", async ({
+  page,
+}, testInfo) => {
+  const widths =
+    testInfo.project.name === "mobile" ? [375, 800] : [1280, 1440, 1920]
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto("/#intro")
+    const scenery = page.locator(".table-scenery")
+    await expect(scenery).toHaveAttribute("aria-hidden", "true")
+    expect(
+      await scenery.evaluate(
+        (element) => getComputedStyle(element).pointerEvents
+      )
+    ).toBe("none")
+    await expect(page.locator("#spread .mode-emblem")).toHaveCount(2)
+    if (width <= 1100) {
+      await expect(scenery).toBeHidden()
+    } else {
+      await expect(scenery).toBeVisible()
+      const book = (await page.locator(".book-shell").boundingBox())!
+      const left = (await scenery.locator(".table-margin-left").boundingBox())!
+      const right = (await scenery
+        .locator(".table-margin-right")
+        .boundingBox())!
+      expect(left.x + left.width).toBeLessThanOrEqual(book.x)
+      expect(right.x).toBeGreaterThanOrEqual(book.x + book.width)
+      if (width >= 1600) {
+        await expect(scenery.locator(".table-map")).toBeVisible()
+        await expect(scenery.locator(".table-tokens")).toBeVisible()
+        await expect(scenery.locator(".table-quill")).toBeVisible()
+      }
+    }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth
+      )
+    ).toBe(true)
+    await page.screenshot({
+      path: testInfo.outputPath(`game-table-${width}.png`),
+      fullPage: true,
+    })
+  }
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  expect(
+    await page
+      .locator(".table-spark-left")
+      .evaluate((element) => getComputedStyle(element).animationName)
+  ).toBe("none")
+})
+
 test("The work period is computed once per site load", async ({ page }) => {
   await page.clock.install({ time: new Date("2026-10-31T20:59:50Z") })
   await page.goto("/")

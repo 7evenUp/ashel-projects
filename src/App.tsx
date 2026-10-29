@@ -8,6 +8,7 @@ import { NotesDialog } from "./components/NotesDialog"
 import { PageTurn, copyPage } from "./components/PageTurn"
 import { ProjectFavicon } from "./components/ProjectFavicon"
 import { Spread } from "./components/Spread"
+import TableScenery from "./components/TableScenery"
 
 import { compositionStyle } from "./data/compositions"
 import { projects } from "./data/projects"
@@ -260,10 +261,11 @@ export function App() {
     setTurn((current) => (current?.serial === turn?.serial ? null : current))
 
   return (
-    <div style={routeStyle(route)}>
+    <div className="game-world" style={routeStyle(route)}>
       <a className="skip-link" href="#spread" onClick={handleSkipToSpread}>
         К развороту
       </a>
+      <TableScenery />
       <main
         className={[
           "desk relative mx-auto",
