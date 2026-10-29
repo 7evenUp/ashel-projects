@@ -18,8 +18,10 @@
     "format": "pnpm exec prettier . --write"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",

@@ -3,10 +3,14 @@ const skillsIcon = `${import.meta.env.BASE_URL}assets/projects/ashel-front-style
 const AgentSkillArt = () => {
   return (
     <div
-      className="personal-illustration skill-illustration"
+      className="personal-illustration skill-illustration pointer-events-none mx-auto mt-5.5 mb-4.5 max-w-115 max-[801px]:mt-6.25"
       aria-hidden="true"
     >
-      <svg className="personal-collage" viewBox="0 0 440 340" fill="none">
+      <svg
+        className="personal-collage block h-auto w-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        viewBox="0 0 440 340"
+        fill="none"
+      >
         <path
           d="M214 111c44-56 66-42 65-8m-6-7 6 7 7-5M333 201v30m-5-5 5 5 5-5"
           stroke="#a193b8"
@@ -14,7 +18,12 @@ const AgentSkillArt = () => {
           strokeDasharray="4 4"
           strokeLinecap="round"
         />
-        <text x="244" y="66" className="personal-collage-small" fill="#9a8aab">
+        <text
+          x="244"
+          y="66"
+          className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+          fill="#9a8aab"
+        >
           читает контекст
         </text>
 
@@ -29,23 +38,53 @@ const AgentSkillArt = () => {
           />
           <path d="M0 5a5 5 0 0 1 5-5h194a5 5 0 0 1 5 5v27H0Z" fill="#2b2633" />
           <image href={skillsIcon} x="12" y="8" width="16" height="16" />
-          <text x="37" y="21" className="personal-collage-label" fill="#eee6f5">
+          <text
+            x="37"
+            y="21"
+            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            fill="#eee6f5"
+          >
             SKILL.md
           </text>
           <circle cx="187" cy="16" r="3" fill="#b6a0d0" />
-          <text x="15" y="56" className="personal-collage-mono" fill="#94809e">
+          <text
+            x="15"
+            y="56"
+            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            fill="#94809e"
+          >
             ---
           </text>
-          <text x="15" y="73" className="personal-collage-mono" fill="#8c709d">
+          <text
+            x="15"
+            y="73"
+            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            fill="#8c709d"
+          >
             name:
           </text>
-          <text x="15" y="89" className="personal-collage-mono" fill="#57505f">
+          <text
+            x="15"
+            y="89"
+            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            fill="#57505f"
+          >
             ashel-front-style
           </text>
-          <text x="15" y="106" className="personal-collage-mono" fill="#94809e">
+          <text
+            x="15"
+            y="106"
+            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            fill="#94809e"
+          >
             ---
           </text>
-          <text x="15" y="131" className="personal-collage-body" fill="#51435e">
+          <text
+            x="15"
+            y="131"
+            className="personal-collage-body font-commons text-[11px] leading-[normal] font-medium not-italic"
+            fill="#51435e"
+          >
             Мои правила для агента
           </text>
           {[
@@ -69,14 +108,19 @@ const AgentSkillArt = () => {
               <text
                 x="22"
                 y="13"
-                className="personal-collage-small"
+                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#71637c"
               >
                 {label}
               </text>
             </g>
           ))}
-          <text x="15" y="232" className="personal-collage-tiny" fill="#9c8ba4">
+          <text
+            x="15"
+            y="232"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            fill="#9c8ba4"
+          >
             REACT · TYPESCRIPT · TAILWIND
           </text>
         </g>
@@ -106,14 +150,29 @@ const AgentSkillArt = () => {
             strokeWidth="1.4"
             strokeLinecap="round"
           />
-          <text x="54" y="24" className="personal-collage-label" fill="#655272">
+          <text
+            x="54"
+            y="24"
+            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            fill="#655272"
+          >
             AI-АГЕНТ
           </text>
-          <text x="54" y="38" className="personal-collage-small" fill="#92819f">
+          <text
+            x="54"
+            y="38"
+            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            fill="#92819f"
+          >
             skill подключён
           </text>
           <rect x="12" y="52" width="144" height="25" rx="5" fill="#fffaf0" />
-          <text x="21" y="68" className="personal-collage-small" fill="#6c6176">
+          <text
+            x="21"
+            y="68"
+            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            fill="#6c6176"
+          >
             «Собери React-компонент»
           </text>
           <path
@@ -122,7 +181,12 @@ const AgentSkillArt = () => {
             strokeWidth="1.5"
             strokeLinecap="round"
           />
-          <text x="30" y="95" className="personal-collage-small" fill="#7b8b65">
+          <text
+            x="30"
+            y="95"
+            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            fill="#7b8b65"
+          >
             Следую вашим соглашениям
           </text>
         </g>
@@ -139,16 +203,36 @@ const AgentSkillArt = () => {
           <circle cx="12" cy="12" r="2" fill="#cda7a4" />
           <circle cx="20" cy="12" r="2" fill="#d2bd8e" />
           <circle cx="28" cy="12" r="2" fill="#9caf91" />
-          <text x="43" y="15" className="personal-collage-tiny" fill="#ac9bb9">
+          <text
+            x="43"
+            y="15"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            fill="#ac9bb9"
+          >
             Profile.tsx
           </text>
-          <text x="13" y="36" className="personal-collage-mono" fill="#d5c0e8">
+          <text
+            x="13"
+            y="36"
+            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            fill="#d5c0e8"
+          >
             const handleSubmit = () =&gt; ...
           </text>
-          <text x="13" y="55" className="personal-collage-mono" fill="#b5c99f">
+          <text
+            x="13"
+            y="55"
+            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            fill="#b5c99f"
+          >
             return &lt;Profile /&gt;
           </text>
-          <text x="13" y="68" className="personal-collage-tiny" fill="#8e7f9b">
+          <text
+            x="13"
+            y="68"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            fill="#8e7f9b"
+          >
             КОМПОНЕНТ · СОСТОЯНИЯ · ОБРАБОТЧИК
           </text>
         </g>
@@ -157,7 +241,7 @@ const AgentSkillArt = () => {
         <text
           x="20"
           y="310"
-          className="personal-collage-caption"
+          className="personal-collage-caption font-book text-[12px] leading-[normal] font-normal italic"
           fill="#989075"
         >
           Правила React и TypeScript
@@ -165,7 +249,7 @@ const AgentSkillArt = () => {
         <text
           x="29"
           y="328"
-          className="personal-collage-caption"
+          className="personal-collage-caption font-book text-[12px] leading-[normal] font-normal italic"
           fill="#989075"
         >
           для AI-агентов.

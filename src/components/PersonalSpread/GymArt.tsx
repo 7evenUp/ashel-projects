@@ -5,8 +5,15 @@ const GymArt = () => {
   const trainingDays = [2, 4, 8, 11, 15, 18, 22, 25]
 
   return (
-    <div className="personal-illustration gym-illustration" aria-hidden="true">
-      <svg className="personal-collage" viewBox="0 0 440 340" fill="none">
+    <div
+      className="personal-illustration gym-illustration pointer-events-none mx-auto mt-5.5 mb-4.5 max-w-115 max-[801px]:mt-6.25"
+      aria-hidden="true"
+    >
+      <svg
+        className="personal-collage block h-auto w-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        viewBox="0 0 440 340"
+        fill="none"
+      >
         <g transform="translate(26 12) rotate(-4 98 148)">
           <rect x="3" y="5" width="196" height="294" rx="18" fill="#55442d25" />
           <rect
@@ -18,10 +25,20 @@ const GymArt = () => {
             strokeWidth="1.5"
           />
           <rect x="75" y="6" width="46" height="4" rx="2" fill="#49454F" />
-          <text x="16" y="31" className="personal-collage-title" fill="#E6E1E5">
+          <text
+            x="16"
+            y="31"
+            className="personal-collage-title font-commons text-[16px] leading-[normal] font-medium not-italic"
+            fill="#E6E1E5"
+          >
             Ashel Gym
           </text>
-          <text x="16" y="48" className="personal-collage-small" fill="#CAC4D0">
+          <text
+            x="16"
+            y="48"
+            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            fill="#CAC4D0"
+          >
             Моя тренировка
           </text>
           <rect x="12" y="58" width="172" height="108" rx="10" fill="#2B2930" />
@@ -32,19 +49,34 @@ const GymArt = () => {
             width="134"
             height="106"
           />
-          <text x="17" y="184" className="personal-collage-body" fill="#EADDFF">
+          <text
+            x="17"
+            y="184"
+            className="personal-collage-body font-commons text-[11px] leading-[normal] font-medium not-italic"
+            fill="#EADDFF"
+          >
             Жим лёжа
           </text>
-          <text x="17" y="201" className="personal-collage-tiny" fill="#938F99">
+          <text
+            x="17"
+            y="201"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            fill="#938F99"
+          >
             ПОДХОД
           </text>
-          <text x="74" y="201" className="personal-collage-tiny" fill="#938F99">
+          <text
+            x="74"
+            y="201"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            fill="#938F99"
+          >
             ВЕС
           </text>
           <text
             x="123"
             y="201"
-            className="personal-collage-tiny"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#938F99"
           >
             ПОВТОРЫ
@@ -64,7 +96,7 @@ const GymArt = () => {
               <text
                 x="10"
                 y="12"
-                className="personal-collage-small"
+                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#D0BCFF"
               >
                 {set}
@@ -72,7 +104,7 @@ const GymArt = () => {
               <text
                 x="63"
                 y="12"
-                className="personal-collage-small"
+                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#E6E1E5"
               >
                 {weight}
@@ -80,7 +112,7 @@ const GymArt = () => {
               <text
                 x="119"
                 y="12"
-                className="personal-collage-small"
+                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#E6E1E5"
               >
                 {reps}
@@ -110,7 +142,12 @@ const GymArt = () => {
             fill="#F3EDF7"
             stroke="#b2a4c0"
           />
-          <text x="14" y="22" className="personal-collage-label" fill="#6750A4">
+          <text
+            x="14"
+            y="22"
+            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            fill="#6750A4"
+          >
             КАЛЕНДАРЬ АКТИВНОСТИ
           </text>
           {["П", "В", "С", "Ч", "П", "С", "В"].map((label, index) => (
@@ -119,7 +156,7 @@ const GymArt = () => {
               x={20 + index * 22}
               y="43"
               textAnchor="middle"
-              className="personal-collage-small"
+              className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
               fill="#938F99"
             >
               {label}
@@ -139,7 +176,7 @@ const GymArt = () => {
                   x={x}
                   y={y}
                   textAnchor="middle"
-                  className="personal-collage-small"
+                  className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
                   fill={isTrainingDay ? "#fff" : "#625B71"}
                 >
                   {index + 1}
@@ -148,7 +185,12 @@ const GymArt = () => {
             )
           })}
           <circle cx="15" cy="142" r="3" fill="#6750A4" />
-          <text x="24" y="145" className="personal-collage-tiny" fill="#79747E">
+          <text
+            x="24"
+            y="145"
+            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            fill="#79747E"
+          >
             ДНИ ТРЕНИРОВОК
           </text>
         </g>
@@ -162,13 +204,28 @@ const GymArt = () => {
             fill="#fffaf0"
             stroke="#c6b99c"
           />
-          <text x="13" y="20" className="personal-collage-label" fill="#7D5260">
+          <text
+            x="13"
+            y="20"
+            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            fill="#7D5260"
+          >
             ПРОГРЕСС В УПРАЖНЕНИИ
           </text>
-          <text x="13" y="44" className="personal-collage-title" fill="#4F378B">
+          <text
+            x="13"
+            y="44"
+            className="personal-collage-title font-commons text-[16px] leading-[normal] font-medium not-italic"
+            fill="#4F378B"
+          >
             50 кг
           </text>
-          <text x="13" y="61" className="personal-collage-small" fill="#93847c">
+          <text
+            x="13"
+            y="61"
+            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            fill="#93847c"
+          >
             Рабочий вес
           </text>
           <path
@@ -198,7 +255,7 @@ const GymArt = () => {
         <text
           x="241"
           y="330"
-          className="personal-collage-caption"
+          className="personal-collage-caption font-book text-[12px] leading-[normal] font-normal italic"
           fill="#989075"
         >
           Календарь и рабочий вес.

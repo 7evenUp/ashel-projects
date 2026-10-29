@@ -1,5 +1,15 @@
+import { cn } from "../lib/cn"
+
 const CompassRose = () => (
-  <svg className="table-compass" viewBox="0 0 200 200" fill="none">
+  <svg
+    className={cn(
+      "table-compass top-[5%] right-[clamp(18px,_3vw,_70px)] w-[clamp(100px,_11vw,_200px)] [transform:rotate(16deg)] opacity-[0.48]",
+      "max-[1600px]:-right-5.5 max-[1600px]:w-26.25 max-[1600px]:opacity-[0.33]",
+      "[&_text]:font-book [&_text]:text-[12px] [&_text]:leading-[normal] [&_text]:font-normal [&_text]:not-italic"
+    )}
+    viewBox="0 0 200 200"
+    fill="none"
+  >
     <circle cx="100" cy="100" r="70" stroke="currentColor" />
     <circle
       cx="100"
@@ -25,7 +35,14 @@ const CompassRose = () => (
 )
 
 const RouteMap = () => (
-  <svg className="table-map" viewBox="0 0 250 300" fill="none">
+  <svg
+    className={cn(
+      "table-map top-[43%] left-[clamp(-46px,_1vw,_30px)] w-[clamp(190px,_14vw,_260px)] [transform:rotate(-14deg)] opacity-[0.65] [filter:drop-shadow(3px_9px_5px_#4e503b12)]",
+      "max-[1600px]:hidden"
+    )}
+    viewBox="0 0 250 300"
+    fill="none"
+  >
     <path
       d="m23 25 67-8 64 9 72-12-5 252-68 17-68-12-67 15Z"
       fill="#d8d2ba"
@@ -72,7 +89,15 @@ const RouteMap = () => (
 )
 
 const DiceAndCoins = () => (
-  <svg className="table-tokens" viewBox="0 0 240 210" fill="none">
+  <svg
+    className={cn(
+      "table-tokens top-[37%] right-[clamp(-35px,_1.7vw,_45px)] w-[clamp(175px,_13vw,_240px)] opacity-[0.75]",
+      "max-[1600px]:hidden",
+      "[&_text]:font-book [&_text]:text-[25px] [&_text]:leading-[normal] [&_text]:font-normal [&_text]:not-italic"
+    )}
+    viewBox="0 0 240 210"
+    fill="none"
+  >
     <ellipse cx="143" cy="164" rx="54" ry="12" fill="#696651" opacity=".1" />
     <g transform="rotate(17 145 100)">
       <path
@@ -116,7 +141,14 @@ const DiceAndCoins = () => (
 )
 
 const Quill = () => (
-  <svg className="table-quill" viewBox="0 0 220 320" fill="none">
+  <svg
+    className={cn(
+      "table-quill right-[clamp(0px,_2vw,_58px)] bottom-[-2%] w-[clamp(150px,_12vw,_220px)] [transform:rotate(12deg)] opacity-[0.6]",
+      "max-[1600px]:hidden"
+    )}
+    viewBox="0 0 220 320"
+    fill="none"
+  >
     <path
       d="M42 290C75 187 93 83 186 24c13 65-5 145-66 184l-35 9-5 28-20-1Z"
       fill="#d5d7c5"
@@ -137,7 +169,14 @@ const Quill = () => (
 )
 
 const Constellation = () => (
-  <svg className="table-constellation" viewBox="0 0 210 230" fill="none">
+  <svg
+    className={cn(
+      "table-constellation top-[11%] left-[clamp(6px,_2vw,_54px)] w-47.5 [transform:rotate(-12deg)] opacity-[0.5]",
+      "max-[1600px]:-left-13.5 max-[1600px]:w-37.5 max-[1600px]:opacity-[0.3]"
+    )}
+    viewBox="0 0 210 230"
+    fill="none"
+  >
     <path
       d="m31 172 35-69 43 22 43-71 26 30m-69 41 33 63"
       stroke="currentColor"
@@ -169,7 +208,14 @@ const Constellation = () => (
 )
 
 const Spark = ({ className }: { className: string }) => (
-  <svg className={`table-spark ${className}`} viewBox="0 0 64 80" fill="none">
+  <svg
+    className={cn(
+      "table-spark w-13.5 [animation:table-starlight_7s_ease-in-out_infinite_alternate] opacity-[0.44] motion-reduce:[animation:none]",
+      className
+    )}
+    viewBox="0 0 64 80"
+    fill="none"
+  >
     <path
       d="M25 4c3 18 7 23 22 27-15 4-19 9-22 27C22 40 18 35 3 31 18 27 22 22 25 4Z"
       fill="currentColor"
@@ -179,17 +225,30 @@ const Spark = ({ className }: { className: string }) => (
 )
 
 const TableScenery = () => (
-  <div className="table-scenery" aria-hidden="true">
-    <div className="table-margin table-margin-left">
+  <div
+    className="table-scenery pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[0] overflow-hidden text-[#989d83] select-none max-[1101px]:hidden"
+    aria-hidden="true"
+  >
+    <div
+      className={cn(
+        "table-margin table-margin-left absolute top-0 bottom-0 left-0 w-[max(0px,_calc((100vw_-_1216px)_/_2_-_24px))] overflow-hidden",
+        "[&_>_svg]:absolute [&_>_svg]:h-auto"
+      )}
+    >
       <Constellation />
       <RouteMap />
-      <Spark className="table-spark-left" />
+      <Spark className="table-spark-left bottom-[7%] left-[clamp(18px,_4vw,_96px)] [transform:rotate(-9deg)] max-[1600px]:left-4 max-[1600px]:w-10" />
     </div>
-    <div className="table-margin table-margin-right">
+    <div
+      className={cn(
+        "table-margin table-margin-right absolute top-0 right-0 bottom-0 w-[max(0px,_calc((100vw_-_1216px)_/_2_-_24px))] overflow-hidden",
+        "[&_>_svg]:absolute [&_>_svg]:h-auto"
+      )}
+    >
       <CompassRose />
       <DiceAndCoins />
       <Quill />
-      <Spark className="table-spark-right" />
+      <Spark className="table-spark-right top-[29%] right-[clamp(20px,_2vw,_58px)] w-7 [animation-delay:-3s] max-[1600px]:right-4" />
     </div>
   </div>
 )

@@ -1,9 +1,12 @@
+import PaperPage from "../PaperPage"
 import { Icon } from "../Art"
 import AgentSkillArt from "./AgentSkillArt"
 import GymArt from "./GymArt"
 import InstallCommand from "./InstallCommand"
 
 import type { PersonalProject } from "../../data/profile"
+
+import { cn } from "../../lib/cn"
 
 const PersonalSpread = ({
   project,
@@ -14,65 +17,145 @@ const PersonalSpread = ({
 }) => {
   return (
     <>
-      <section
-        className="paper-page page-left personal-detail"
+      <PaperPage
+        side="left"
+        className="personal-detail bg-[#f5f0e1] px-9.75 pt-8 pb-19 max-[1101px]:pr-6.75 max-[1101px]:pl-6.75 max-[801px]:pt-6.5 max-[801px]:pr-7 max-[801px]:pl-7 max-[391px]:pt-6.5 max-[391px]:pr-5 max-[391px]:pl-5 min-[1450px]:pt-9 max-[801px]:[&_.page-number]:right-6 max-[801px]:[&_.page-number]:left-6 max-[801px]:[&_.page-number]:text-[8px] [&_.page-number_>_span:first-child]:max-w-[calc(100%_-_32px)] [&_.page-number_>_span:first-child]:[overflow-wrap:anywhere]"
         aria-labelledby="project-title"
       >
-        <div className="chapter-meta">
-          <div className="chapter-label">
+        <div
+          className={cn(
+            "chapter-meta mb-2.75 flex flex-wrap items-center justify-between gap-[8px_12px]",
+            "[&_.chapter-label]:mb-0",
+            "[&_.status]:shrink-0 [&_.status]:whitespace-nowrap"
+          )}
+        >
+          <div
+            className={cn(
+              "chapter-label mb-2.75 flex items-center gap-2.25 text-[11px] font-medium tracking-[1.7px] text-[#8a8879]",
+              "max-[391px]:flex-wrap max-[391px]:gap-y-1 max-[391px]:text-[9px] max-[391px]:tracking-[1px]",
+              "max-[801px]:flex-wrap max-[801px]:gap-y-1",
+              "before:h-px before:w-6 before:bg-[#aca693] before:content-['']"
+            )}
+          >
             ГЛАВА {String(index + 1).padStart(2, "0")}
             <span> / </span>
             {project.category}
           </div>
         </div>
 
-        <div className="project-heading">
-          <h1 id="project-title">{project.name}</h1>
+        <div
+          className={cn(
+            "project-heading mb-2.25",
+            "[&_h1]:mb-0 [&_h1]:min-w-0 [&_h1]:[overflow-wrap:anywhere]",
+            "max-[391px]:[&_h1]:text-[clamp(32px,_10vw,_39px)] max-[391px]:[&_h1]:tracking-[-1.5px]",
+            "max-[391px]:gap-2.25"
+          )}
+        >
+          <h1
+            className="m-0 mb-2.25 font-[family-name:Georgia,'Times_New_Roman',serif] text-[clamp(39px,4.2vw,64px)] leading-[1.1] font-medium tracking-[-2.4px] text-[#393e34] max-[801px]:text-[52px] max-[391px]:text-[46px]"
+            id="project-title"
+          >
+            {project.name}
+          </h1>
         </div>
-        <p className="tagline">{project.tagline}</p>
+        <p className="tagline m-0 max-w-90 text-[18px] leading-[1.3] text-[#77786b] max-[1101px]:text-[17px] max-[801px]:text-[18px]">
+          {project.tagline}
+        </p>
 
         {project.id === "ashel-gym" ? <GymArt /> : <AgentSkillArt />}
 
-        <section className="note about-note tape">
+        <section
+          className={cn(
+            "note about-note tape relative mx-0 mt-5.25 mb-5.75 [transform:rotate(var(--about-angle))] border-[1px] border-solid border-[rgba(117,_98,_68,_0.075)] bg-[#eee9d7] px-5 pt-4.75 pb-4.25 shadow-[0_1px_1px_#66533112,_2px_5px_7px_-3px_#66533128]",
+            "max-[801px]:mb-6 max-[801px]:[transform:rotate(calc(var(--about-angle)_*_0.45))]",
+            "before:absolute before:-top-2.5 before:left-[calc(50%_-_37px)] before:h-5.5 before:w-18.75 before:[transform:rotate(var(--tape-angle))] before:[border-inline-width:1px] before:[border-inline-style:dashed] before:[border-inline-color:rgba(161,_140,_88,_0.19)] before:bg-[#d2c7a670] before:shadow-[inset_0_0_8px_#e6dbb365] before:[backdrop-filter:blur(0.2px)] before:content-[''] before:[clip-path:polygon(0_4%,_97%_0,_100%_93%,_3%_100%,_0_76%,_3%_54%)]",
+            "[&>h2]:mx-0 [&>h2]:mt-0 [&>h2]:mb-2.5 [&>h2]:text-[12px] [&>h2]:font-medium [&>h2]:tracking-[1.7px] [&>h2]:uppercase",
+            "[&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-[1.38] [&_p]:text-[#65675b]",
+            "max-[801px]:[&_p]:text-[16px]"
+          )}
+        >
           <h2>Об этом проекте</h2>
           <p>{project.summary}</p>
         </section>
 
         <section className="stack">
-          <h2 className="stack-heading">
+          <h2
+            className={cn(
+              "stack-heading mx-0 mt-0 mb-2.75 flex items-center gap-2 text-[10px] font-medium tracking-[1.7px] text-[#797b6b] uppercase",
+              "[&_.icon]:size-3.75"
+            )}
+          >
             <Icon name="code" />
             Технологии
           </h2>
-          <div className="stack-tags flex flex-wrap gap-1.5">
+          <div
+            className={cn(
+              "stack-tags flex flex-wrap gap-1.5",
+              "[&_span]:inline-block [&_span]:rounded-[3px] [&_span]:border-[1px] [&_span]:border-solid [&_span]:border-[rgb(220,_218,_204)] [&_span]:bg-[#eeecdf] [&_span]:px-2 [&_span]:pt-1 [&_span]:pb-0.75 [&_span]:text-[11px] [&_span]:text-[#777869]"
+            )}
+          >
             {project.stack.map((item) => (
               <span key={item}>{item}</span>
             ))}
           </div>
         </section>
 
-        <div className="page-number">
+        <div
+          className={cn(
+            "page-number absolute right-9.5 bottom-4.5 left-9.5 flex justify-between [border-top-width:1px] [border-top-style:solid] [border-top-color:rgba(157,_149,_114,_0.11)] pt-2.75 text-[10px] tracking-[0.5px] text-[#a09b88]",
+            "[&_.folio]:font-book [&_.folio]:text-[12px]",
+            "after:absolute after:-top-2.5 after:left-[50%] after:[transform:translateX(-50%)] after:bg-[#f6f1e3] after:px-1.75 after:py-0 after:font-[family-name:Georgia] after:text-[15px] after:leading-[normal] after:font-normal after:text-[#aaa083] after:not-italic after:[content:'❧']"
+          )}
+        >
           <span>ЛИЧНЫЕ ПРОЕКТЫ / {project.name.toUpperCase()}</span>
           <span className="folio">
             {String(index * 2 + 1).padStart(2, "0")}
           </span>
         </div>
-      </section>
+      </PaperPage>
 
-      <section
-        className="paper-page page-right personal-detail"
+      <PaperPage
+        side="right"
+        className="personal-detail bg-[#faf5e7] pt-8 pr-9.25 pb-19 pl-10 before:border-[rgba(170,_148,_108,_0.098)] max-[1101px]:pr-6.75 max-[1101px]:pl-6.75 max-[801px]:[border-top-width:1px] max-[801px]:[border-top-style:dashed] max-[801px]:[border-top-color:rgba(191,_184,_163,_0.376)] max-[801px]:pt-6 max-[801px]:pr-7 max-[801px]:pl-7 max-[391px]:[border-top-width:1px] max-[391px]:[border-top-style:dashed] max-[391px]:[border-top-color:rgba(191,_184,_163,_0.376)] max-[391px]:pt-6 max-[391px]:pr-5 max-[391px]:pl-5 min-[1450px]:pt-9 max-[801px]:[&_.page-number]:right-6 max-[801px]:[&_.page-number]:left-6 max-[801px]:[&_.page-number]:text-[8px] [&_.page-number_>_span:first-child]:max-w-[calc(100%_-_32px)] [&_.page-number_>_span:first-child]:[overflow-wrap:anywhere]"
         aria-label="Возможности и ссылки личного проекта"
       >
-        <div className="paperclip" aria-hidden="true" />
-        <div className="margin-spark" aria-hidden="true">
+        <div
+          className={cn(
+            "paperclip pointer-events-none absolute top-0.75 right-5.5 z-[3] h-10.75 w-3.25 [transform:rotate(9deg)] rounded-[9px] border-[2px] border-solid border-[rgb(171,_163,_139)] shadow-[1px_1px_1px_#fff9e8,_inset_1px_0_1px_#4c41252b]",
+            "max-[801px]:right-4.5",
+            "after:absolute after:top-1.25 after:right-0.5 after:-bottom-0.5 after:left-0.5 after:rounded-[0_0_7px_7px] after:border-[1px] after:[border-top-width:0px] after:border-solid after:[border-top-style:none] after:border-[rgb(140,_132,_113)] after:[border-top-color:currentcolor] after:content-['']"
+          )}
+          aria-hidden="true"
+        />
+        <div
+          className={cn(
+            "margin-spark pointer-events-none absolute top-[47%] right-3.5 font-[family-name:Georgia] text-[18px] leading-[normal] font-normal text-[#b09b6266] not-italic",
+            "max-[801px]:right-2 max-[801px]:text-[14px]",
+            "[&_span]:mt-1.25 [&_span]:mr-0 [&_span]:mb-0 [&_span]:-ml-1 [&_span]:block [&_span]:text-[12px]"
+          )}
+          aria-hidden="true"
+        >
           ✦<span>✧</span>
         </div>
 
         <nav
-          className="page-running-head project-links"
+          className={cn(
+            "page-running-head project-links mx-0 mt-0 mb-6.25 flex flex-wrap items-center justify-start gap-2.5 text-[10px] tracking-[normal] text-[#848377] normal-case max-[801px]:mb-6.25",
+            "[&_span:last-child]:text-[11px] [&_span:last-child]:tracking-[0.8px]"
+          )}
           aria-label="Ссылки проекта"
         >
           <a
-            className="project-link primary"
+            className={cn(
+              "project-link primary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border-[1px] border-solid border-[#606c51] bg-[#687458] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#fffdf3] shadow-[inset_0_-3px_0_#4c5741] [transition:transform_0.18s,_box-shadow_0.18s]",
+              "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+              "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+              "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+              "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
+              "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#4c5741]",
+              "[&.nda]:cursor-help [&.nda]:border-[1px] [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#83796b] [&.nda]:shadow-none",
+              "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
+            )}
             href={project.preview}
             target="_blank"
             rel="noopener noreferrer"
@@ -81,7 +164,16 @@ const PersonalSpread = ({
             {project.previewLabel}
           </a>
           <a
-            className="project-link secondary"
+            className={cn(
+              "project-link secondary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border-[1px] border-solid border-[rgba(138,_145,_121,_0.286)] bg-[#f8f5ec] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap shadow-[inset_0_-3px_0_#d9d7cb] [transition:transform_0.18s,_box-shadow_0.18s]",
+              "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+              "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+              "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+              "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
+              "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#d9d7cb]",
+              "[&.nda]:cursor-help [&.nda]:border-[1px] [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#83796b] [&.nda]:shadow-none",
+              "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]"
+            )}
             href={project.repository}
             target="_blank"
             rel="noopener noreferrer"
@@ -91,12 +183,42 @@ const PersonalSpread = ({
           </a>
         </nav>
 
-        <section className="note contribution-note tape personal-feature-note">
-          <div className="section-heading">
+        <section
+          className={cn(
+            "note contribution-note tape personal-feature-note relative mx-0.5 mt-8.25 mb-6 [transform:rotate(var(--contribution-angle))] border-[1px] border-solid border-[rgba(117,_98,_68,_0.075)] bg-[#fffdf5] px-6 pt-6.25 pb-4.75 shadow-[0_1px_1px_#66533112,_2px_5px_7px_-3px_#66533128]",
+            "min-[1450px]:mt-10",
+            "max-[1101px]:px-4.5 max-[1101px]:pt-5.5 max-[1101px]:pb-4.5",
+            "max-[801px]:mt-4.5 max-[801px]:mb-7 max-[801px]:[transform:rotate(calc(var(--contribution-angle)_*_0.45))] max-[801px]:p-6.25",
+            "max-[391px]:mt-4.5 max-[391px]:mb-7 max-[391px]:[transform:rotate(calc(var(--contribution-angle)_*_0.45))] max-[391px]:px-4.25 max-[391px]:py-5.25",
+            "before:absolute before:-top-2.5 before:left-[calc(35px_+_var(--art-x))] before:h-5.5 before:w-18.75 before:[transform:rotate(var(--contribution-tape))] before:[border-inline-width:1px] before:[border-inline-style:dashed] before:[border-inline-color:rgba(161,_140,_88,_0.19)] before:bg-[#d2c7a670] before:shadow-[inset_0_0_8px_#e6dbb365] before:[backdrop-filter:blur(0.2px)] before:content-[''] before:[clip-path:polygon(0_4%,_97%_0,_100%_93%,_3%_100%,_0_76%,_3%_54%)]",
+            "[&>h2]:mx-0 [&>h2]:mt-0 [&>h2]:mb-2.5 [&>h2]:text-[12px] [&>h2]:font-medium [&>h2]:tracking-[1.7px] [&>h2]:uppercase",
+            "[&_.case-list]:mt-5.5 [&_.case-list]:gap-5.25",
+            "[&_.case-list_p]:mt-1.25 [&_.case-list_p]:text-[14px] [&_.case-list_p]:leading-[1.5] [&_.case-list_p]:text-[#76786a]",
+            "[&_.case-list_strong]:text-[16px] [&_.case-list_strong]:text-[#555b4e]"
+          )}
+        >
+          <div
+            className={cn(
+              "section-heading mb-2.25 flex items-center gap-2.5",
+              "[&_h2]:m-0 [&_h2]:font-book [&_h2]:text-[25px] [&_h2]:leading-[normal] [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&_h2]:normal-case [&_h2]:not-italic",
+              "max-[1101px]:[&_h2]:text-[24px]",
+              "[&_.icon]:size-5.5 [&_.icon]:text-[#7d8969]"
+            )}
+          >
             <Icon name="spark" />
             <h2>Что внутри</h2>
           </div>
-          <ol className="case-list">
+          <ol
+            className={cn(
+              "case-list mx-0 mt-3.75 mb-0 grid gap-2.75 p-0 [list-style:none]",
+              "min-[1450px]:gap-3.5",
+              "max-[801px]:gap-3.25",
+              "[&_li]:grid [&_li]:grid-cols-[17px_1fr] [&_li]:gap-x-2",
+              "[&_strong]:text-[14px] [&_strong]:font-medium [&_strong]:text-[#55535a]",
+              "max-[801px]:[&_strong]:text-[16px]",
+              "[&_p]:mx-0 [&_p]:mt-0.5 [&_p]:mb-0 [&_p]:text-[14px] [&_p]:leading-[1.5] [&_p]:text-[#625c68]"
+            )}
+          >
             {project.features.map(([title, description]) => (
               <li key={title}>
                 <div>
@@ -109,8 +231,29 @@ const PersonalSpread = ({
         </section>
 
         {project.installCommand && (
-          <section className="note cases-note personal-install">
-            <div className="section-heading">
+          <section
+            className={cn(
+              "note cases-note personal-install relative mx-0.75 mt-0 mb-5 [transform:rotate(var(--cases-angle))] border-[1px] border-solid border-[rgba(117,_98,_68,_0.075)] bg-[color:var(--pale)] px-5.75 pt-5.75 pb-4.25 shadow-[0_1px_1px_#66533112,_2px_5px_7px_-3px_#66533128]",
+              "min-[1450px]:pt-6.25 min-[1450px]:pb-5.5",
+              "max-[1101px]:px-4.5 max-[1101px]:pt-5.5 max-[1101px]:pb-4.5",
+              "max-[801px]:[transform:rotate(calc(var(--cases-angle)_*_0.45))] max-[801px]:p-6",
+              "max-[391px]:[transform:rotate(calc(var(--cases-angle)_*_0.45))] max-[391px]:px-4.25 max-[391px]:py-5.5",
+              "[&>h2]:mx-0 [&>h2]:mt-0 [&>h2]:mb-2.5 [&>h2]:text-[12px] [&>h2]:font-medium [&>h2]:tracking-[1.7px] [&>h2]:uppercase",
+              "after:absolute after:right-0 after:bottom-0 after:size-5.5 after:[filter:drop-shadow(-1px_-1px_0_#00000008)] after:content-[''] after:[background:linear-gradient(135deg,_#0000000a_49%,_#fbf8ee_50%)]",
+              "[&_.section-heading_.icon]:text-[var(--accent)]",
+              "[&_.section-heading_h2]:text-[22px]",
+              "[&_p]:text-[14px] [&_p]:text-[#767181]",
+              "[&_.copy-feedback]:m-0 [&_.copy-feedback]:px-3 [&_.copy-feedback]:pt-0 [&_.copy-feedback]:pb-2 [&_.copy-feedback]:text-[11px] [&_.copy-feedback]:leading-[1.4] [&_.copy-feedback]:text-[#72617e]"
+            )}
+          >
+            <div
+              className={cn(
+                "section-heading mb-2.25 flex items-center gap-2.5",
+                "[&_h2]:m-0 [&_h2]:font-book [&_h2]:text-[25px] [&_h2]:leading-[normal] [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&_h2]:normal-case [&_h2]:not-italic",
+                "max-[1101px]:[&_h2]:text-[24px]",
+                "[&_.icon]:size-5.5 [&_.icon]:text-[#7d8969]"
+              )}
+            >
               <Icon name="code" />
               <h2>Попробовать skill</h2>
             </div>
@@ -119,13 +262,19 @@ const PersonalSpread = ({
           </section>
         )}
 
-        <div className="page-number">
+        <div
+          className={cn(
+            "page-number absolute right-9.5 bottom-4.5 left-9.5 flex justify-between [border-top-width:1px] [border-top-style:solid] [border-top-color:rgba(157,_149,_114,_0.11)] pt-2.75 text-[10px] tracking-[0.5px] text-[#a09b88]",
+            "[&_.folio]:font-book [&_.folio]:text-[12px]",
+            "after:absolute after:-top-2.5 after:left-[50%] after:[transform:translateX(-50%)] after:bg-[#f6f1e3] after:px-1.75 after:py-0 after:font-[family-name:Georgia] after:text-[15px] after:leading-[normal] after:font-normal after:text-[#aaa083] after:not-italic after:[content:'❧']"
+          )}
+        >
           <span>{project.name}</span>
           <span className="folio">
             {String(index * 2 + 2).padStart(2, "0")}
           </span>
         </div>
-      </section>
+      </PaperPage>
     </>
   )
 }

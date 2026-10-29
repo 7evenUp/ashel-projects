@@ -4,292 +4,60 @@
   --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.64' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath d='M0 0h180v180H0z' filter='url(%23grain)' opacity='.15'/%3E%3C/svg%3E");
   --paper-fibers: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%238f7953' stroke-opacity='.12' stroke-width='.6'%3E%3Cpath d='m18 31 12-2m51 19 2 8m46-33 14 2m44 45 9-3M28 119l15 2m43-24 7 4m48 29 2 9m50-29 12-2M15 188l9 2m40 30 3-8m54-37 11 2m41 32 9-4m36-30 3 8'/%3E%3C/g%3E%3C/svg%3E");
 }
-
-/* Linen case, uneven signatures and the narrow shadow under the page block. */
-.book-cover {
-  background-color: #59614e;
-  border-color: #626b56;
-  background-image:
-    repeating-linear-gradient(0deg, #ffffff12 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, #1d291a20 0 1px, transparent 1px 3px);
-  box-shadow:
-    inset 0 0 0 1px #e3e3bb50,
-    0 2px 2px #31382a60,
-    0 15px 18px -9px #37342e65,
-    0 38px 65px -24px #35312860;
-}
-.book-cover:before {
-  inset: 7px 1px -1px;
-  background: repeating-linear-gradient(
-    0deg,
-    #c0b69e 0 1px,
-    #eee7d5 1px 3px,
-    #ded4bc 3px 4px,
-    #faf4e5 4px 6px
-  );
-  box-shadow:
-    0 2px 2px #34322b50,
-    2px 0 0 #dbd1b9,
-    -2px 0 0 #d4cbb5;
-}
-.book {
-  background: #f4efdf;
-}
-.book:after {
-  width: 70px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #7d6d4820 30%,
-    #51462d45 47%,
-    #4038224d 49%,
-    #fffbeccc 51%,
-    #ac997135 56%,
-    transparent
-  );
-}
-.paper-page {
-  background-image:
-    var(--paper-grain), var(--paper-fibers),
-    radial-gradient(ellipse at 5% 0%, #b6a47718, transparent 45%),
-    linear-gradient(0deg, #b5a16d18, transparent 8%, transparent 93%, #b5a16d12);
-  box-shadow: inset 0 0 25px #b9a77b13;
-}
-.page-left {
-  background-color: #f5f0e1;
-  box-shadow:
-    inset -18px 0 28px -20px #62533270,
-    inset 3px 0 4px #c0af8130;
-}
-.page-right {
-  background-color: #faf5e7;
-  box-shadow:
-    inset 19px 0 28px -24px #62533270,
-    inset -2px 0 4px #c0af8130;
-}
-.paper-page:before {
-  content: "";
-  position: absolute;
-  inset: 11px 10px;
-  pointer-events: none;
-  border: 1px solid #aa946c19;
-  border-radius: 1px;
-}
-.note {
-  background-image:
-    var(--paper-grain), var(--paper-fibers),
-    linear-gradient(115deg, #ffffff30, transparent 55%, #8b774b09);
-  box-shadow:
-    0 1px 1px #66533112,
-    2px 5px 7px -3px #66533128;
-}
-.tape:before {
-  background-image:
-    repeating-linear-gradient(90deg, #fff5d518 0 1px, transparent 1px 4px),
-    linear-gradient(0deg, #b7a57525, #eee0b740 50%, #b7a57525);
-  border-inline: 1px dashed #a18c5830;
-}
-.bookmark {
-  background-image: var(--paper-grain);
-}
-.ribbon {
-  background-image:
-    linear-gradient(
-      90deg,
-      #46335640,
-      transparent 30%,
-      #e6cfee40 48%,
-      transparent 65%,
-      #46335630
-    ),
-    repeating-linear-gradient(0deg, #ffffff20 0 1px, transparent 1px 3px);
-  height: 66px;
-  bottom: -37px;
-  transform: rotate(-3deg);
-}
-.project-desk {
-  padding-left: clamp(42px, calc(746px - 50vw), 96px);
-}
-.home-ribbon-rail {
-  position: absolute;
-  z-index: -1;
-  top: 110px;
-  left: -88px;
-  bottom: 0;
-  width: 104px;
-  pointer-events: none;
-}
-.home-ribbon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 104px;
-  height: 44px;
-  padding: 8px 12px 8px 20px;
-  border: 0;
-  background-color: #8d789c;
-  color: #fff5e7;
-  background-image:
-    linear-gradient(
-      0deg,
-      #46335640,
-      transparent 30%,
-      #e6cfee40 48%,
-      transparent 65%,
-      #46335630
-    ),
-    repeating-linear-gradient(90deg, #ffffff20 0 1px, transparent 1px 3px);
-  box-shadow: inset -3px 0 5px #44334f40;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12% 50%);
-  pointer-events: auto;
-  touch-action: manipulation;
-  user-select: none;
-}
-.home-ribbon:before {
-  content: "";
-  position: absolute;
-  inset: 5px 0 5px 12px;
-  border-block: 1px solid #d2c2dd70;
-  pointer-events: none;
-}
-.home-ribbon .icon {
-  width: 17px;
-  height: 17px;
-  flex-shrink: 0;
-}
-.home-ribbon span {
-  font-size: 12px;
-  letter-spacing: 0.4px;
-}
-.home-ribbon:focus-visible {
-  outline: none;
-  background-color: #6b537f;
-}
-.home-ribbon:focus-visible:before {
-  outline: 2px solid #fff5e7;
-  outline-offset: -3px;
-}
-@media (hover: hover) and (pointer: fine) {
-  .home-ribbon:hover {
-    background-color: #756086;
+@layer components {
+  .book-cover {
+    background-image:
+      repeating-linear-gradient(0deg, #ffffff12 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, #1d291a20 0 1px, transparent 1px 3px);
   }
-}
-@media (max-width: 800px) {
-  .project-desk {
-    padding-left: 48px;
+  .paper-page {
+    background-image:
+      var(--paper-grain), var(--paper-fibers),
+      radial-gradient(ellipse at 5% 0%, #b6a47718, transparent 45%),
+      linear-gradient(
+        0deg,
+        #b5a16d18,
+        transparent 8%,
+        transparent 93%,
+        #b5a16d12
+      );
   }
-  .home-ribbon-rail {
-    top: 100px;
-    left: -38px;
-    width: 48px;
+  .note {
+    background-image:
+      var(--paper-grain), var(--paper-fibers),
+      linear-gradient(115deg, #ffffff30, transparent 55%, #8b774b09);
+  }
+  .tape:before {
+    background-image:
+      repeating-linear-gradient(90deg, #fff5d518 0 1px, transparent 1px 4px),
+      linear-gradient(0deg, #b7a57525, #eee0b740 50%, #b7a57525);
+  }
+  .ribbon {
+    background-image:
+      linear-gradient(
+        90deg,
+        #46335640,
+        transparent 30%,
+        #e6cfee40 48%,
+        transparent 65%,
+        #46335630
+      ),
+      repeating-linear-gradient(0deg, #ffffff20 0 1px, transparent 1px 3px);
   }
   .home-ribbon {
-    position: sticky;
-    top: calc(84px + env(safe-area-inset-top, 0px));
-    width: 48px;
-    height: 40px;
-    padding: 8px 8px 8px 14px;
+    background-image:
+      linear-gradient(
+        0deg,
+        #46335640,
+        transparent 30%,
+        #e6cfee40 48%,
+        transparent 65%,
+        #46335630
+      ),
+      repeating-linear-gradient(90deg, #ffffff20 0 1px, transparent 1px 3px);
   }
-  .home-ribbon span {
-    display: none;
-  }
-}
-.binding-stitches {
-  position: absolute;
-  z-index: 7;
-  top: 12px;
-  bottom: 20px;
-  left: calc(50% - 2px);
-  width: 4px;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0 65px,
-    #e6dbc0 65px 73px,
-    #796c4d 73px 75px,
-    transparent 75px 142px
-  );
-  opacity: 0.7;
-}
-.cover-corner {
-  position: absolute;
-  z-index: 8;
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
-  border: 1px solid #c1ac6b80;
-  background: linear-gradient(
-    135deg,
-    #d3bd7b,
-    #9c874e 40%,
-    #e1d298 50%,
-    #8e7949
-  );
-  box-shadow: 1px 2px 3px #453c3025;
-}
-.corner-tl {
-  left: -5px;
-  top: -4px;
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-  border-radius: 5px 0 0;
-}
-.corner-br {
-  right: -5px;
-  bottom: -5px;
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
-  border-radius: 0 0 6px;
-}
-.paperclip {
-  position: absolute;
-  z-index: 3;
-  right: 22px;
-  top: 3px;
-  width: 13px;
-  height: 43px;
-  border: 2px solid #aba38b;
-  border-radius: 9px;
-  transform: rotate(9deg);
-  box-shadow:
-    1px 1px 1px #fff9e8,
-    inset 1px 0 1px #4c41252b;
-  pointer-events: none;
-}
-.paperclip:after {
-  content: "";
-  position: absolute;
-  inset: 5px 2px -2px;
-  border: 1px solid #8c8471;
-  border-top: 0;
-  border-radius: 0 0 7px 7px;
-}
-.margin-spark {
-  position: absolute;
-  right: 14px;
-  top: 47%;
-  color: #b09b6266;
-  font: 18px Georgia;
-  pointer-events: none;
-}
-.margin-spark span {
-  display: block;
-  margin: 5px 0 0 -4px;
-  font-size: 12px;
-}
-.page-number:after {
-  content: "❧";
-  position: absolute;
-  left: 50%;
-  top: -10px;
-  transform: translateX(-50%);
-  padding: 0 7px;
-  background: #f6f1e3;
-  color: #aaa083;
-  font: 15px Georgia;
 }
 
-/* A printed leaf has two opaque faces. Only its hinge and lighting move. */
 .turn-scene {
   position: absolute;
   inset: 0 2px 9px;
@@ -460,18 +228,7 @@
     transform: scaleX(0.85);
   }
 }
-
 @media (max-width: 800px) {
-  .binding-stitches {
-    display: none;
-  }
-  .paperclip {
-    right: 18px;
-  }
-  .margin-spark {
-    right: 8px;
-    font-size: 14px;
-  }
   .turn-scene {
     overflow: hidden;
     inset: 0 1px 8px;

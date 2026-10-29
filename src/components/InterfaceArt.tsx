@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
 
+import { cn } from "../lib/cn"
+
 const asset = (name: string) =>
   `${import.meta.env.BASE_URL}assets/interfaces/${name}`
 
@@ -55,7 +57,12 @@ function Lines({
 }
 function Caption({ children }: { children: string }) {
   return (
-    <text x="23" y="281" className="interface-art-caption" fill="#8b806f">
+    <text
+      x="23"
+      y="281"
+      className="interface-art-caption font-book text-[12px] leading-[normal] font-normal italic"
+      fill="#8b806f"
+    >
       {children}
     </text>
   )
@@ -63,10 +70,19 @@ function Caption({ children }: { children: string }) {
 function Frame({ children, name }: { children: ReactNode; name: string }) {
   return (
     <div
-      className={`illustration illustration-interface illustration-${name}`}
+      className={cn(
+        "illustration illustration-interface pointer-events-none relative mx-0 mt-3.75 mb-3 h-73.75 max-w-115",
+        "max-[801px]:isolate max-[801px]:mx-auto max-[801px]:mt-5.5 max-[801px]:mb-4 max-[801px]:[aspect-ratio:440/295] max-[801px]:h-auto max-[801px]:w-full max-[801px]:max-w-105 max-[801px]:overflow-visible",
+        "min-[801px]:max-[1101px]:h-61.25",
+        `illustration-${name}`
+      )}
       aria-hidden="true"
     >
-      <svg className="interface-collage" viewBox="0 0 440 295" fill="none">
+      <svg
+        className="interface-collage block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        viewBox="0 0 440 295"
+        fill="none"
+      >
         {children}
       </svg>
     </div>
@@ -104,7 +120,12 @@ export function IdArt() {
         <text x="20" y="16" textAnchor="middle" fontSize="9" fill="white">
           ID
         </text>
-        <text x="35" y="16" className="interface-art-label" fill="#f6f2ea">
+        <text
+          x="35"
+          y="16"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#f6f2ea"
+        >
           CRYPTON / ЛИЧНЫЙ КАБИНЕТ
         </text>
         <rect x="10" y="35" width="48" height="155" rx="3" fill="#e8e4df" />
@@ -130,7 +151,12 @@ export function IdArt() {
         <text x="90" y="59" textAnchor="middle" fontSize="10" fill="#a05b60">
           ID
         </text>
-        <text x="113" y="50" className="interface-art-label" fill="#494547">
+        <text
+          x="113"
+          y="50"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#494547"
+        >
           МОЙ ПРОФИЛЬ
         </text>
         <Lines x={113} y={61} w={92} />
@@ -143,7 +169,12 @@ export function IdArt() {
           fill="#fffdfa"
           stroke="#dfd8cf"
         />
-        <text x="81" y="95" className="interface-art-label" fill="#77706a">
+        <text
+          x="81"
+          y="95"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#77706a"
+        >
           ПРИВЯЗАННЫЕ АККАУНТЫ
         </text>
         {["EMAIL", "TELEGRAM", "TON"].map((label, i) => (
@@ -167,7 +198,12 @@ export function IdArt() {
             </text>
           </g>
         ))}
-        <text x="74" y="145" className="interface-art-label" fill="#77706a">
+        <text
+          x="74"
+          y="145"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#77706a"
+        >
           МОИ ПРОДУКТЫ
         </text>
         {["prime", "academy", "calendar"].map((name, i) => (
@@ -205,7 +241,12 @@ export function IdArt() {
         fill="#f5e8d0"
         stroke="#cab383"
       >
-        <text x="13" y="20" className="interface-art-label" fill="#897044">
+        <text
+          x="13"
+          y="20"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#897044"
+        >
           CRYPTON POINTS
         </text>
         <circle cx="34" cy="53" r="19" fill="#e9c46e" stroke="#c09a46" />
@@ -227,7 +268,12 @@ export function IdArt() {
         fill="#ecddea"
         stroke="#c7a8c1"
       >
-        <text x="12" y="20" className="interface-art-label" fill="#916b87">
+        <text
+          x="12"
+          y="20"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#916b87"
+        >
           PRIME / ПОДПИСКА
         </text>
         <image
@@ -308,7 +354,12 @@ export function XProgramArt() {
         fill="#e7f5bb"
         stroke="#b7c58a"
       >
-        <text x="12" y="18" className="interface-art-label" fill="#647342">
+        <text
+          x="12"
+          y="18"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#647342"
+        >
           ПАРТНЁРСТВО
         </text>
         <circle cx="28" cy="44" r="12" fill="#c0a0df" />
@@ -330,7 +381,12 @@ export function XProgramArt() {
         fill="#f8f2e3"
         stroke="#c3b4a0"
       >
-        <text x="11" y="20" className="interface-art-label" fill="#817360">
+        <text
+          x="11"
+          y="20"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#817360"
+        >
           ПРОДУКТЫ CRYPTON
         </text>
         <path d="M15 77H106M15 77V33" stroke="#d4c7b1" />
@@ -372,7 +428,12 @@ export function PrimeArt() {
         <text x="17" y="29" fontSize="24" fontWeight="500" fill="#f3d3eb">
           CRYPTON PRIME
         </text>
-        <text x="18" y="46" className="interface-art-label" fill="#b78da9">
+        <text
+          x="18"
+          y="46"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#b78da9"
+        >
           СООБЩЕСТВО · АНАЛИТИКА · ОБУЧЕНИЕ
         </text>
         <rect
@@ -384,7 +445,12 @@ export function PrimeArt() {
           fill="#39333e"
           stroke="#594b61"
         />
-        <text x="25" y="79" className="interface-art-label" fill="#d8c5d6">
+        <text
+          x="25"
+          y="79"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#d8c5d6"
+        >
           АНАЛИТИКА РЫНКА
         </text>
         <path d="M25 130H145M25 113H145M25 96H145" stroke="#4c424f" />
@@ -419,7 +485,12 @@ export function PrimeArt() {
         fill="#efe5f0"
         stroke="#bba6bc"
       >
-        <text x="13" y="20" className="interface-art-label" fill="#896e8a">
+        <text
+          x="13"
+          y="20"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#896e8a"
+        >
           КАЛЕНДАРЬ WEB3
         </text>
         <path d="M13 29H114" stroke="#c7b5cb" />
@@ -444,7 +515,12 @@ export function PrimeArt() {
         fill="#f1e3bd"
         stroke="#c5ae77"
       >
-        <text x="10" y="17" className="interface-art-label" fill="#88713b">
+        <text
+          x="10"
+          y="17"
+          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          fill="#88713b"
+        >
           BLACK FRIDAY
         </text>
         <image
@@ -571,7 +647,12 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             fill="#e7dcf1"
             stroke="#b89ace"
           >
-            <text x="13" y="22" className="interface-art-label" fill="#9565b5">
+            <text
+              x="13"
+              y="22"
+              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              fill="#9565b5"
+            >
               RUMI / AI-АССИСТЕНТ
             </text>
             <image
@@ -599,7 +680,12 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             fill="#e7e9fc"
             stroke="#a4afd5"
           >
-            <text x="13" y="20" className="interface-art-label" fill="#707fad">
+            <text
+              x="13"
+              y="20"
+              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              fill="#707fad"
+            >
               TELEGRAM + BASE
             </text>
             <circle cx="29" cy="49" r="14" fill="#90b8d8" />
@@ -634,7 +720,12 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             <text x="14" y="18" fontSize="11" fontWeight="500" fill="#fff9f0">
               OPEN ACADEMY
             </text>
-            <text x="17" y="48" className="interface-art-label" fill="#86629f">
+            <text
+              x="17"
+              y="48"
+              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              fill="#86629f"
+            >
               МОИ КУРСЫ
             </text>
             <rect
@@ -699,7 +790,12 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             stroke="#b49bc4"
           >
             <rect width="132" height="23" rx="5" fill="#c4a4df" />
-            <text x="10" y="15" className="interface-art-label" fill="#674780">
+            <text
+              x="10"
+              y="15"
+              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              fill="#674780"
+            >
               РЕДАКТОР КУРСА
             </text>
             <rect x="7" y="30" width="31" height="82" rx="3" fill="#eee4f5" />
@@ -785,7 +881,12 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             fill="#f4e8c7"
             stroke="#cdb984"
           >
-            <text x="12" y="20" className="interface-art-label" fill="#937c47">
+            <text
+              x="12"
+              y="20"
+              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              fill="#937c47"
+            >
               НАГРАДА ЗА УРОК
             </text>
             <path

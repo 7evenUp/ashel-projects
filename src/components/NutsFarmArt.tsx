@@ -1,3 +1,5 @@
+import { cn } from "../lib/cn"
+
 const asset = (name: string) =>
   `${import.meta.env.BASE_URL}assets/nutsfarm/${name}.png`
 
@@ -32,8 +34,19 @@ function Walnut({
 /** A scrapbook scene of the original coin farming loop and its adjacent game systems. */
 export function NutsFarmArt() {
   return (
-    <div className="illustration illustration-farming" aria-hidden="true">
-      <svg className="nutsfarm-collage" viewBox="0 0 440 340" fill="none">
+    <div
+      className={cn(
+        "illustration illustration-farming pointer-events-none relative mx-0 mt-3 mb-1.75 h-85 max-w-115",
+        "max-[801px]:isolate max-[801px]:mx-auto max-[801px]:mt-5.5 max-[801px]:mb-3 max-[801px]:[aspect-ratio:440/340] max-[801px]:h-auto max-[801px]:w-full max-[801px]:max-w-105 max-[801px]:overflow-visible",
+        "min-[801px]:max-[1101px]:h-71.25"
+      )}
+      aria-hidden="true"
+    >
+      <svg
+        className="nutsfarm-collage block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        viewBox="0 0 440 340"
+        fill="none"
+      >
         <g transform="translate(0 35) rotate(-3 148 110)">
           <rect
             x="12"
@@ -63,7 +76,12 @@ export function NutsFarmArt() {
             strokeDasharray="3 4"
           />
           <path d="M95 19L163 13L166 32L98 37Z" fill="#d2c7a68c" />
-          <text x="34" y="48" className="nutsfarm-art-label" fill="#8b744c">
+          <text
+            x="34"
+            y="48"
+            className="nutsfarm-art-label font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
+            fill="#8b744c"
+          >
             NUTS FARM / МИНИ-ИГРЫ
           </text>
           <ellipse
@@ -137,7 +155,12 @@ export function NutsFarmArt() {
             strokeWidth="2"
             strokeLinecap="round"
           />
-          <text x="177" y="185" className="nutsfarm-art-label" fill="#8b744c">
+          <text
+            x="177"
+            y="185"
+            className="nutsfarm-art-label font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
+            fill="#8b744c"
+          >
             ОРЕХ → МОНЕТА
           </text>
         </g>
@@ -328,7 +351,7 @@ export function NutsFarmArt() {
             x="360"
             y="194"
             textAnchor="middle"
-            className="nutsfarm-art-label"
+            className="nutsfarm-art-label font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
             fill="#7c8d67"
           >
             КАРТА УРОКОВ
@@ -414,7 +437,12 @@ export function NutsFarmArt() {
             УРОКИ · XP
           </text>
         </g>
-        <text x="29" y="281" className="nutsfarm-art-caption" fill="#8d8063">
+        <text
+          x="29"
+          y="281"
+          className="nutsfarm-art-caption font-book text-[12px] leading-[normal] font-normal italic"
+          fill="#8d8063"
+        >
           Мини-игры, уроки и сезонный пропуск.
         </text>
       </svg>

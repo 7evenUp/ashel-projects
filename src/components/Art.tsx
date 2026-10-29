@@ -2,7 +2,11 @@ import { IdArt, XProgramArt, PrimeArt, AcademyArt } from "./InterfaceArt"
 import { NutcrackerArt } from "./NutcrackerArt"
 import { XmsArt } from "./XmsArt"
 import { NutsFarmArt } from "./NutsFarmArt"
+
 import type { Project, SymbolName, Variant } from "../types"
+
+import { cn } from "../lib/cn"
+
 const paths = {
   key: (
     <>
@@ -84,7 +88,10 @@ export function Icon({
 }) {
   return (
     <svg
-      className={"icon " + className}
+      className={cn(
+        "icon size-5.5 align-middle [a_&]:size-4.5 [a_&]:flex-none [button_&]:size-4.5 [button_&]:flex-none",
+        className
+      )}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

@@ -1,5 +1,7 @@
 import { Fragment, useEffect, useRef } from "react"
 
+import { cn } from "../lib/cn"
+
 function inline(text: string) {
   return text
     .split(/(\*\*.*?\*\*)/g)
@@ -82,7 +84,22 @@ export function NotesDialog({
   return (
     <dialog
       ref={ref}
-      className="journal-dialog"
+      className={cn(
+        "journal-dialog m-auto max-h-[86dvh] w-[min(740px,_calc(100%_-_32px))] rounded-[8px] border-[1px] border-solid border-[rgb(216,_208,_186)] bg-[#faf7eb] px-9.75 pt-6.75 pb-10 text-[#565a4e] shadow-[0_30px_100px_#22281f55]",
+        "max-[801px]:px-5.75 max-[801px]:pt-5 max-[801px]:pb-7",
+        "backdrop:bg-[#34382d70] backdrop:[backdrop-filter:blur(5px)]",
+        "[&_h2]:mx-0 [&_h2]:mt-3 [&_h2]:mb-5 [&_h2]:font-book [&_h2]:text-[36px] [&_h2]:leading-[normal] [&_h2]:font-normal [&_h2]:not-italic",
+        "[&_h3]:mx-0 [&_h3]:mt-7 [&_h3]:mb-3.75 [&_h3]:font-book [&_h3]:text-[23px] [&_h3]:leading-[1.3] [&_h3]:font-normal [&_h3]:not-italic",
+        "[&_h4]:mx-0 [&_h4]:mt-6 [&_h4]:mb-2.5 [&_h4]:text-[17px]",
+        "[&_p]:text-[17px] [&_p]:leading-[1.55]",
+        "[&_li]:mb-2.5 [&_li]:text-[17px] [&_li]:leading-[1.55]",
+        "[&_a]:[border-bottom-width:1px] [&_a]:[border-bottom-style:solid] [&_a]:[border-bottom-color:rgba(113,_96,_135,_0.376)] [&_a]:text-[#716087]",
+        "[&_strong]:font-medium [&_strong]:text-[#41473b]",
+        "[&_hr]:mx-0 [&_hr]:my-6.5 [&_hr]:border-0 [&_hr]:[border-top-width:1px] [&_hr]:border-none [&_hr]:[border-top-style:solid] [&_hr]:border-[currentcolor] [&_hr]:[border-top-color:rgb(211,_203,_181)]",
+        "[&_.source-note]:text-[12px] [&_.source-note]:text-[#99917e]",
+        "[&_ul]:pl-6 [&_ul]:[list-style:disc]",
+        "[&:not([open])]:hidden"
+      )}
       aria-labelledby="dialog-title"
       onCancel={onClose}
       onClose={onClose}
@@ -98,10 +115,12 @@ export function NotesDialog({
           onClose()
       }}
     >
-      <div className="dialog-top">
-        <span className="eyebrow">ЗАПИСИ РАЗРАБОТЧИКА</span>
+      <div className="dialog-top flex items-center justify-between">
+        <span className="eyebrow text-[10px] tracking-[2px] text-[#a19a83]">
+          ЗАПИСИ РАЗРАБОТЧИКА
+        </span>
         <button
-          className="close-dialog"
+          className="close-dialog size-8.5 rounded-full border-[1px] border-solid border-[rgb(217,_210,_189)] bg-[#eee9da] text-[#7b7b6a]"
           aria-label="Закрыть заметки"
           onClick={onClose}
         >

@@ -12,7 +12,10 @@ export function ProjectFavicon({
 }) {
   const [failed, setFailed] = useState(false)
   return (
-    <span className="bookmark-favicon" aria-hidden="true">
+    <span
+      className="bookmark-favicon flex size-5 flex-none items-center justify-center max-[801px]:size-4 [&_img]:size-full [&_img]:object-contain"
+      aria-hidden="true"
+    >
       {failed ? (
         <Icon name={symbol} />
       ) : (
