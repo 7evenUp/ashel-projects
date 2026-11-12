@@ -12,7 +12,10 @@ const filenames = readdirSync(notesDirectory, { withFileTypes: true })
 
 const sourceNotes = Object.fromEntries(
   filenames.map((filename) => {
-    const text = readFileSync(new URL(filename, notesDirectory), "utf8")
+    const text = readFileSync(
+      new URL(filename, notesDirectory),
+      "utf8"
+    ).replaceAll("\r\n", "\n")
     const match = text.match(header)
     const body = match && text.slice(match[0].length).trim()
     if (!match || !body) {

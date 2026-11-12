@@ -5,10 +5,10 @@ import {
   useState,
   useSyncExternalStore,
 } from "react"
-import type { TouchEvent } from "react"
 import { flushSync } from "react-dom"
 
 import { captureTurn } from "../PageTurn"
+import { useBookSwipe } from "./useBookSwipe"
 
 import {
   chapterRoute,
@@ -47,7 +47,6 @@ export function useBookNavigation({
     route.page === "design" ? { page: "intro" } : route
   )
   const book = useRef<HTMLDivElement>(null)
-  const touch = useRef<{ id: number; x: number; y: number } | null>(null)
 
   const isReduced = useSyncExternalStore(
     subscribeToReducedMotion,
@@ -211,38 +210,11 @@ export function useBookNavigation({
     void transition.finished.then(finish, finish)
   }
 
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    const point = event.touches[0]
-    touch.current =
-      event.touches.length === 1 &&
-      event.target instanceof Element &&
-      !event.target.closest("a,button")
-        ? { id: point.identifier, x: point.clientX, y: point.clientY }
-        : null
-  }
-
-  const clearTouch = () => {
-    touch.current = null
-  }
-
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    const start = touch.current
-    clearTouch()
-    if (!start) return
-
-    const end = Array.from(event.changedTouches).find(
-      (point) => point.identifier === start.id
-    )
-    if (!end) return
-
-    const dx = end.clientX - start.x
-    const dy = end.clientY - start.y
-    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.8) {
-      navigateChapter(routePosition(currentRoute.current) + (dx < 0 ? 1 : -1), {
-        scroll: true,
-      })
-    }
-  }
+  const touchHandlers = useBookSwipe((step) => {
+    navigateChapter(routePosition(currentRoute.current) + step, {
+      scroll: true,
+    })
+  })
 
   const finishTurn = (serial: number) =>
     setTurn((current) => (current?.serial === serial ? null : current))
@@ -256,10 +228,6 @@ export function useBookNavigation({
     navigateChapter,
     handleModeChange,
     finishTurn,
-    touchHandlers: {
-      onTouchStart: handleTouchStart,
-      onTouchEnd: handleTouchEnd,
-      onTouchCancel: clearTouch,
-    },
+    touchHandlers,
   }
 }

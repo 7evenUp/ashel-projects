@@ -15,7 +15,7 @@ test("Every supplied project is represented once, with its original links and fu
     const original = readFileSync(
       new URL(`../../projects-info/${id}.md`, import.meta.url),
       "utf8"
-    )
+    ).replaceAll("\r\n", "\n")
     const note = sourceNotes[id]
     assert.equal(note.code, original.match(/Исходный код: (.+)/)[1].trim())
     assert.equal(note.deploy, original.match(/Деплой: (.+)/)[1].trim())
@@ -30,7 +30,10 @@ test("Every supplied project is represented once, with its original links and fu
 })
 
 test("All chapters contain the PRD information, including both Academy experiences", () => {
-  for (const project of [...projects, projects.at(-1).mini]) {
+  for (const project of [
+    ...projects,
+    projects.find(({ id }) => id === "academy").mini,
+  ]) {
     for (const field of ["name", "category", "tagline", "description", "role"])
       assert.ok(project[field]?.length, `${project.name}: ${field}`)
     assert.ok(project.contribution.length >= 3)
