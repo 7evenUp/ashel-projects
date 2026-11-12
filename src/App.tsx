@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import type { MouseEvent, TouchEvent } from "react"
+import { flushSync } from "react-dom"
 
+import DesignSpread from "./components/DesignSpread"
 import IntroSpread from "./components/IntroSpread/IntroSpread"
 import PersonalSpread from "./components/PersonalSpread/PersonalSpread"
 import { Icon } from "./components/Art"
@@ -23,7 +25,7 @@ import { parseRoute, routeHash } from "./routing"
 import { cn } from "./lib/cn"
 
 const routePosition = (route: Route) =>
-  route.page === "intro" ? -1 : route.index
+  route.page === "intro" || route.page === "design" ? -1 : route.index
 
 const routeStyle = (route: Route): ThemeStyle => {
   if (route.page === "personal") {
@@ -59,6 +61,10 @@ const useReducedMotion = () => {
 export function App() {
   const [route, setRoute] = useState(() => parseRoute(location.hash))
   const routeRef = useRef(route)
+  const codeRoute = useRef<Route>(
+    route.page === "design" ? { page: "intro" } : route
+  )
+  const modeTransition = useRef<ViewTransition | null>(null)
   const book = useRef<HTMLDivElement>(null)
   const tabs = useRef<HTMLElement>(null)
   const touch = useRef<{ x: number; y: number } | null>(null)
@@ -75,6 +81,8 @@ export function App() {
       const previous = routeRef.current
       if (routeHash(next) === routeHash(previous)) return
 
+      const isModeChange =
+        (previous.page === "design") !== (next.page === "design")
       const direction = routePosition(next) - routePosition(previous)
       const front = book.current?.querySelector(
         direction > 0 ? ".page-right" : ".page-left"
@@ -85,7 +93,12 @@ export function App() {
       const isMobile = window.matchMedia("(max-width: 800px)").matches
 
       setTurn(
-        isReduced || !animate || !direction || !front || !resting
+        isReduced ||
+          !animate ||
+          isModeChange ||
+          !direction ||
+          !front ||
+          !resting
           ? null
           : {
               direction,
@@ -97,10 +110,11 @@ export function App() {
       )
 
       routeRef.current = next
+      if (next.page !== "design") codeRoute.current = next
       setRoute(next)
       setDialog(null)
 
-      if (next.page !== previous.page) {
+      if (!isModeChange && next.page !== previous.page) {
         requestAnimationFrame(() =>
           book.current?.focus({ preventScroll: true })
         )
@@ -125,6 +139,7 @@ export function App() {
 
   const navigateChapter = useCallback(
     (index: number, scroll = false, animate = true) => {
+      if (routeRef.current.page === "design") return
       const isPersonal = routeRef.current.page === "personal"
       const chapterCount = isPersonal
         ? personalProjects.length
@@ -143,7 +158,10 @@ export function App() {
   )
 
   useEffect(() => {
-    const handleRestore = () => applyRoute(parseRoute(location.hash))
+    const handleRestore = () => {
+      modeTransition.current?.skipTransition()
+      applyRoute(parseRoute(location.hash))
+    }
     window.addEventListener("popstate", handleRestore)
     window.addEventListener("hashchange", handleRestore)
 
@@ -154,27 +172,33 @@ export function App() {
   }, [applyRoute])
 
   useEffect(() => {
-    if (isReduced) setTurn(null)
+    if (isReduced) {
+      modeTransition.current?.skipTransition()
+      setTurn(null)
+    }
   }, [isReduced])
 
+  const isDesign = route.page === "design"
   const isIntro = route.page === "intro"
   const isPersonal = route.page === "personal"
   const activeIndex = routePosition(route)
   const bookProjects = isPersonal ? personalProjects : projects
   const chapterCount = bookProjects.length
-  const chapterName = bookProjects[isIntro ? 0 : activeIndex].name
+  const chapterName = bookProjects[Math.max(0, activeIndex)].name
   const base = projects[route.page === "project" ? route.index : 0]
   const variant = route.page === "project" ? route.mode : "web"
   const project =
     variant === "mini" && base.mini ? { ...base, ...base.mini } : base
 
   useEffect(() => {
-    document.title = isIntro
-      ? `${profile.name} — дневник frontend-разработчика`
-      : isPersonal
-        ? `${chapterName} — личные проекты Артёма`
-        : `${project.name} — дневник разработчика Crypton`
-  }, [isIntro, isPersonal, chapterName, project.name])
+    document.title = isDesign
+      ? `${profile.name} — дизайн-работы`
+      : isIntro
+        ? `${profile.name} — дневник frontend-разработчика`
+        : isPersonal
+          ? `${chapterName} — личные проекты Артёма`
+          : `${project.name} — дневник разработчика Crypton`
+  }, [isDesign, isIntro, isPersonal, chapterName, project.name])
 
   useEffect(() => {
     if (!window.matchMedia("(max-width: 800px)").matches) return
@@ -195,6 +219,7 @@ export function App() {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target instanceof HTMLElement ? event.target : null
       if (
+        isDesign ||
         dialog ||
         event.altKey ||
         event.ctrlKey ||
@@ -222,7 +247,40 @@ export function App() {
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [dialog, navigateChapter])
+  }, [dialog, isDesign, navigateChapter])
+
+  const handleModeChange = () => {
+    if (modeTransition.current) return
+
+    const next = isDesign ? codeRoute.current : ({ page: "design" } as const)
+    const changeMode = () => {
+      navigate(next, false, false)
+      window.scrollTo({ top: 0, behavior: "instant" })
+    }
+
+    if (isReduced || !document.startViewTransition) {
+      changeMode()
+      return
+    }
+
+    const root = document.documentElement
+    const fromHash = location.hash
+    root.dataset.modeTransition = isDesign ? "close" : "open"
+    const transition = document.startViewTransition(() => {
+      if (location.hash !== fromHash) return
+
+      flushSync(changeMode)
+      root.dataset.modeRipple = ""
+    })
+    modeTransition.current = transition
+
+    const finish = () => {
+      delete root.dataset.modeTransition
+      delete root.dataset.modeRipple
+      modeTransition.current = null
+    }
+    void transition.finished.then(finish, finish)
+  }
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement
@@ -264,34 +322,77 @@ export function App() {
 
   return (
     <div
-      className="game-world relative isolate min-h-[100svh] [&_>_.desk]:z-[1]"
-      style={routeStyle(route)}
+      className={cn(
+        "game-world relative isolate min-h-[100svh] [&_>_.desk]:z-[1]",
+        isDesign &&
+          "bg-[#15131a] [background-image:var(--paper-grain),radial-gradient(ellipse_at_50%_25%,#352837,transparent_75%)] text-[#f5e9e5] [color-scheme:dark] [background-blend-mode:soft-light,normal]"
+      )}
+      style={isDesign ? undefined : routeStyle(route)}
     >
       <a
         className={cn(
           "skip-link",
           "[&:not(:focus)]:absolute [&:not(:focus)]:size-px [&:not(:focus)]:overflow-hidden [&:not(:focus)]:[clip-path:inset(50%)]",
-          "[&:focus]:fixed [&:focus]:top-3 [&:focus]:left-3 [&:focus]:z-[100] [&:focus]:bg-white [&:focus]:p-3"
+          "[&:focus]:fixed [&:focus]:top-3 [&:focus]:left-3 [&:focus]:z-[100] [&:focus]:bg-white [&:focus]:p-3",
+          isDesign && "[&:focus]:bg-[#352837] [&:focus]:outline-[#e6a996]"
         )}
         href="#spread"
         onClick={handleSkipToSpread}
       >
         К развороту
       </a>
-      <TableScenery />
+      <header className="relative z-[2] flex justify-center pt-[max(12px,env(safe-area-inset-top))]">
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isDesign}
+          aria-label="Режим Design"
+          aria-controls="spread"
+          onClick={handleModeChange}
+          className={cn(
+            "relative grid min-h-11 w-44 touch-manipulation grid-cols-2 items-center rounded-full border p-1 text-sm font-medium select-none active:brightness-95",
+            isDesign
+              ? "border-[#665163] bg-[#25212c] text-[#d9c7ce] focus-visible:outline-[#e6a996]"
+              : "border-[#7c84694d] bg-[#dcded0] text-[#47523c]"
+          )}
+        >
+          <span
+            aria-hidden="true"
+            className={cn(
+              "absolute inset-y-1 left-1 w-[calc(50%_-_4px)] rounded-full",
+              "motion-safe:transition-transform motion-safe:duration-200",
+              isDesign
+                ? "bg-[#e6a996] shadow-[0_1px_3px_#17121b40]"
+                : "translate-x-full bg-[#fffdf5] shadow-[0_1px_3px_#3e322526]"
+            )}
+          />
+          <span
+            aria-hidden="true"
+            className={cn("relative", isDesign && "text-[#30202a]")}
+          >
+            Design
+          </span>
+          <span aria-hidden="true" className="relative">
+            Code
+          </span>
+        </button>
+      </header>
+      <TableScenery isDesign={isDesign} />
+      <div className="mode-ripple" aria-hidden="true" />
       <main
         className={cn(
-          "desk relative m-auto max-w-325 px-10.5 pt-24.5 pb-6.25",
-          "min-[1450px]:pt-27.5",
-          "max-[1101px]:pt-22.5 max-[1101px]:pr-6.25 max-[1101px]:pl-6.25",
+          "desk relative m-auto max-w-325 px-10.5 pt-20 pb-6.25",
+          "min-[1450px]:pt-22",
+          "max-[1101px]:pt-19 max-[1101px]:pr-6.25 max-[1101px]:pl-6.25",
           "max-[801px]:max-w-152.5 max-[801px]:px-4 max-[801px]:pt-0 max-[801px]:pb-5.75",
-          isIntro
-            ? "intro-desk pt-12 max-[1101px]:pt-12 max-[801px]:pt-5 min-[1450px]:pt-12"
-            : "project-desk pl-[clamp(42px,_calc(746px_-_50vw),_96px)] max-[1101px]:pl-[clamp(42px,calc(746px-50vw),96px)] max-[801px]:pl-12"
+          isIntro || isDesign
+            ? "intro-desk pt-6 pb-12 max-[1101px]:pt-6 max-[801px]:pt-5 min-[1450px]:pt-6"
+            : "project-desk pl-[clamp(42px,_calc(746px_-_50vw),_96px)] max-[1101px]:pl-[clamp(42px,calc(746px-50vw),96px)] max-[801px]:pl-12",
+          isDesign && "max-[801px]:pb-12"
         )}
       >
         <div className="book-shell relative isolate">
-          {!isIntro && (
+          {!isIntro && !isDesign && (
             <nav
               ref={tabs}
               className={cn(
@@ -376,6 +477,8 @@ export function App() {
               "book-cover relative rounded-[11px_10px_14px_13px] border-[7px] [border-top-width:6px] border-solid border-[#626b56] bg-[#59614e] px-0.5 pt-0 pb-2.25 shadow-[inset_0_0_0_1px_#e3e3bb50,_0_2px_2px_#31382a60,_0_15px_18px_-9px_#37342e65,_0_38px_65px_-24px_#35312860]",
               "max-[801px]:border-[5px] max-[801px]:pr-px max-[801px]:pb-2 max-[801px]:pl-px",
               "before:absolute before:top-1.75 before:right-px before:-bottom-px before:left-px before:[transform:translateY(3px)] before:rounded-[4px_4px_8px_8px] before:shadow-[0_2px_2px_#34322b50,_2px_0_0_#dbd1b9,_-2px_0_0_#d4cbb5] before:content-[''] before:[background:repeating-linear-gradient(_0deg,_#c0b69e_0_1px,_#eee7d5_1px_3px,_#ded4bc_3px_4px,_#faf4e5_4px_6px_)]",
+              isDesign &&
+                "border-[#493447] bg-[#352635] shadow-[inset_0_0_0_1px_#c18b9e26,_0_2px_2px_#0e0b11b3,_0_18px_24px_-10px_#0e0b11e6,_0_38px_65px_-24px_#0e0b11e6] before:shadow-[0_2px_2px_#100c14a0,_2px_0_0_#413546,_-2px_0_0_#3a3040] before:[background:repeating-linear-gradient(_0deg,_#241d2a_0_1px,_#403445_1px_3px,_#302636_3px_4px,_#483a4d_4px_6px_)]",
               turn &&
                 (turn.direction > 0 ? "turning-forward" : "turning-backward")
             )}
@@ -383,7 +486,9 @@ export function App() {
             <div
               className={cn(
                 "binding-stitches pointer-events-none absolute top-3 bottom-5 left-[calc(50%_-_2px)] z-[7] w-1 opacity-[0.7] [background:repeating-linear-gradient(_0deg,_transparent_0_65px,_#e6dbc0_65px_73px,_#796c4d_73px_75px,_transparent_75px_142px_)]",
-                "max-[801px]:hidden"
+                "max-[801px]:hidden",
+                isDesign &&
+                  "[background:repeating-linear-gradient(_0deg,_transparent_0_65px,_#a67c8b_65px_73px,_#493145_73px_75px,_transparent_75px_142px_)]"
               )}
               aria-hidden="true"
             />
@@ -409,20 +514,28 @@ export function App() {
                 "max-[1101px]:min-h-188.75",
                 "max-[801px]:min-h-0 max-[801px]:[scroll-margin-top:calc(78px_+_env(safe-area-inset-top,_0px))] max-[801px]:grid-cols-[1fr]",
                 "after:pointer-events-none after:absolute after:top-0 after:bottom-0 after:left-[50%] after:z-[6] after:w-17.5 after:[transform:translateX(-50%)] after:content-[''] after:[background:linear-gradient(_90deg,_transparent,_#7d6d4820_30%,_#51462d45_47%,_#4038224d_49%,_#fffbeccc_51%,_#ac997135_56%,_transparent_)]",
-                "max-[801px]:after:hidden"
+                "max-[801px]:after:hidden",
+                isDesign &&
+                  "bg-[#24212b] after:[background:linear-gradient(_90deg,_transparent,_#100d1770_30%,_#100d17c0_48%,_#6a53635c_51%,_#17121d60_57%,_transparent_)]"
               )}
               id="spread"
               tabIndex={-1}
               aria-label={
-                isIntro ? "Личная и рабочая стороны" : "Разворот проекта"
+                isDesign
+                  ? "Альбом дизайн-работ"
+                  : isIntro
+                    ? "Личная и рабочая стороны"
+                    : "Разворот проекта"
               }
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
+              onTouchStart={isDesign ? undefined : handleTouchStart}
+              onTouchEnd={isDesign ? undefined : handleTouchEnd}
               onTouchCancel={() => {
                 touch.current = null
               }}
             >
-              {route.page === "intro" ? (
+              {route.page === "design" ? (
+                <DesignSpread />
+              ) : route.page === "intro" ? (
                 <IntroSpread
                   onOpenProject={handleOpenProject}
                   onOpenPersonalProject={handleOpenPersonalProject}
@@ -454,12 +567,14 @@ export function App() {
               />
             )}
           </div>
-          {isIntro ? (
+          {isIntro || isDesign ? (
             <div
               className={cn(
                 "ribbon absolute -bottom-9.25 left-[calc(50%_+_60px)] z-[-1] h-16.5 w-6.75 [transform:rotate(-3deg)] bg-[#a18eaf] shadow-[3px_2px_6px_#6c52643b] [clip-path:polygon(0_0,_100%_0,_100%_100%,_50%_83%,_0_100%)]",
                 "max-[801px]:right-10.5 max-[801px]:left-auto",
-                "after:absolute after:top-0 after:right-1 after:bottom-0 after:left-1 after:[border-right-width:1px] after:[border-left-width:1px] after:[border-right-style:solid] after:[border-left-style:solid] after:[border-right-color:rgb(196,_182,_206)] after:[border-left-color:rgb(196,_182,_206)] after:content-['']"
+                "after:absolute after:top-0 after:right-1 after:bottom-0 after:left-1 after:[border-right-width:1px] after:[border-left-width:1px] after:[border-right-style:solid] after:[border-left-style:solid] after:[border-right-color:rgb(196,_182,_206)] after:[border-left-color:rgb(196,_182,_206)] after:content-['']",
+                isDesign &&
+                  "bg-[#8e586f] shadow-[3px_2px_6px_#100c1450] after:[border-right-color:#ba8799] after:[border-left-color:#ba8799]"
               )}
               aria-hidden="true"
             />
@@ -494,7 +609,7 @@ export function App() {
           )}
         </div>
 
-        {!isIntro && (
+        {!isIntro && !isDesign && (
           <footer
             className={cn(
               "book-controls mx-auto mt-7.5 mb-0 flex max-w-145 items-center justify-between gap-6.25",
@@ -576,9 +691,11 @@ export function App() {
         role="status"
         aria-live="polite"
       >
-        {isIntro
-          ? "Начало книги: личные и рабочие проекты"
-          : `Глава ${activeIndex + 1} из ${chapterCount}: ${chapterName}`}
+        {isDesign
+          ? "Альбом дизайн-работ"
+          : isIntro
+            ? "Начало книги: личные и рабочие проекты"
+            : `Глава ${activeIndex + 1} из ${chapterCount}: ${chapterName}`}
       </p>
 
       {route.page === "project" && (

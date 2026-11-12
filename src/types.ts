@@ -13,6 +13,10 @@ export type SymbolName =
   | "check"
   | "dumbbell"
   | "copy"
+  | "react"
+  | "typescript"
+  | "link"
+  | "telegram"
 export type IllustrationName =
   | "id-ui"
   | "partner-ui"
@@ -45,7 +49,10 @@ export interface Project extends ProjectContent {
 export type Variant = "web" | "mini"
 export type ProjectRoute = { page: "project"; index: number; mode: Variant }
 export type Route =
-  { page: "intro" } | { page: "personal"; index: number } | ProjectRoute
+  | { page: "intro" }
+  | { page: "design" }
+  | { page: "personal"; index: number }
+  | ProjectRoute
 export interface Composition {
   about: number
   contribution: number

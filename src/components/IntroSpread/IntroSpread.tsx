@@ -2,7 +2,6 @@ import PaperPage from "../PaperPage"
 import { Icon } from "../Art"
 import { ProjectFavicon } from "../ProjectFavicon"
 import WorkPeriod from "./WorkPeriod"
-import ModeEmblem from "./ModeEmblem"
 
 import { projects } from "../../data/projects"
 import { personalProjects, profile } from "../../data/profile"
@@ -46,8 +45,6 @@ const IntroSpread = ({
           </h1>
           <p>{profile.role}. React и TypeScript.</p>
         </header>
-
-        <ModeEmblem mode="personal" />
 
         <section
           className={cn(
@@ -127,10 +124,10 @@ const IntroSpread = ({
               <button
                 key={project.id}
                 className={cn(
-                  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#ffffff0b] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+                  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
                   "[&_.bookmark-favicon]:size-5.5 [&_.bookmark-favicon]:shrink-0",
                   "active:[transform:translateY(1px)]",
-                  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#ffffff15]"
+                  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#dfcaa6]"
                 )}
                 onClick={() => onOpenPersonalProject(index)}
                 aria-label={`Открыть личный проект ${project.name}`}
@@ -147,12 +144,12 @@ const IntroSpread = ({
 
         <button
           className={cn(
-            "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#d8aa73] px-4.5 py-3.5 text-[15px] font-medium text-[#35282a] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+            "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
             "max-[391px]:px-3 max-[391px]:text-[14px]",
             "[&_>_span:first-child]:inline-flex [&_>_span:first-child]:items-center [&_>_span:first-child]:gap-2.25",
             "[&_>_span:last-child]:text-[22px] [&_>_span:last-child]:leading-[1]",
             "active:[transform:translateY(1px)]",
-            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#ebc38e]"
+            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#6c4629]"
           )}
           onClick={handleOpenPersonalProjects}
         >
@@ -165,30 +162,21 @@ const IntroSpread = ({
 
       <PaperPage
         side="right"
-        className="intro-page work-page flex flex-col bg-[#35282a] [background-image:var(--paper-grain),var(--paper-fibers)] p-10 text-[var(--mode-ink)] [--mode-ink:#efcf9f] [--mode-muted:#d0b5a2] before:border-[#d1a77825] max-[1101px]:px-6.75 max-[1101px]:py-7.5 max-[801px]:[border-top-width:5px] max-[801px]:[border-top-style:solid] max-[801px]:[border-top-color:rgb(104,_101,_74)] max-[801px]:px-7 max-[801px]:py-7.5 max-[391px]:[border-top-width:5px] max-[391px]:[border-top-style:solid] max-[391px]:[border-top-color:rgb(104,_101,_74)] max-[391px]:px-5.5 max-[391px]:pt-7.5 max-[391px]:pb-7.5 min-[801px]:max-[1101px]:px-6.75 min-[801px]:max-[1101px]:py-7.5 [&_.emblem-fill]:[fill:#ba724c16] [&_.mode-emblem]:text-[#dca875] [&_a:focus-visible]:[outline-color:#f3d2a2] [&_button:focus-visible]:[outline-color:#f3d2a2]"
+        className="intro-page work-page flex flex-col bg-[#f1e5ce] [background-image:var(--paper-grain),var(--paper-fibers)] p-10 text-[var(--mode-ink)] [--mode-ink:#593d2e] [--mode-muted:#745843] before:border-[#a47a5133] max-[1101px]:px-6.75 max-[1101px]:py-7.5 max-[801px]:[border-top-width:5px] max-[801px]:[border-top-style:solid] max-[801px]:[border-top-color:rgb(104,_101,_74)] max-[801px]:px-7 max-[801px]:py-7.5 max-[391px]:[border-top-width:5px] max-[391px]:[border-top-style:solid] max-[391px]:[border-top-color:rgb(104,_101,_74)] max-[391px]:px-5.5 max-[391px]:pt-7.5 max-[391px]:pb-7.5 min-[801px]:max-[1101px]:px-6.75 min-[801px]:max-[1101px]:py-7.5 [&_a:focus-visible]:[outline-color:#845632] [&_button:focus-visible]:[outline-color:#845632]"
         aria-labelledby="work-title"
       >
-        <header
-          className={cn(
-            "mode-heading mb-3 text-center",
-            "[&_h1]:m-0 [&_h1]:font-book [&_h1]:text-[clamp(36px,_3.8vw,_54px)] [&_h1]:leading-[1.08] [&_h1]:font-normal [&_h1]:tracking-[-1.8px] [&_h1]:text-balance [&_h1]:text-[var(--mode-ink)] [&_h1]:not-italic",
-            "min-[801px]:max-[1101px]:[&_h1]:text-[40px]",
-            "max-[801px]:[&_h1]:text-[clamp(36px,_8vw,_50px)]",
-            "[&_h2]:m-0 [&_h2]:font-book [&_h2]:text-[clamp(36px,_3.8vw,_54px)] [&_h2]:leading-[1.08] [&_h2]:font-normal [&_h2]:tracking-[-1.8px] [&_h2]:text-balance [&_h2]:text-[var(--mode-ink)] [&_h2]:not-italic",
-            "min-[801px]:max-[1101px]:[&_h2]:text-[40px]",
-            "max-[801px]:[&_h2]:text-[clamp(36px,_8vw,_50px)]",
-            "[&_p]:mx-0 [&_p]:mt-5 [&_p]:mb-0 [&_p]:text-[18px] [&_p]:leading-[1.5] [&_p]:text-pretty [&_p]:text-[var(--mode-ink)]"
-          )}
-        >
-          <h2 id="work-title">Проекты Crypton</h2>
-          <p>Личные кабинеты, игры и образовательные приложения.</p>
+        <header className="mb-3 text-center">
+          <h2
+            id="work-title"
+            className="font-book text-[clamp(36px,3.8vw,54px)] leading-[1.08] font-normal tracking-[-1.8px] text-balance max-[801px]:text-[clamp(36px,8vw,50px)] min-[801px]:max-[1101px]:text-[40px]"
+          >
+            Коммерческая разработка
+          </h2>
         </header>
-
-        <ModeEmblem mode="work" />
 
         <section
           className={cn(
-            "experience-note bg-[#ffffff08] p-5.5",
+            "experience-note bg-[#fff5e3b8] p-5.5",
             "min-[801px]:max-[1101px]:p-4.5",
             "max-[801px]:p-5",
             "max-[391px]:p-4",
@@ -212,17 +200,32 @@ const IntroSpread = ({
             Разрабатывал и развивал продукты экосистемы: от лендингов и личного
             кабинета до игровых и образовательных приложений.
           </p>
-          <div
+          <ul
+            aria-label="Технологии"
             className={cn(
-              "experience-tags mt-4 flex flex-wrap gap-x-3 gap-y-1 text-[14px] text-[var(--mode-muted)]",
-              "[&_span_+_span:before]:mr-3 [&_span_+_span:before]:[content:'·']",
-              "max-[391px]:[&_span_+_span:before]:mr-1.25"
+              "experience-tags m-0 mt-4 flex list-none flex-wrap gap-2 p-0",
+              "text-[14px] leading-tight text-[var(--mode-ink)]",
+              "[&>li]:inline-flex [&>li]:min-h-8 [&>li]:items-center [&>li]:gap-2 [&>li]:rounded-full",
+              "[&>li]:border [&>li]:border-[#d7bea0] [&>li]:bg-[#f4e7d0] [&>li]:px-2.75 [&>li]:py-1",
+              "[&_svg]:size-4 [&_svg]:shrink-0"
             )}
           >
-            <span>React + TypeScript</span>
-            <span>Web3</span>
-            <span>Telegram Mini Apps</span>
-          </div>
+            <li>
+              <span className="inline-flex gap-1">
+                <Icon name="react" className="text-[#176a7a]" />
+                <Icon name="typescript" className="text-[#275c93]" />
+              </span>
+              React + TypeScript
+            </li>
+            <li>
+              <Icon name="link" className="text-[#745437]" />
+              Web3
+            </li>
+            <li>
+              <Icon name="telegram" className="text-[#166588]" />
+              Telegram Mini Apps
+            </li>
+          </ul>
         </section>
 
         <section
@@ -245,10 +248,10 @@ const IntroSpread = ({
               <button
                 key={project.id}
                 className={cn(
-                  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#ffffff0b] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+                  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
                   "[&_.bookmark-favicon]:size-5.5 [&_.bookmark-favicon]:shrink-0",
                   "active:[transform:translateY(1px)]",
-                  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#ffffff15]"
+                  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#dfcaa6]"
                 )}
                 onClick={() => onOpenProject(index)}
                 aria-label={`Открыть проект ${project.name}`}
@@ -262,12 +265,12 @@ const IntroSpread = ({
 
         <button
           className={cn(
-            "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#d8aa73] px-4.5 py-3.5 text-[15px] font-medium text-[#35282a] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+            "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
             "max-[391px]:px-3 max-[391px]:text-[14px]",
             "[&_>_span:first-child]:inline-flex [&_>_span:first-child]:items-center [&_>_span:first-child]:gap-2.25",
             "[&_>_span:last-child]:text-[22px] [&_>_span:last-child]:leading-[1]",
             "active:[transform:translateY(1px)]",
-            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#ebc38e]"
+            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#6c4629]"
           )}
           onClick={handleOpenCampaign}
         >

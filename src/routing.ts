@@ -5,6 +5,8 @@ import type { Route } from "./types"
 export const parseRoute = (hash: string): Route => {
   const [id, mode] = hash.replace(/^#/, "").split("/")
 
+  if (id === "design") return { page: "design" }
+
   if (id === "personal") {
     const index = personalProjects.findIndex((project) => project.id === mode)
 
@@ -23,6 +25,7 @@ export const parseRoute = (hash: string): Route => {
 }
 export const routeHash = (route: Route) => {
   if (route.page === "intro") return "#intro"
+  if (route.page === "design") return "#design"
 
   if (route.page === "personal")
     return `#personal/${personalProjects[route.index].id}`

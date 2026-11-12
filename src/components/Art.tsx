@@ -78,6 +78,24 @@ const paths = {
       <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
     </>
   ),
+  react: (
+    <>
+      <ellipse cx="12" cy="12" rx="10" ry="4" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+    </>
+  ),
+  typescript: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <path d="M6 10h6m-3 0v7m9-7h-2.5a1.75 1.75 0 0 0 0 3.5h1a1.75 1.75 0 0 1 0 3.5H14" />
+    </>
+  ),
+  link: (
+    <path d="m10 13 4-4m-6 6-1 1a3.54 3.54 0 0 1-5-5l4-4a3.54 3.54 0 0 1 5 0m2 8a3.54 3.54 0 0 0 5 0l4-4a3.54 3.54 0 0 0-5-5l-1 1" />
+  ),
+  telegram: <path d="m22 3-5 18-6-5-3 3 1-6L2 10 22 3ZM9 13l13-10M9 13l2 3" />,
 }
 export function Icon({
   name,

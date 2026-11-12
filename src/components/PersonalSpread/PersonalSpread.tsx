@@ -213,7 +213,6 @@ const PersonalSpread = ({
               "case-list mx-0 mt-3.75 mb-0 grid gap-2.75 p-0 [list-style:none]",
               "min-[1450px]:gap-3.5",
               "max-[801px]:gap-3.25",
-              "[&_li]:grid [&_li]:grid-cols-[17px_1fr] [&_li]:gap-x-2",
               "[&_strong]:text-[14px] [&_strong]:font-medium [&_strong]:text-[#55535a]",
               "max-[801px]:[&_strong]:text-[16px]",
               "[&_p]:mx-0 [&_p]:mt-0.5 [&_p]:mb-0 [&_p]:text-[14px] [&_p]:leading-[1.5] [&_p]:text-[#625c68]"
@@ -221,10 +220,8 @@ const PersonalSpread = ({
           >
             {project.features.map(([title, description]) => (
               <li key={title}>
-                <div>
-                  <strong>{title}</strong>
-                  <p>{description}</p>
-                </div>
+                <strong>{title}</strong>
+                <p>{description}</p>
               </li>
             ))}
           </ol>
