@@ -1,27 +1,15 @@
 import { useEffect, useLayoutEffect, useRef } from "react"
 
 import { AcademyVariants } from "./AcademyVariants"
-import { Art, Icon } from "./Art"
+import { Folio } from "./Book/Folio"
+import { Art } from "./Art"
+import { Icon } from "./Icon"
 import PaperPage from "./PaperPage"
 
-import type { Project, Variant } from "../types"
+import type { NotesKind, Project, ProjectSource, Variant } from "../types"
 
 import { cn } from "../lib/cn"
 
-function Folio({ name, number }: { name: string; number: number }) {
-  return (
-    <div
-      className={cn(
-        "page-number absolute right-9.5 bottom-4.5 left-9.5 flex justify-between [border-top-width:1px] [border-top-style:solid] [border-top-color:rgba(157,_149,_114,_0.11)] pt-2.75 text-[10px] tracking-[0.5px] text-[#a09b88]",
-        "[&_.folio]:font-book [&_.folio]:text-[12px]",
-        "after:absolute after:-top-2.5 after:left-[50%] after:[transform:translateX(-50%)] after:bg-[#f6f1e3] after:px-1.75 after:py-0 after:font-[family-name:Georgia] after:text-[15px] after:leading-[normal] after:font-normal after:text-[#aaa083] after:not-italic after:[content:'❧']"
-      )}
-    >
-      <span>{name}</span>
-      <span className="folio">{String(number).padStart(2, "0")}</span>
-    </div>
-  )
-}
 function Heading({
   icon,
   children,
@@ -55,9 +43,9 @@ export function Spread({
   project: Project
   index: number
   variant: Variant
-  source: { code: string; deploy: string }
+  source: ProjectSource
   onVariant: (variant: Variant) => void
-  onNotes: (kind: "notes" | "nda") => void
+  onNotes: (kind: NotesKind) => void
   reducedMotion: boolean
 }) {
   const chapter = String(index + 1).padStart(2, "0")
@@ -70,35 +58,33 @@ export function Spread({
     const old = previous.current
     previous.current = { id: p.id, variant }
     const changedVariant = old.id === p.id && old.variant !== variant
-    const elements = [
-      ...(leftPage.current?.querySelectorAll<HTMLElement>(
-        "[data-variant-content]"
-      ) ?? []),
-      ...(rightPage.current?.querySelectorAll<HTMLElement>(
-        "[data-variant-content]"
-      ) ?? []),
-    ]
-    // Sample before cancelling so a rapid reversal continues from the current reveal.
-    const interrupted = animations.current.some(
-      (animation) => animation.playState === "running"
-    )
-    const snapshots = elements.map((element) => ({
-      opacity: getComputedStyle(element).opacity,
-      clipPath: getComputedStyle(element).clipPath,
-    }))
-    animations.current.forEach((animation) => animation.cancel())
-    animations.current = []
-    if (!changedVariant || reducedMotion || keyboardSwitch.current) {
-      keyboardSwitch.current = false
-      return
-    }
+    const shouldReveal =
+      changedVariant && !reducedMotion && !keyboardSwitch.current
     keyboardSwitch.current = false
+    const elements = shouldReveal
+      ? [leftPage.current, rightPage.current].flatMap((page) =>
+          Array.from(
+            page?.querySelectorAll<HTMLElement>("[data-variant-content]") ?? []
+          )
+        )
+      : []
+
+    // Sample an interrupted reveal before cancelling its animations.
+    const snapshots = animations.current.some(
+      ({ playState }) => playState === "running"
+    )
+      ? elements.map((element) => {
+          const { opacity, clipPath } = getComputedStyle(element)
+          return { opacity, clipPath }
+        })
+      : []
+    animations.current.forEach((animation) => animation.cancel())
     const hidden =
       variant === "mini" ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)"
     animations.current = elements.map((element, i) =>
       element.animate(
         [
-          interrupted ? snapshots[i] : { opacity: 0.25, clipPath: hidden },
+          snapshots[i] ?? { opacity: 0.25, clipPath: hidden },
           { opacity: 1, clipPath: "inset(0 0 0 0)" },
         ],
         {
@@ -147,10 +133,10 @@ export function Spread({
               "before:size-1.25 before:rounded-full before:bg-[#819862] before:content-['']",
               "[&.archived]:bg-[#efebe1] [&.archived]:text-[#8a8070]",
               "[&.archived:before]:bg-[#b5a891]",
-              p.active ? "" : "archived"
+              !source.active && "archived"
             )}
           >
-            {p.active ? "Активный проект" : "Архивный проект"}
+            {source.active ? "Активный проект" : "Архивный проект"}
           </span>
         </div>
         {p.mini && (

@@ -1,5 +1,5 @@
 import PaperPage from "../PaperPage"
-import { Icon } from "../Art"
+import { Icon } from "../Icon"
 import { ProjectFavicon } from "../ProjectFavicon"
 import WorkPeriod from "./WorkPeriod"
 
@@ -7,6 +7,79 @@ import { projects } from "../../data/projects"
 import { personalProjects, profile } from "../../data/profile"
 
 import { cn } from "../../lib/cn"
+
+import type { ProjectBookmark, SymbolName } from "../../types"
+
+const projectButtonClass = cn(
+  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+  "[&_.bookmark-favicon]:size-5.5 [&_.bookmark-favicon]:shrink-0",
+  "active:[transform:translateY(1px)]",
+  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#dfcaa6]"
+)
+const campaignButtonClass = cn(
+  "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+  "max-[391px]:px-3 max-[391px]:text-[14px]",
+  "[&_>_span:first-child]:inline-flex [&_>_span:first-child]:items-center [&_>_span:first-child]:gap-2.25",
+  "[&_>_span:last-child]:text-[22px] [&_>_span:last-child]:leading-[1]",
+  "active:[transform:translateY(1px)]",
+  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#6c4629]"
+)
+
+function ProjectList({
+  items,
+  isPersonal = false,
+  onSelect,
+}: {
+  items: readonly (ProjectBookmark & { description?: string })[]
+  isPersonal?: boolean
+  onSelect: (index: number) => void
+}) {
+  return (
+    <div className="campaign-project-list mt-3.5 grid grid-cols-2 flex-wrap gap-2">
+      {items.map((project, index) => (
+        <button
+          key={project.id}
+          type="button"
+          className={projectButtonClass}
+          onClick={() => onSelect(index)}
+          aria-label={
+            (isPersonal ? "Открыть личный проект " : "Открыть проект ") +
+            project.name
+          }
+        >
+          <ProjectFavicon id={project.id} symbol={project.symbol} />
+          {isPersonal ? (
+            <span className="project-summary grid gap-1 [&_>_span]:text-[14px] [&_>_span]:leading-[1.45] [&_>_span]:text-[var(--mode-muted)] [&_strong]:font-medium">
+              <strong>{project.name}</strong>
+              <span>{project.description}</span>
+            </span>
+          ) : (
+            <span>{project.name}</span>
+          )}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function OpenCollectionButton({
+  icon,
+  onClick,
+  children,
+}: {
+  icon: SymbolName
+  onClick: () => void
+  children: string
+}) {
+  return (
+    <button type="button" className={campaignButtonClass} onClick={onClick}>
+      <span>
+        <Icon name={icon} /> {children}
+      </span>
+      <span aria-hidden="true">→</span>
+    </button>
+  )
+}
 
 const IntroSpread = ({
   onOpenProject,
@@ -119,45 +192,16 @@ const IntroSpread = ({
               {personalProjects.length} проекта
             </span>
           </div>
-          <div className="campaign-project-list mt-3.5 grid grid-cols-2 flex-wrap gap-2">
-            {personalProjects.map((project, index) => (
-              <button
-                key={project.id}
-                className={cn(
-                  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
-                  "[&_.bookmark-favicon]:size-5.5 [&_.bookmark-favicon]:shrink-0",
-                  "active:[transform:translateY(1px)]",
-                  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#dfcaa6]"
-                )}
-                onClick={() => onOpenPersonalProject(index)}
-                aria-label={`Открыть личный проект ${project.name}`}
-              >
-                <ProjectFavicon id={project.id} symbol={project.symbol} />
-                <span className="project-summary grid gap-1 [&_>_span]:text-[14px] [&_>_span]:leading-[1.45] [&_>_span]:text-[var(--mode-muted)] [&_strong]:font-medium">
-                  <strong>{project.name}</strong>
-                  <span>{project.description}</span>
-                </span>
-              </button>
-            ))}
-          </div>
+          <ProjectList
+            items={personalProjects}
+            onSelect={onOpenPersonalProject}
+            isPersonal
+          />
         </section>
 
-        <button
-          className={cn(
-            "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
-            "max-[391px]:px-3 max-[391px]:text-[14px]",
-            "[&_>_span:first-child]:inline-flex [&_>_span:first-child]:items-center [&_>_span:first-child]:gap-2.25",
-            "[&_>_span:last-child]:text-[22px] [&_>_span:last-child]:leading-[1]",
-            "active:[transform:translateY(1px)]",
-            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#6c4629]"
-          )}
-          onClick={handleOpenPersonalProjects}
-        >
-          <span>
-            <Icon name="leaf" /> Открыть личные проекты
-          </span>
-          <span aria-hidden="true">→</span>
-        </button>
+        <OpenCollectionButton icon="leaf" onClick={handleOpenPersonalProjects}>
+          Открыть личные проекты
+        </OpenCollectionButton>
       </PaperPage>
 
       <PaperPage
@@ -243,42 +287,12 @@ const IntroSpread = ({
               {projects.length} проектов
             </span>
           </div>
-          <div className="campaign-project-list mt-3.5 grid grid-cols-2 flex-wrap gap-2">
-            {projects.map((project, index) => (
-              <button
-                key={project.id}
-                className={cn(
-                  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
-                  "[&_.bookmark-favicon]:size-5.5 [&_.bookmark-favicon]:shrink-0",
-                  "active:[transform:translateY(1px)]",
-                  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#dfcaa6]"
-                )}
-                onClick={() => onOpenProject(index)}
-                aria-label={`Открыть проект ${project.name}`}
-              >
-                <ProjectFavicon id={project.id} symbol={project.symbol} />
-                <span>{project.name}</span>
-              </button>
-            ))}
-          </div>
+          <ProjectList items={projects} onSelect={onOpenProject} />
         </section>
 
-        <button
-          className={cn(
-            "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
-            "max-[391px]:px-3 max-[391px]:text-[14px]",
-            "[&_>_span:first-child]:inline-flex [&_>_span:first-child]:items-center [&_>_span:first-child]:gap-2.25",
-            "[&_>_span:last-child]:text-[22px] [&_>_span:last-child]:leading-[1]",
-            "active:[transform:translateY(1px)]",
-            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#6c4629]"
-          )}
-          onClick={handleOpenCampaign}
-        >
-          <span>
-            <Icon name="sword" /> Открыть рабочие проекты
-          </span>
-          <span aria-hidden="true">→</span>
-        </button>
+        <OpenCollectionButton icon="sword" onClick={handleOpenCampaign}>
+          Открыть рабочие проекты
+        </OpenCollectionButton>
       </PaperPage>
     </>
   )

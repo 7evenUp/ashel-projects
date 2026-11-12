@@ -1,4 +1,6 @@
-const skillsIcon = `${import.meta.env.BASE_URL}assets/projects/ashel-front-style.ico`
+import { assetUrl } from "../../lib/assetUrl"
+
+const skillsIcon = assetUrl("assets/projects/ashel-front-style.ico")
 
 const AgentSkillArt = () => {
   return (

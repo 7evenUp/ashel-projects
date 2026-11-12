@@ -1,7 +1,7 @@
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
 
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/nutcracker/${name}.png`
+const asset = (name: string) => assetUrl(`assets/nutcracker/${name}.png`)
 const parts = [
   ["head", "ГОЛОВА"],
   ["body", "КОРПУС"],

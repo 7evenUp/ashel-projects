@@ -1,4 +1,7 @@
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
+
+import "./TableScenery.css"
 
 const sceneryByMode = {
   design: [
@@ -101,7 +104,7 @@ const TableScenery = ({ isDesign }: { isDesign: boolean }) => {
           {sceneryByMode[mode].map(({ image, placement }) => (
             <img
               key={image}
-              src={`${import.meta.env.BASE_URL}assets/scenery/${image}`}
+              src={assetUrl(`assets/scenery/${image}`)}
               alt=""
               className={cn(
                 "scenery-image absolute block -translate-x-1/2 -translate-y-1/2",

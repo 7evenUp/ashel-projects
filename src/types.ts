@@ -1,4 +1,6 @@
 import type { CSSProperties } from "react"
+
+import type sourceNotes from "./data/source-notes.json"
 export type SymbolName =
   | "key"
   | "spark"
@@ -36,16 +38,21 @@ export interface ProjectContent {
   cases: [string, string][]
   stack: string[]
 }
-export interface Project extends ProjectContent {
+export interface ProjectBookmark {
   id: string
+  name: string
   label: string
   symbol: SymbolName
   color: string
   pale: string
-  active: boolean
+}
+export interface Project extends ProjectContent, ProjectBookmark {
+  id: keyof typeof sourceNotes
   illustration: IllustrationName
   mini?: ProjectContent
 }
+export type ProjectSource = (typeof sourceNotes)[keyof typeof sourceNotes]
+export type NotesKind = "notes" | "nda"
 export type Variant = "web" | "mini"
 export type ProjectRoute = { page: "project"; index: number; mode: Variant }
 export type Route =

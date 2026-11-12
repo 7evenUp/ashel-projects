@@ -1,6 +1,9 @@
-import { Fragment, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
+import type { ReactNode } from "react"
 
 import { cn } from "../lib/cn"
+
+import type { NotesKind } from "../types"
 
 function inline(text: string) {
   return text
@@ -13,8 +16,8 @@ function inline(text: string) {
       )
     )
 }
-export function Markdown({ text }: { text: string }) {
-  const blocks: React.ReactNode[] = []
+function NotesMarkdown({ text }: { text: string }) {
+  const blocks: ReactNode[] = []
   let items: string[] = []
   const flush = () => {
     if (items.length) {
@@ -47,13 +50,7 @@ export function Markdown({ text }: { text: string }) {
     )
   }
   flush()
-  return (
-    <>
-      {blocks.map((block, i) => (
-        <Fragment key={i}>{block}</Fragment>
-      ))}
-    </>
-  )
+  return <>{blocks}</>
 }
 export function NotesDialog({
   kind,
@@ -61,16 +58,17 @@ export function NotesDialog({
   body,
   onClose,
 }: {
-  kind: "notes" | "nda" | null
+  kind: NotesKind | null
   name: string
   body: string
   onClose: () => void
 }) {
   const ref = useRef<HTMLDialogElement>(null)
   useEffect(() => {
-    const dialog = ref.current!
-    if (!kind) return
-    const previous = document.activeElement as HTMLElement | null
+    const dialog = ref.current
+    if (!dialog || !kind) return
+
+    const previous = document.activeElement
     const overflow = document.body.style.overflow
     dialog.showModal()
     dialog.scrollTop = 0
@@ -78,7 +76,9 @@ export function NotesDialog({
     return () => {
       dialog.close()
       document.body.style.overflow = overflow
-      previous?.focus({ preventScroll: true })
+      if (previous instanceof HTMLElement && previous.isConnected) {
+        previous.focus({ preventScroll: true })
+      }
     }
   }, [kind])
   return (
@@ -101,8 +101,10 @@ export function NotesDialog({
         "[&:not([open])]:hidden"
       )}
       aria-labelledby="dialog-title"
-      onCancel={onClose}
-      onClose={onClose}
+      onCancel={(event) => {
+        event.preventDefault()
+        onClose()
+      }}
       onClick={(event) => {
         if (event.target !== event.currentTarget) return
         const rect = event.currentTarget.getBoundingClientRect()
@@ -140,7 +142,7 @@ export function NotesDialog({
           <p>Веб-платформу можно посмотреть по кнопке «Открыть проект».</p>
         </>
       ) : (
-        <Markdown text={body} />
+        <NotesMarkdown text={body} />
       )}
     </dialog>
   )

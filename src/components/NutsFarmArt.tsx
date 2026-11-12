@@ -1,7 +1,7 @@
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
 
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/nutsfarm/${name}.png`
+const asset = (name: string) => assetUrl(`assets/nutsfarm/${name}.png`)
 
 function Walnut({
   x,
@@ -294,16 +294,14 @@ export function NutsFarmArt() {
             strokeWidth="1.4"
           />
           <image
-            href={import.meta.env.BASE_URL + "assets/nutsfarm/chest-free.svg"}
+            href={assetUrl("assets/nutsfarm/chest-free.svg")}
             x="307"
             y="92"
             width="42"
             height="40"
           />
           <image
-            href={
-              import.meta.env.BASE_URL + "assets/nutsfarm/chest-premium.svg"
-            }
+            href={assetUrl("assets/nutsfarm/chest-premium.svg")}
             x="371"
             y="92"
             width="42"

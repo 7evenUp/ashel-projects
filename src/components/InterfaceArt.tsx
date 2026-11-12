@@ -1,9 +1,9 @@
 import type { ReactNode } from "react"
 
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
 
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/interfaces/${name}`
+const asset = (name: string) => assetUrl(`assets/interfaces/${name}`)
 
 function Paper({
   x,

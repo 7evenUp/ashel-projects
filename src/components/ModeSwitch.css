@@ -1,0 +1,91 @@
+.mode-ripple {
+  display: none;
+}
+
+:root[data-mode-ripple] .mode-ripple {
+  display: block;
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 144vmax;
+  height: 144vmax;
+  translate: -50% -50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle closest-side,
+    transparent 77%,
+    #fff9ec00 81%,
+    #fff9ec50 83%,
+    #67514d13 85%,
+    transparent 87%,
+    transparent 91%,
+    #69534f28 95%,
+    #fff9ec90 97%,
+    transparent 100%
+  );
+  view-transition-name: mode-ripple;
+}
+
+:root[data-mode-transition] {
+  --mode-duration: 720ms;
+}
+
+:root[data-mode-transition]::view-transition {
+  pointer-events: none;
+}
+
+:root[data-mode-transition]::view-transition-group(*) {
+  animation: none;
+}
+
+:root[data-mode-transition]::view-transition-old(root),
+:root[data-mode-transition]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+:root[data-mode-transition="open"]::view-transition-new(root),
+:root[data-mode-transition="close"]::view-transition-old(root) {
+  z-index: 1;
+  animation: mode-circle var(--mode-duration) var(--ease-page) both;
+}
+
+:root[data-mode-transition="close"]::view-transition-old(root) {
+  animation-direction: reverse;
+}
+
+:root[data-mode-transition]::view-transition-group(mode-ripple) {
+  z-index: 2;
+}
+
+:root[data-mode-transition]::view-transition-new(mode-ripple) {
+  animation: mode-wave var(--mode-duration) var(--ease-page) both;
+  mix-blend-mode: normal;
+}
+
+@keyframes mode-circle {
+  from {
+    clip-path: circle(0 at center);
+  }
+  to {
+    clip-path: circle(72vmax at center);
+  }
+}
+
+@keyframes mode-wave {
+  0% {
+    transform: scale(0.035);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  68% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}

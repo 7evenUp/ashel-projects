@@ -1,4 +1,4 @@
-export const favicons: Record<string, string> = {
+export const favicons: Partial<Record<string, string>> = {
   "crypton-id": "assets/projects/crypton-id.png",
   "x-program": "assets/projects/x-program.png",
   "in-prime": "assets/projects/in-prime.png",

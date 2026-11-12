@@ -1,5 +1,6 @@
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/personal/${name}`
+import { assetUrl } from "../../lib/assetUrl"
+
+const asset = (name: string) => assetUrl(`assets/personal/${name}`)
 
 const GymArt = () => {
   const trainingDays = [2, 4, 8, 11, 15, 18, 22, 25]

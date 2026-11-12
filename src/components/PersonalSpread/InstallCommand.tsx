@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { Icon } from "../Art"
+import { Icon } from "../Icon"
 
 import { cn } from "../../lib/cn"
 

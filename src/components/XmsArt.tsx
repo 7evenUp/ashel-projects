@@ -1,7 +1,7 @@
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
 
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/xms/${name}.png`
+const asset = (name: string) => assetUrl(`assets/xms/${name}.png`)
 
 function PrizePhoto({
   name,

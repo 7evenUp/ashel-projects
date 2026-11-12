@@ -1,13 +1,7 @@
-import type { SymbolName } from "../types"
+import type { ProjectBookmark } from "../types"
 
-export interface PersonalProject {
-  id: string
-  name: string
+export interface PersonalProject extends ProjectBookmark {
   description: string
-  label: string
-  symbol: SymbolName
-  color: string
-  pale: string
   category: string
   tagline: string
   summary: string
@@ -16,6 +10,7 @@ export interface PersonalProject {
   preview: string
   previewLabel: string
   repository: string
+  illustration: "gym" | "skill"
   installCommand?: string
 }
 
@@ -31,6 +26,7 @@ export const profile = {
 export const personalProjects: PersonalProject[] = [
   {
     id: "ashel-gym",
+    illustration: "gym",
     name: "Ashel Gym",
     label: "Ashel Gym",
     symbol: "dumbbell",
@@ -70,6 +66,7 @@ export const personalProjects: PersonalProject[] = [
   },
   {
     id: "ashel-front-style",
+    illustration: "skill",
     name: "Личный Skill",
     label: "Личный Skill",
     symbol: "code",

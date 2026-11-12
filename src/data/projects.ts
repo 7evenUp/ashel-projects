@@ -8,7 +8,6 @@ export const projects: Project[] = [
     category: "ЛИЧНЫЙ КАБИНЕТ · WEB3",
     color: "#8576af",
     pale: "#e8e1f3",
-    active: true,
     tagline: "Личный кабинет экосистемы Crypton.",
     description:
       "Личный кабинет, который объединяет профиль, подписки, платежи и награды Crypton. Обычный вход и Web3 — в одном понятном интерфейсе.",
@@ -53,7 +52,6 @@ export const projects: Project[] = [
     category: "ПАРТНЁРСКАЯ ПРОГРАММА",
     color: "#aa775f",
     pale: "#f1ded1",
-    active: true,
     tagline: "Сайт партнёрской программы Crypton.",
     description:
       "Промосайт партнёрской программы Crypton для авторов и инфлюенсеров. Рассказывает о продуктах и условиях сотрудничества и ведёт к подаче заявки.",
@@ -97,7 +95,6 @@ export const projects: Project[] = [
     category: "КРИПТОСООБЩЕСТВО · ПОДПИСКА",
     color: "#b29853",
     pale: "#efe6c6",
-    active: false,
     tagline: "Сайт сообщества и оплата подписки.",
     description:
       "Сайт сообщества Crypton Prime: аналитика, обучение, календарь активностей и наставники. От знакомства с продуктом до оплаты подписки — прямо на сайте.",
@@ -142,7 +139,6 @@ export const projects: Project[] = [
     category: "РОЖДЕСТВЕНСКИЙ WEB3-КВЕСТ",
     color: "#74958c",
     pale: "#dfebe5",
-    active: false,
     tagline: "Рождественский Web3-квест с наградами.",
     description:
       "Сюжетное событие для криптосообщества: задания на Zealy, аудиоистории, XP и подарочные боксы. В инвентаре — NFT, промокоды и призы партнёров.",
@@ -187,7 +183,6 @@ export const projects: Project[] = [
     category: "NFT-КОНСТРУКТОР · TON",
     color: "#b0757a",
     pale: "#f1dfe1",
-    active: false,
     tagline: "Минт NFT-персонажа в блокчейне TON.",
     description:
       "Приложение для сборки NFT-Щелкунчика в сети TON. Подключить кошелёк, собрать шесть NFT-деталей и выпустить своего персонажа.",
@@ -232,7 +227,6 @@ export const projects: Project[] = [
     category: "TELEGRAM · КЛИККЕР",
     color: "#849361",
     pale: "#e5ebd4",
-    active: false,
     tagline: "Кликкер в Telegram.",
     description:
       "Игровое и образовательное приложение в Telegram. Интерактивные уроки, мини-игры, сезонный NutsPass и награды связаны в общую систему прогресса.",
@@ -277,7 +271,6 @@ export const projects: Project[] = [
     category: "ОБРАЗОВАНИЕ · WEB3",
     color: "#6f8ca9",
     pale: "#dce7ef",
-    active: true,
     tagline: "Платформа курсов о криптовалютах и Web3.",
     description:
       "Образовательная платформа о криптовалютах и Web3. Курсы, интерактивные уроки, игровой профиль и инструменты для авторов и модераторов.",
