@@ -14,7 +14,7 @@ export function BookRibbon({
   return isChapter ? (
     <div
       className={cn(
-        "home-ribbon-rail pointer-events-none absolute top-27.5 bottom-0 -left-22 z-[-1] w-26",
+        "pointer-events-none absolute top-27.5 bottom-0 -left-22 z-[-1] w-26",
         "max-[801px]:top-25 max-[801px]:-left-9.5 max-[801px]:w-12"
       )}
     >

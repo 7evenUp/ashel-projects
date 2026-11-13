@@ -7,11 +7,11 @@ const GymArt = () => {
 
   return (
     <div
-      className="personal-illustration gym-illustration pointer-events-none mx-auto mt-5.5 mb-4.5 max-w-115 max-[801px]:mt-6.25"
+      className="pointer-events-none mx-auto mt-5.5 mb-4.5 max-w-115 max-[801px]:mt-6.25"
       aria-hidden="true"
     >
       <svg
-        className="personal-collage block h-auto w-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        className="block h-auto w-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
         viewBox="0 0 440 340"
         fill="none"
       >
@@ -29,7 +29,7 @@ const GymArt = () => {
           <text
             x="16"
             y="31"
-            className="personal-collage-title font-commons text-[16px] leading-[normal] font-medium not-italic"
+            className="font-commons text-[16px] leading-[normal] font-medium not-italic"
             fill="#E6E1E5"
           >
             Ashel Gym
@@ -37,7 +37,7 @@ const GymArt = () => {
           <text
             x="16"
             y="48"
-            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal not-italic"
             fill="#CAC4D0"
           >
             Моя тренировка
@@ -53,7 +53,7 @@ const GymArt = () => {
           <text
             x="17"
             y="184"
-            className="personal-collage-body font-commons text-[11px] leading-[normal] font-medium not-italic"
+            className="font-commons text-[11px] leading-[normal] font-medium not-italic"
             fill="#EADDFF"
           >
             Жим лёжа
@@ -61,7 +61,7 @@ const GymArt = () => {
           <text
             x="17"
             y="201"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#938F99"
           >
             ПОДХОД
@@ -69,7 +69,7 @@ const GymArt = () => {
           <text
             x="74"
             y="201"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#938F99"
           >
             ВЕС
@@ -77,7 +77,7 @@ const GymArt = () => {
           <text
             x="123"
             y="201"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#938F99"
           >
             ПОВТОРЫ
@@ -97,7 +97,7 @@ const GymArt = () => {
               <text
                 x="10"
                 y="12"
-                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+                className="font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#D0BCFF"
               >
                 {set}
@@ -105,7 +105,7 @@ const GymArt = () => {
               <text
                 x="63"
                 y="12"
-                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+                className="font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#E6E1E5"
               >
                 {weight}
@@ -113,7 +113,7 @@ const GymArt = () => {
               <text
                 x="119"
                 y="12"
-                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+                className="font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#E6E1E5"
               >
                 {reps}
@@ -146,7 +146,7 @@ const GymArt = () => {
           <text
             x="14"
             y="22"
-            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
             fill="#6750A4"
           >
             КАЛЕНДАРЬ АКТИВНОСТИ
@@ -157,7 +157,7 @@ const GymArt = () => {
               x={20 + index * 22}
               y="43"
               textAnchor="middle"
-              className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+              className="font-commons text-[8px] leading-[normal] font-normal not-italic"
               fill="#938F99"
             >
               {label}
@@ -177,7 +177,7 @@ const GymArt = () => {
                   x={x}
                   y={y}
                   textAnchor="middle"
-                  className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+                  className="font-commons text-[8px] leading-[normal] font-normal not-italic"
                   fill={isTrainingDay ? "#fff" : "#625B71"}
                 >
                   {index + 1}
@@ -189,7 +189,7 @@ const GymArt = () => {
           <text
             x="24"
             y="145"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#79747E"
           >
             ДНИ ТРЕНИРОВОК
@@ -208,7 +208,7 @@ const GymArt = () => {
           <text
             x="13"
             y="20"
-            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
             fill="#7D5260"
           >
             ПРОГРЕСС В УПРАЖНЕНИИ
@@ -216,7 +216,7 @@ const GymArt = () => {
           <text
             x="13"
             y="44"
-            className="personal-collage-title font-commons text-[16px] leading-[normal] font-medium not-italic"
+            className="font-commons text-[16px] leading-[normal] font-medium not-italic"
             fill="#4F378B"
           >
             50 кг
@@ -224,7 +224,7 @@ const GymArt = () => {
           <text
             x="13"
             y="61"
-            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal not-italic"
             fill="#93847c"
           >
             Рабочий вес
@@ -256,7 +256,7 @@ const GymArt = () => {
         <text
           x="241"
           y="330"
-          className="personal-collage-caption font-book text-[12px] leading-[normal] font-normal italic"
+          className="font-book text-[12px] leading-[normal] font-normal italic"
           fill="#989075"
         >
           Календарь и рабочий вес.

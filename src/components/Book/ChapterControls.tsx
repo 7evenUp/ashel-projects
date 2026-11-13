@@ -3,7 +3,7 @@ import { cn } from "../../lib/cn"
 import type { ProjectBookmark } from "../../types"
 
 const pageButtonClass = cn(
-  "page-button flex min-h-10.5 items-center gap-3 rounded-[5px] border-[1px] border-solid border-[rgb(185,_187,_172)] bg-[#ecece2bd] px-4.25 py-2.5 text-[13px] text-[#656d5a] shadow-[0_2px_0_#cccdc0] [transition:background_0.2s,_transform_0.2s]",
+  "flex min-h-10.5 items-center gap-3 rounded-[5px] border border-solid border-[rgb(185,_187,_172)] bg-[#ecece2bd] px-4.25 py-2.5 text-[13px] text-[#656d5a] shadow-[0_2px_0_#cccdc0] [transition:background_0.2s,_transform_0.2s]",
   "max-[801px]:gap-2 max-[801px]:px-3 max-[801px]:py-2.25 max-[801px]:text-[12px]",
   "enabled:hover:[transform:translateY(-1px)] enabled:hover:bg-[#dce1ce]",
   "disabled:opacity-[0.36] disabled:shadow-none",
@@ -44,14 +44,14 @@ export function ChapterControls({
         </span>
       </button>
 
-      <div className="reading-progress min-w-42.5 text-center max-[801px]:min-w-33">
-        <span className="chapter-counter text-[10px] tracking-[1.8px] text-[#747568] max-[801px]:text-[9px]">
+      <div className="min-w-42.5 text-center max-[801px]:min-w-33">
+        <span className="text-[10px] tracking-[1.8px] text-[#747568] max-[801px]:text-[9px]">
           ГЛАВА {String(activeIndex + 1).padStart(2, "0")} ИЗ{" "}
           {String(chapterCount).padStart(2, "0")}
         </span>
         <div
           className={cn(
-            "progress-dots mx-0 my-2.25 flex justify-center gap-1.75",
+            "mx-0 my-2.25 flex justify-center gap-1.75",
             "[&_i]:size-1 [&_i]:rounded-full [&_i]:bg-[#c6c5b7]",
             "[&_i.current]:w-3.75 [&_i.current]:rounded-[2px] [&_i.current]:bg-[#747f62]"
           )}
@@ -64,7 +64,7 @@ export function ChapterControls({
             />
           ))}
         </div>
-        <span className="keyboard-hint flex items-center justify-center gap-1.25 text-[10px] text-[#96988b] max-[801px]:text-[9px]">
+        <span className="flex items-center justify-center gap-1.25 text-[10px] text-[#96988b] max-[801px]:text-[9px]">
           Переключать проекты{" "}
           <kbd className="rounded-[2px] border border-[#c1c2b7] px-0.75 py-0 font-commons text-[11px] leading-[normal] font-normal">
             ←

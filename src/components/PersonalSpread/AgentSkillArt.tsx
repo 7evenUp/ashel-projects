@@ -5,11 +5,11 @@ const skillsIcon = assetUrl("assets/projects/ashel-front-style.ico")
 const AgentSkillArt = () => {
   return (
     <div
-      className="personal-illustration skill-illustration pointer-events-none mx-auto mt-5.5 mb-4.5 max-w-115 max-[801px]:mt-6.25"
+      className="pointer-events-none mx-auto mt-5.5 mb-4.5 max-w-115 max-[801px]:mt-6.25"
       aria-hidden="true"
     >
       <svg
-        className="personal-collage block h-auto w-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        className="block h-auto w-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
         viewBox="0 0 440 340"
         fill="none"
       >
@@ -23,7 +23,7 @@ const AgentSkillArt = () => {
         <text
           x="244"
           y="66"
-          className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+          className="font-commons text-[8px] leading-[normal] font-normal not-italic"
           fill="#9a8aab"
         >
           читает контекст
@@ -43,7 +43,7 @@ const AgentSkillArt = () => {
           <text
             x="37"
             y="21"
-            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
             fill="#eee6f5"
           >
             SKILL.md
@@ -52,7 +52,7 @@ const AgentSkillArt = () => {
           <text
             x="15"
             y="56"
-            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            className="font-code text-[8px] leading-[normal] font-normal not-italic"
             fill="#94809e"
           >
             ---
@@ -60,7 +60,7 @@ const AgentSkillArt = () => {
           <text
             x="15"
             y="73"
-            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            className="font-code text-[8px] leading-[normal] font-normal not-italic"
             fill="#8c709d"
           >
             name:
@@ -68,7 +68,7 @@ const AgentSkillArt = () => {
           <text
             x="15"
             y="89"
-            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            className="font-code text-[8px] leading-[normal] font-normal not-italic"
             fill="#57505f"
           >
             ashel-front-style
@@ -76,7 +76,7 @@ const AgentSkillArt = () => {
           <text
             x="15"
             y="106"
-            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            className="font-code text-[8px] leading-[normal] font-normal not-italic"
             fill="#94809e"
           >
             ---
@@ -84,7 +84,7 @@ const AgentSkillArt = () => {
           <text
             x="15"
             y="131"
-            className="personal-collage-body font-commons text-[11px] leading-[normal] font-medium not-italic"
+            className="font-commons text-[11px] leading-[normal] font-medium not-italic"
             fill="#51435e"
           >
             Мои правила для агента
@@ -110,7 +110,7 @@ const AgentSkillArt = () => {
               <text
                 x="22"
                 y="13"
-                className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+                className="font-commons text-[8px] leading-[normal] font-normal not-italic"
                 fill="#71637c"
               >
                 {label}
@@ -120,7 +120,7 @@ const AgentSkillArt = () => {
           <text
             x="15"
             y="232"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#9c8ba4"
           >
             REACT · TYPESCRIPT · TAILWIND
@@ -155,7 +155,7 @@ const AgentSkillArt = () => {
           <text
             x="54"
             y="24"
-            className="personal-collage-label font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal tracking-[0.6px] not-italic"
             fill="#655272"
           >
             AI-АГЕНТ
@@ -163,7 +163,7 @@ const AgentSkillArt = () => {
           <text
             x="54"
             y="38"
-            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal not-italic"
             fill="#92819f"
           >
             skill подключён
@@ -172,7 +172,7 @@ const AgentSkillArt = () => {
           <text
             x="21"
             y="68"
-            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal not-italic"
             fill="#6c6176"
           >
             «Собери React-компонент»
@@ -186,7 +186,7 @@ const AgentSkillArt = () => {
           <text
             x="30"
             y="95"
-            className="personal-collage-small font-commons text-[8px] leading-[normal] font-normal not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal not-italic"
             fill="#7b8b65"
           >
             Следую вашим соглашениям
@@ -208,7 +208,7 @@ const AgentSkillArt = () => {
           <text
             x="43"
             y="15"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#ac9bb9"
           >
             Profile.tsx
@@ -216,7 +216,7 @@ const AgentSkillArt = () => {
           <text
             x="13"
             y="36"
-            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            className="font-code text-[8px] leading-[normal] font-normal not-italic"
             fill="#d5c0e8"
           >
             const handleSubmit = () =&gt; ...
@@ -224,7 +224,7 @@ const AgentSkillArt = () => {
           <text
             x="13"
             y="55"
-            className="personal-collage-mono font-code text-[8px] leading-[normal] font-normal not-italic"
+            className="font-code text-[8px] leading-[normal] font-normal not-italic"
             fill="#b5c99f"
           >
             return &lt;Profile /&gt;
@@ -232,7 +232,7 @@ const AgentSkillArt = () => {
           <text
             x="13"
             y="68"
-            className="personal-collage-tiny font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
+            className="font-commons text-[6px] leading-[normal] font-normal tracking-[0.3px] not-italic"
             fill="#8e7f9b"
           >
             КОМПОНЕНТ · СОСТОЯНИЯ · ОБРАБОТЧИК
@@ -243,7 +243,7 @@ const AgentSkillArt = () => {
         <text
           x="20"
           y="310"
-          className="personal-collage-caption font-book text-[12px] leading-[normal] font-normal italic"
+          className="font-book text-[12px] leading-[normal] font-normal italic"
           fill="#989075"
         >
           Правила React и TypeScript
@@ -251,7 +251,7 @@ const AgentSkillArt = () => {
         <text
           x="29"
           y="328"
-          className="personal-collage-caption font-book text-[12px] leading-[normal] font-normal italic"
+          className="font-book text-[12px] leading-[normal] font-normal italic"
           fill="#989075"
         >
           для AI-агентов.

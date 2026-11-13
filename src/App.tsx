@@ -88,18 +88,17 @@ export function App() {
   return (
     <div
       className={cn(
-        "game-world relative isolate min-h-[100svh] [&_>_.desk]:z-[1]",
+        "game-world relative isolate min-h-svh [&_>_.desk]:z-1",
         isDesign &&
-          "bg-[#15131a] [background-image:var(--paper-grain),radial-gradient(ellipse_at_50%_25%,#352837,transparent_75%)] text-[#f5e9e5] [color-scheme:dark] [background-blend-mode:soft-light,normal]"
+          "bg-[#15131a] [background-image:var(--paper-grain),radial-gradient(ellipse_at_50%_25%,#352837,transparent_75%)] text-[#f5e9e5] scheme-dark [background-blend-mode:soft-light,normal]"
       )}
       style={routeTheme(route)}
     >
       <a
         className={cn(
-          "skip-link",
-          "[&:not(:focus)]:absolute [&:not(:focus)]:size-px [&:not(:focus)]:overflow-hidden [&:not(:focus)]:[clip-path:inset(50%)]",
-          "[&:focus]:fixed [&:focus]:top-3 [&:focus]:left-3 [&:focus]:z-[100] [&:focus]:bg-white [&:focus]:p-3",
-          isDesign && "[&:focus]:bg-[#352837] [&:focus]:outline-[#e6a996]"
+          "not-focus:absolute not-focus:size-px not-focus:overflow-hidden not-focus:[clip-path:inset(50%)]",
+          "focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:bg-white focus:p-3",
+          isDesign && "focus:bg-[#352837] focus:outline-[#e6a996]"
         )}
         href="#spread"
         onClick={handleSkipToSpread}

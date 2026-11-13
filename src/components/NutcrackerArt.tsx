@@ -15,14 +15,14 @@ export function NutcrackerArt() {
   return (
     <div
       className={cn(
-        "illustration illustration-nft-assembly pointer-events-none relative mx-0 mt-3.75 mb-3 h-65 max-w-115",
+        "pointer-events-none relative mx-0 mt-3.75 mb-3 h-65 max-w-115",
         "max-[801px]:isolate max-[801px]:mx-auto max-[801px]:mt-5.5 max-[801px]:mb-4 max-[801px]:[aspect-ratio:440/260] max-[801px]:h-auto max-[801px]:w-full max-[801px]:max-w-105 max-[801px]:overflow-visible",
         "min-[801px]:max-[1101px]:h-56.25"
       )}
       aria-hidden="true"
     >
       <svg
-        className="nutcracker-collage block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        className="block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
         viewBox="0 0 440 260"
         fill="none"
       >
@@ -58,7 +58,7 @@ export function NutcrackerArt() {
           <text
             x="30"
             y="60"
-            className="nutcracker-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
+            className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
             fill="#8a7761"
           >
             ИНВЕНТАРЬ / 6 ДЕТАЛЕЙ
@@ -90,7 +90,7 @@ export function NutcrackerArt() {
                   x={x + 26}
                   y={y + 61}
                   textAnchor="middle"
-                  className="nutcracker-art-small font-commons text-[5.5px] leading-[normal] font-normal tracking-[0.1px] not-italic"
+                  className="font-commons text-[5.5px] leading-[normal] font-normal tracking-[0.1px] not-italic"
                   fill="#86745f"
                 >
                   {label}
@@ -124,7 +124,7 @@ export function NutcrackerArt() {
           x="257"
           y="147"
           textAnchor="middle"
-          className="nutcracker-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
           fill="#9a6d78"
         >
           МИНТ
@@ -162,7 +162,7 @@ export function NutcrackerArt() {
             x="364"
             y="60"
             textAnchor="middle"
-            className="nutcracker-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
+            className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
             fill="#8d6b81"
           >
             NUTCRACKERS / NFT
@@ -179,7 +179,7 @@ export function NutcrackerArt() {
             x="364"
             y="211"
             textAnchor="middle"
-            className="nutcracker-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
+            className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.7px] not-italic"
             fill="#8d6b81"
           >
             ПРИМЕР ГОТОВОГО NFT
@@ -193,7 +193,7 @@ export function NutcrackerArt() {
         <text
           x="27"
           y="253"
-          className="nutcracker-art-caption font-book text-[12px] leading-[normal] font-normal italic"
+          className="font-book text-[12px] leading-[normal] font-normal italic"
           fill="#927d75"
         >
           Инвентарь деталей и готовый NFT.

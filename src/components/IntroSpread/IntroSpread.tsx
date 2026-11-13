@@ -11,13 +11,13 @@ import { cn } from "../../lib/cn"
 import type { ProjectBookmark, SymbolName } from "../../types"
 
 const projectButtonClass = cn(
-  "campaign-project rounded-0 flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+  "campaign-project flex min-h-12 touch-manipulation items-center gap-2.5 border-0 border-none border-[currentcolor] bg-[#e8d7b9] p-3 text-left text-[15px] text-[var(--mode-ink)] [transition:background-color_160ms_ease,_transform_160ms_ease]",
   "[&_.bookmark-favicon]:size-5.5 [&_.bookmark-favicon]:shrink-0",
   "active:[transform:translateY(1px)]",
   "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#dfcaa6]"
 )
 const campaignButtonClass = cn(
-  "campaign-button rounded-0 mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
+  "campaign-button mt-auto flex min-h-13 w-full touch-manipulation items-center justify-between gap-3 border-0 border-none border-[currentcolor] bg-[#815733] px-4.5 py-3.5 text-[15px] font-medium text-[#fff7e7] [transition:background-color_160ms_ease,_transform_160ms_ease]",
   "max-[391px]:px-3 max-[391px]:text-[14px]",
   "[&_>_span:first-child]:inline-flex [&_>_span:first-child]:items-center [&_>_span:first-child]:gap-2.25",
   "[&_>_span:last-child]:text-[22px] [&_>_span:last-child]:leading-[1]",
@@ -49,7 +49,7 @@ function ProjectList({
         >
           <ProjectFavicon id={project.id} symbol={project.symbol} />
           {isPersonal ? (
-            <span className="project-summary grid gap-1 [&_>_span]:text-[14px] [&_>_span]:leading-[1.45] [&_>_span]:text-[var(--mode-muted)] [&_strong]:font-medium">
+            <span className="grid gap-1 [&_>_span]:text-[14px] [&_>_span]:leading-[1.45] [&_>_span]:text-[var(--mode-muted)] [&_strong]:font-medium">
               <strong>{project.name}</strong>
               <span>{project.description}</span>
             </span>
@@ -95,12 +95,12 @@ const IntroSpread = ({
     <>
       <PaperPage
         side="left"
-        className="intro-page personal-page flex flex-col bg-[#f3f0dd] [background-image:var(--paper-grain),var(--paper-fibers)] p-10 text-[var(--mode-ink)] [--mode-ink:#46533a] [--mode-muted:#626952] max-[1101px]:px-6.75 max-[1101px]:py-7.5 max-[801px]:px-7 max-[801px]:py-7.5 max-[391px]:px-5.5 max-[391px]:pt-7.5 max-[391px]:pb-7.5 min-[801px]:max-[1101px]:px-6.75 min-[801px]:max-[1101px]:py-7.5 [&_.campaign-button]:bg-[#637449] [&_.campaign-button]:text-[#fffdf1] [&_.campaign-project]:bg-[#e5e7d0] [@media(hover:hover)_and_(pointer:fine)]:[&_.campaign-button:hover]:bg-[#53643b] [@media(hover:hover)_and_(pointer:fine)]:[&_.campaign-project:hover]:bg-[#d8dec0]"
+        className="personal-page flex flex-col bg-[#f3f0dd] [background-image:var(--paper-grain),var(--paper-fibers)] p-10 text-[var(--mode-ink)] [--mode-ink:#46533a] [--mode-muted:#626952] max-[1101px]:px-6.75 max-[1101px]:py-7.5 max-[801px]:px-7 max-[801px]:py-7.5 max-[391px]:px-5.5 max-[391px]:pt-7.5 max-[391px]:pb-7.5 min-[801px]:max-[1101px]:px-6.75 min-[801px]:max-[1101px]:py-7.5 [&_.campaign-button]:bg-[#637449] [&_.campaign-button]:text-[#fffdf1] [&_.campaign-project]:bg-[#e5e7d0] [@media(hover:hover)_and_(pointer:fine)]:[&_.campaign-button:hover]:bg-[#53643b] [@media(hover:hover)_and_(pointer:fine)]:[&_.campaign-project:hover]:bg-[#d8dec0]"
         aria-labelledby="personal-title"
       >
         <header
           className={cn(
-            "mode-heading mb-3 text-center",
+            "mb-3 text-center",
             "[&_h1]:m-0 [&_h1]:font-book [&_h1]:text-[clamp(36px,_3.8vw,_54px)] [&_h1]:leading-[1.08] [&_h1]:font-normal [&_h1]:tracking-[-1.8px] [&_h1]:text-balance [&_h1]:text-[var(--mode-ink)] [&_h1]:not-italic",
             "min-[801px]:max-[1101px]:[&_h1]:text-[40px]",
             "max-[801px]:[&_h1]:text-[clamp(36px,_8vw,_50px)]",
@@ -136,7 +136,7 @@ const IntroSpread = ({
             коду для AI-агентов.
           </p>
           <div className="mt-4 flex items-center justify-between gap-3">
-            <span className="profile-experience text-[14px] text-[var(--mode-muted)]">
+            <span className="text-[14px] text-[var(--mode-muted)]">
               {profile.experience}
             </span>
             <nav
@@ -178,17 +178,17 @@ const IntroSpread = ({
         </section>
 
         <section
-          className="personal-projects mx-0 mt-7 mb-6 [&_.campaign-project-list]:grid-cols-[minmax(0,_1fr)]"
+          className="mx-0 mt-7 mb-6 [&_.campaign-project-list]:grid-cols-[minmax(0,_1fr)]"
           aria-labelledby="personal-projects-title"
         >
           <div className="flex items-center justify-between gap-3">
             <h2
-              className="intro-section-label m-0 text-[16px] leading-[1.5] font-medium text-[var(--mode-ink)]"
+              className="m-0 text-[16px] leading-[1.5] font-medium text-[var(--mode-ink)]"
               id="personal-projects-title"
             >
               Личные проекты
             </h2>
-            <span className="project-count text-[14px] whitespace-nowrap text-[var(--mode-muted)]">
+            <span className="text-[14px] whitespace-nowrap text-[var(--mode-muted)]">
               {personalProjects.length} проекта
             </span>
           </div>
@@ -206,7 +206,7 @@ const IntroSpread = ({
 
       <PaperPage
         side="right"
-        className="intro-page work-page flex flex-col bg-[#f1e5ce] [background-image:var(--paper-grain),var(--paper-fibers)] p-10 text-[var(--mode-ink)] [--mode-ink:#593d2e] [--mode-muted:#745843] before:border-[#a47a5133] max-[1101px]:px-6.75 max-[1101px]:py-7.5 max-[801px]:[border-top-width:5px] max-[801px]:[border-top-style:solid] max-[801px]:[border-top-color:rgb(104,_101,_74)] max-[801px]:px-7 max-[801px]:py-7.5 max-[391px]:[border-top-width:5px] max-[391px]:[border-top-style:solid] max-[391px]:[border-top-color:rgb(104,_101,_74)] max-[391px]:px-5.5 max-[391px]:pt-7.5 max-[391px]:pb-7.5 min-[801px]:max-[1101px]:px-6.75 min-[801px]:max-[1101px]:py-7.5 [&_a:focus-visible]:[outline-color:#845632] [&_button:focus-visible]:[outline-color:#845632]"
+        className="work-page flex flex-col bg-[#f1e5ce] [background-image:var(--paper-grain),var(--paper-fibers)] p-10 text-[var(--mode-ink)] [--mode-ink:#593d2e] [--mode-muted:#745843] before:border-[#a47a5133] max-[1101px]:px-6.75 max-[1101px]:py-7.5 max-[801px]:[border-top-width:5px] max-[801px]:[border-top-style:solid] max-[801px]:[border-top-color:rgb(104,_101,_74)] max-[801px]:px-7 max-[801px]:py-7.5 max-[391px]:[border-top-width:5px] max-[391px]:[border-top-style:solid] max-[391px]:[border-top-color:rgb(104,_101,_74)] max-[391px]:px-5.5 max-[391px]:pt-7.5 max-[391px]:pb-7.5 min-[801px]:max-[1101px]:px-6.75 min-[801px]:max-[1101px]:py-7.5 [&_a:focus-visible]:[outline-color:#845632] [&_button:focus-visible]:[outline-color:#845632]"
         aria-labelledby="work-title"
       >
         <header className="mb-3 text-center">
@@ -220,7 +220,7 @@ const IntroSpread = ({
 
         <section
           className={cn(
-            "experience-note bg-[#fff5e3b8] p-5.5",
+            "bg-[#fff5e3b8] p-5.5",
             "min-[801px]:max-[1101px]:p-4.5",
             "max-[801px]:p-5",
             "max-[391px]:p-4",
@@ -231,7 +231,7 @@ const IntroSpread = ({
         >
           <div
             className={cn(
-              "experience-heading flex flex-wrap items-center justify-between gap-3",
+              "flex flex-wrap items-center justify-between gap-3",
               "[&_h3]:m-0 [&_h3]:font-book [&_h3]:text-[26px] [&_h3]:leading-[1.15] [&_h3]:font-normal [&_h3]:tracking-[-0.6px] [&_h3]:not-italic",
               "[&_>_span]:max-w-40 [&_>_span]:text-[14px] [&_>_span]:leading-[1.45] [&_>_span]:text-[var(--mode-muted)]"
             )}
@@ -247,7 +247,7 @@ const IntroSpread = ({
           <ul
             aria-label="Технологии"
             className={cn(
-              "experience-tags m-0 mt-4 flex list-none flex-wrap gap-2 p-0",
+              "m-0 mt-4 flex list-none flex-wrap gap-2 p-0",
               "text-[14px] leading-tight text-[var(--mode-ink)]",
               "[&>li]:inline-flex [&>li]:min-h-8 [&>li]:items-center [&>li]:gap-2 [&>li]:rounded-full",
               "[&>li]:border [&>li]:border-[#d7bea0] [&>li]:bg-[#f4e7d0] [&>li]:px-2.75 [&>li]:py-1",
@@ -273,17 +273,17 @@ const IntroSpread = ({
         </section>
 
         <section
-          className="campaign-projects mx-0 mt-7 mb-6"
+          className="mx-0 mt-7 mb-6"
           aria-labelledby="work-projects-title"
         >
           <div className="flex items-center justify-between gap-3">
             <h3
-              className="intro-section-label m-0 text-[16px] leading-[1.5] font-medium text-[var(--mode-ink)]"
+              className="m-0 text-[16px] leading-[1.5] font-medium text-[var(--mode-ink)]"
               id="work-projects-title"
             >
               Кликни на проект, чтобы изучить его подробнее
             </h3>
-            <span className="project-count text-[14px] whitespace-nowrap text-[var(--mode-muted)]">
+            <span className="text-[14px] whitespace-nowrap text-[var(--mode-muted)]">
               {projects.length} проектов
             </span>
           </div>
