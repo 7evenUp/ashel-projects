@@ -116,11 +116,10 @@ export const compositions: Record<string, Composition> = {
   },
 }
 export function compositionStyle(
-  id: string,
+  c: Composition,
   color: string,
   pale: string
 ): ThemeStyle {
-  const c = compositions[id]
   return {
     "--accent": color,
     "--pale": pale,

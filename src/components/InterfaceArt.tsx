@@ -1,9 +1,9 @@
 import type { ReactNode } from "react"
 
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
 
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/interfaces/${name}`
+const asset = (name: string) => assetUrl(`assets/interfaces/${name}`)
 
 function Paper({
   x,
@@ -60,7 +60,7 @@ function Caption({ children }: { children: string }) {
     <text
       x="23"
       y="281"
-      className="interface-art-caption font-book text-[12px] leading-[normal] font-normal italic"
+      className="font-book text-[12px] leading-[normal] font-normal italic"
       fill="#8b806f"
     >
       {children}
@@ -71,7 +71,7 @@ function Frame({ children, name }: { children: ReactNode; name: string }) {
   return (
     <div
       className={cn(
-        "illustration illustration-interface pointer-events-none relative mx-0 mt-3.75 mb-3 h-73.75 max-w-115",
+        "pointer-events-none relative mx-0 mt-3.75 mb-3 h-73.75 max-w-115",
         "max-[801px]:isolate max-[801px]:mx-auto max-[801px]:mt-5.5 max-[801px]:mb-4 max-[801px]:[aspect-ratio:440/295] max-[801px]:h-auto max-[801px]:w-full max-[801px]:max-w-105 max-[801px]:overflow-visible",
         "min-[801px]:max-[1101px]:h-61.25",
         `illustration-${name}`
@@ -79,7 +79,7 @@ function Frame({ children, name }: { children: ReactNode; name: string }) {
       aria-hidden="true"
     >
       <svg
-        className="interface-collage block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        className="block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
         viewBox="0 0 440 295"
         fill="none"
       >
@@ -123,7 +123,7 @@ export function IdArt() {
         <text
           x="35"
           y="16"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#f6f2ea"
         >
           CRYPTON / ЛИЧНЫЙ КАБИНЕТ
@@ -154,7 +154,7 @@ export function IdArt() {
         <text
           x="113"
           y="50"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#494547"
         >
           МОЙ ПРОФИЛЬ
@@ -172,7 +172,7 @@ export function IdArt() {
         <text
           x="81"
           y="95"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#77706a"
         >
           ПРИВЯЗАННЫЕ АККАУНТЫ
@@ -201,7 +201,7 @@ export function IdArt() {
         <text
           x="74"
           y="145"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#77706a"
         >
           МОИ ПРОДУКТЫ
@@ -244,7 +244,7 @@ export function IdArt() {
         <text
           x="13"
           y="20"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#897044"
         >
           CRYPTON POINTS
@@ -271,7 +271,7 @@ export function IdArt() {
         <text
           x="12"
           y="20"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#916b87"
         >
           PRIME / ПОДПИСКА
@@ -357,7 +357,7 @@ export function XProgramArt() {
         <text
           x="12"
           y="18"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#647342"
         >
           ПАРТНЁРСТВО
@@ -384,7 +384,7 @@ export function XProgramArt() {
         <text
           x="11"
           y="20"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#817360"
         >
           ПРОДУКТЫ CRYPTON
@@ -431,7 +431,7 @@ export function PrimeArt() {
         <text
           x="18"
           y="46"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#b78da9"
         >
           СООБЩЕСТВО · АНАЛИТИКА · ОБУЧЕНИЕ
@@ -448,7 +448,7 @@ export function PrimeArt() {
         <text
           x="25"
           y="79"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#d8c5d6"
         >
           АНАЛИТИКА РЫНКА
@@ -488,7 +488,7 @@ export function PrimeArt() {
         <text
           x="13"
           y="20"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#896e8a"
         >
           КАЛЕНДАРЬ WEB3
@@ -518,7 +518,7 @@ export function PrimeArt() {
         <text
           x="10"
           y="17"
-          className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+          className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
           fill="#88713b"
         >
           BLACK FRIDAY
@@ -650,7 +650,7 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             <text
               x="13"
               y="22"
-              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
               fill="#9565b5"
             >
               RUMI / AI-АССИСТЕНТ
@@ -683,7 +683,7 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             <text
               x="13"
               y="20"
-              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
               fill="#707fad"
             >
               TELEGRAM + BASE
@@ -723,7 +723,7 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             <text
               x="17"
               y="48"
-              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
               fill="#86629f"
             >
               МОИ КУРСЫ
@@ -793,7 +793,7 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             <text
               x="10"
               y="15"
-              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
               fill="#674780"
             >
               РЕДАКТОР КУРСА
@@ -884,7 +884,7 @@ export function AcademyArt({ mini }: { mini: boolean }) {
             <text
               x="12"
               y="20"
-              className="interface-art-label font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
+              className="font-commons text-[7px] leading-[normal] font-normal tracking-[0.6px] not-italic"
               fill="#937c47"
             >
               НАГРАДА ЗА УРОК

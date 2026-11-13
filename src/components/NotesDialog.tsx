@@ -1,6 +1,9 @@
-import { Fragment, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
+import type { ReactNode } from "react"
 
 import { cn } from "../lib/cn"
+
+import type { NotesKind } from "../types"
 
 function inline(text: string) {
   return text
@@ -13,8 +16,8 @@ function inline(text: string) {
       )
     )
 }
-export function Markdown({ text }: { text: string }) {
-  const blocks: React.ReactNode[] = []
+function NotesMarkdown({ text }: { text: string }) {
+  const blocks: ReactNode[] = []
   let items: string[] = []
   const flush = () => {
     if (items.length) {
@@ -47,13 +50,7 @@ export function Markdown({ text }: { text: string }) {
     )
   }
   flush()
-  return (
-    <>
-      {blocks.map((block, i) => (
-        <Fragment key={i}>{block}</Fragment>
-      ))}
-    </>
-  )
+  return <>{blocks}</>
 }
 export function NotesDialog({
   kind,
@@ -61,16 +58,17 @@ export function NotesDialog({
   body,
   onClose,
 }: {
-  kind: "notes" | "nda" | null
+  kind: NotesKind | null
   name: string
   body: string
   onClose: () => void
 }) {
   const ref = useRef<HTMLDialogElement>(null)
   useEffect(() => {
-    const dialog = ref.current!
-    if (!kind) return
-    const previous = document.activeElement as HTMLElement | null
+    const dialog = ref.current
+    if (!dialog || !kind) return
+
+    const previous = document.activeElement
     const overflow = document.body.style.overflow
     dialog.showModal()
     dialog.scrollTop = 0
@@ -78,14 +76,16 @@ export function NotesDialog({
     return () => {
       dialog.close()
       document.body.style.overflow = overflow
-      previous?.focus({ preventScroll: true })
+      if (previous instanceof HTMLElement && previous.isConnected) {
+        previous.focus({ preventScroll: true })
+      }
     }
   }, [kind])
   return (
     <dialog
       ref={ref}
       className={cn(
-        "journal-dialog m-auto max-h-[86dvh] w-[min(740px,_calc(100%_-_32px))] rounded-[8px] border-[1px] border-solid border-[rgb(216,_208,_186)] bg-[#faf7eb] px-9.75 pt-6.75 pb-10 text-[#565a4e] shadow-[0_30px_100px_#22281f55]",
+        "m-auto max-h-[86dvh] w-[min(740px,_calc(100%_-_32px))] rounded-[8px] border border-solid border-[rgb(216,_208,_186)] bg-[#faf7eb] px-9.75 pt-6.75 pb-10 text-[#565a4e] shadow-[0_30px_100px_#22281f55]",
         "max-[801px]:px-5.75 max-[801px]:pt-5 max-[801px]:pb-7",
         "backdrop:bg-[#34382d70] backdrop:[backdrop-filter:blur(5px)]",
         "[&_h2]:mx-0 [&_h2]:mt-3 [&_h2]:mb-5 [&_h2]:font-book [&_h2]:text-[36px] [&_h2]:leading-[normal] [&_h2]:font-normal [&_h2]:not-italic",
@@ -101,8 +101,10 @@ export function NotesDialog({
         "[&:not([open])]:hidden"
       )}
       aria-labelledby="dialog-title"
-      onCancel={onClose}
-      onClose={onClose}
+      onCancel={(event) => {
+        event.preventDefault()
+        onClose()
+      }}
       onClick={(event) => {
         if (event.target !== event.currentTarget) return
         const rect = event.currentTarget.getBoundingClientRect()
@@ -115,12 +117,12 @@ export function NotesDialog({
           onClose()
       }}
     >
-      <div className="dialog-top flex items-center justify-between">
-        <span className="eyebrow text-[10px] tracking-[2px] text-[#a19a83]">
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] tracking-[2px] text-[#a19a83]">
           ЗАПИСИ РАЗРАБОТЧИКА
         </span>
         <button
-          className="close-dialog size-8.5 rounded-full border-[1px] border-solid border-[rgb(217,_210,_189)] bg-[#eee9da] text-[#7b7b6a]"
+          className="size-8.5 rounded-full border border-solid border-[rgb(217,_210,_189)] bg-[#eee9da] text-[#7b7b6a]"
           aria-label="Закрыть заметки"
           onClick={onClose}
         >
@@ -140,7 +142,7 @@ export function NotesDialog({
           <p>Веб-платформу можно посмотреть по кнопке «Открыть проект».</p>
         </>
       ) : (
-        <Markdown text={body} />
+        <NotesMarkdown text={body} />
       )}
     </dialog>
   )

@@ -25,8 +25,8 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
     name: "Личные проекты",
     exact: true,
   })
-  await expect(nav.getByRole("button")).toHaveCount(2)
-  await expect(nav.locator("img")).toHaveCount(2)
+  await expect(nav.getByRole("button")).toHaveCount(3)
+  await expect(nav.locator("img")).toHaveCount(3)
   await expect
     .poll(() =>
       nav
@@ -72,11 +72,27 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
       .locator("#spread")
       .getByRole("link", { name: "Исходный код", exact: true })
   ).toHaveAttribute("href", "https://github.com/7evenUp/ashel-skills")
+  await page.keyboard.press("ArrowRight")
+  await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
+  await expect(page.locator("#spread h1")).toHaveText("Сайт-Портфолио")
+  await expect(
+    page.locator("#spread").getByRole("link", { name: "Открыть сайт" })
+  ).toHaveAttribute("href", "https://iuliia-design.vercel.app/")
+  await expect(
+    page.locator("#spread").getByRole("link", { name: "Исходный код" })
+  ).toHaveAttribute("href", "https://github.com/7evenUp/Julie-Portfolio")
+  await expect
+    .poll(() =>
+      page.locator("#spread figure img").evaluate((img) => img.naturalWidth)
+    )
+    .toBeGreaterThan(0)
   await expect(
     page.getByRole("button", { name: "Следующий проект", includeHidden: true })
   ).toBeDisabled()
   await page.keyboard.press("ArrowRight")
-  await expect(page).toHaveURL(/#personal\/ashel-front-style$/)
+  await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
+  await page.goBack()
+  await expect(page.locator("#spread h1")).toHaveText("Личный Skill")
   await page.goBack()
   await expect(page.locator("#spread h1")).toHaveText("Ashel Gym")
   await nav.getByRole("button", { name: "Личный Skill", exact: true }).click()
@@ -88,6 +104,15 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
   )
   await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await expect(page).toHaveURL(/#intro$/)
+  await page
+    .getByRole("button", { name: "Открыть личный проект Сайт-Портфолио" })
+    .click()
+  await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
+  await page.reload()
+  await expect(nav.locator('[aria-current="page"]')).toHaveAccessibleName(
+    "Сайт-Портфолио"
+  )
+  await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await page
     .getByRole("button", {
       name: "Открыть личный проект Личный Skill",
@@ -153,7 +178,11 @@ test("Personal chapter layouts fit both book pages and all target widths", async
     testInfo.project.name === "mobile" ? [320, 375, 800] : [801, 1024, 1440]
   for (const width of widths) {
     await page.setViewportSize({ width, height: 1000 })
-    for (const chapter of ["ashel-gym", "ashel-front-style"]) {
+    for (const chapter of [
+      "ashel-gym",
+      "ashel-front-style",
+      "julia-portfolio",
+    ]) {
       await page.goto("/#personal/" + chapter)
       await expect(page.locator("#spread h1")).toBeVisible()
       await expect(page.locator(".turn-scene")).toHaveCount(0)
@@ -192,9 +221,6 @@ test("The introductory spread opens first and links both sides to real projects"
   await expect(page).toHaveTitle("Артём — дневник frontend-разработчика")
   const intro = page.locator("#spread")
   await expect(intro.getByRole("heading", { name: "Артём" })).toBeVisible()
-  await expect(
-    intro.getByRole("heading", { name: "Проекты Crypton" })
-  ).toBeVisible()
   await expect(intro).toContainText("Frontend-разработчик")
   await expect(intro).toContainText("программирую с 16 лет")
   await expect(
@@ -319,55 +345,145 @@ test("The introductory spread fits desktop and phone layouts", async ({
   }
 })
 
-test("Game scenery stays outside the book and respects reduced motion", async ({
-  page,
-}, testInfo) => {
+test("Scenery fills the page behind the book", async ({ page }, testInfo) => {
   const widths =
-    testInfo.project.name === "mobile" ? [375, 800] : [1280, 1440, 1920]
-  for (const width of widths) {
-    await page.setViewportSize({ width, height: 1080 })
-    await page.goto("/#intro")
-    const scenery = page.locator(".table-scenery")
-    await expect(scenery).toHaveAttribute("aria-hidden", "true")
-    expect(
-      await scenery.evaluate(
-        (element) => getComputedStyle(element).pointerEvents
-      )
-    ).toBe("none")
-    await expect(page.locator("#spread .mode-emblem")).toHaveCount(2)
-    if (width <= 1100) {
-      await expect(scenery).toBeHidden()
-    } else {
-      await expect(scenery).toBeVisible()
-      const book = (await page.locator(".book-shell").boundingBox())!
-      const left = (await scenery.locator(".table-margin-left").boundingBox())!
-      const right = (await scenery
-        .locator(".table-margin-right")
-        .boundingBox())!
-      expect(left.x + left.width).toBeLessThanOrEqual(book.x)
-      expect(right.x).toBeGreaterThanOrEqual(book.x + book.width)
-      if (width >= 1600) {
-        await expect(scenery.locator(".table-map")).toBeVisible()
-        await expect(scenery.locator(".table-tokens")).toBeVisible()
-        await expect(scenery.locator(".table-quill")).toBeVisible()
-      }
-    }
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth
-      )
-    ).toBe(true)
-    await page.screenshot({
-      path: testInfo.outputPath(`game-table-${width}.png`),
-      fullPage: true,
-    })
-  }
+    testInfo.project.name === "mobile" ? [320, 375, 800] : [1280, 1440, 2560]
   await page.emulateMedia({ reducedMotion: "reduce" })
-  expect(
-    await page
-      .locator(".table-spark-left")
-      .evaluate((element) => getComputedStyle(element).animationName)
-  ).toBe("none")
+  for (const width of widths) {
+    const height = width === 2560 ? 1440 : 1080
+    await page.setViewportSize({ width, height })
+    for (const mode of ["code", "design"]) {
+      await page.goto(mode === "code" ? "/#intro" : "/#design")
+      const scenery = page.locator(".table-scenery")
+      await expect(scenery).toHaveAttribute("aria-hidden", "true")
+      await expect(scenery).toHaveAttribute("data-mode", mode)
+      await expect(scenery).toHaveCSS("pointer-events", "none")
+      await expect(scenery).toHaveCSS("position", "absolute")
+      await expect(scenery).toBeVisible()
+      const images = scenery.locator("img:visible")
+      await expect(images).toHaveCount(5)
+      await expect(scenery.locator(".code-symbol:visible")).toHaveCount(
+        mode === "design" ? 0 : 24
+      )
+      await expect
+        .poll(() =>
+          images.evaluateAll((elements) =>
+            elements.every((element) => {
+              const image = element as HTMLImageElement
+              return (
+                image.naturalWidth > 0 && image.currentSrc.endsWith(".webp")
+              )
+            })
+          )
+        )
+        .toBe(true)
+      expect(
+        await images.evaluateAll((elements) =>
+          elements.every(
+            (element) =>
+              (element as HTMLElement).offsetParent ===
+              element.closest(".table-scenery")
+          )
+        )
+      ).toBe(true)
+      const boxes = await images.evaluateAll((elements) =>
+        elements.map((element) => element.getBoundingClientRect().toJSON())
+      )
+      expect(
+        new Set(boxes.map((box) => Math.round(box.width))).size
+      ).toBeGreaterThan(2)
+      const book = (await page.locator(".book-shell").boundingBox())!
+      if (width === 2560) {
+        expect(Math.abs(book.y + book.height / 2 - height / 2)).toBeLessThan(8)
+        expect(boxes.some((box) => box.y + box.height / 2 < book.y)).toBe(true)
+        expect(
+          boxes.some((box) => box.y + box.height / 2 > book.y + book.height)
+        ).toBe(true)
+        expect(
+          boxes.some(
+            (box) =>
+              box.x < book.x &&
+              box.right > book.x &&
+              box.y + box.height / 2 > book.y &&
+              box.y + box.height / 2 < book.y + book.height
+          )
+        ).toBe(true)
+        expect(
+          boxes.some(
+            (box) =>
+              box.x < book.x + book.width &&
+              box.right > book.x + book.width &&
+              box.y + box.height / 2 > book.y &&
+              box.y + box.height / 2 < book.y + book.height
+          )
+        ).toBe(true)
+      }
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth
+        )
+      ).toBe(true)
+      await page.screenshot({
+        path: testInfo.outputPath(`${mode}-table-${width}.png`),
+        fullPage: true,
+      })
+    }
+  }
+  if (testInfo.project.name === "desktop") {
+    await page.goto("/#academy/mini")
+    const book = (await page.locator(".book-shell").boundingBox())!
+    const viewportCenter = page.viewportSize()!.height / 2
+    expect(Math.abs(book.y + book.height / 2 - viewportCenter)).toBeLessThan(20)
+  }
+
+  await page.emulateMedia({ reducedMotion: "no-preference" })
+  await page.goto("/#intro")
+  await expect
+    .poll(() =>
+      page.locator(".table-scenery img:visible").evaluateAll(
+        (elements) =>
+          elements.filter((element) => {
+            const image = element as HTMLImageElement
+            return image.naturalWidth > 0 && image.currentSrc.endsWith(".webp")
+          }).length
+      )
+    )
+    .toBe(5)
+})
+
+test("The mode switch reveals and closes Design, then restores the Code chapter", async ({
+  page,
+}) => {
+  await page.goto("/#academy/mini")
+  const mode = page.getByRole("switch", { name: "Режим Design" })
+  const root = page.locator("html")
+
+  await expect(mode).not.toBeChecked()
+  await mode.click()
+  await expect(root).toHaveAttribute("data-mode-transition", "open")
+  await expect(mode).toBeChecked()
+  await expect(page).toHaveURL(/#design$/)
+  await expect(page.getByText("Место для проекта")).toHaveCount(2)
+  await expect(root).not.toHaveAttribute("data-mode-transition")
+  await page.keyboard.press("ArrowRight")
+  await expect(page).toHaveURL(/#design$/)
+
+  await mode.focus()
+  await page.keyboard.press("Space")
+  await expect(root).toHaveAttribute("data-mode-transition", "close")
+  await expect(page.locator("#spread h1")).toHaveText("Academy TMA")
+  await expect(mode).toBeFocused()
+  await expect(mode).not.toBeChecked()
+  await expect(root).not.toHaveAttribute("data-mode-transition")
+  await page.goBack()
+  await expect(mode).toBeChecked()
+  await page.goBack()
+  await expect(page.locator("#spread h1")).toHaveText("Academy TMA")
+
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await mode.click()
+  await expect(mode).toBeChecked()
+  await expect(root).not.toHaveAttribute("data-mode-transition")
 })
 
 test("The work period is computed once per site load", async ({ page }) => {
@@ -520,6 +636,20 @@ test("Printed page faces turn in both directions and cancel safely", async ({
   await page.emulateMedia({ reducedMotion: "reduce" })
   await expect(scene).toHaveCount(0)
 })
+test("The active project tab is taller on desktop", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "Desktop bookmark layout")
+  await page.goto("/#in-prime")
+
+  const active = page.getByRole("button", { name: "In-Prime", exact: true })
+  const inactive = page.getByRole("button", { name: "Crypton ID", exact: true })
+  await expect(active).toHaveAttribute("aria-current", "page")
+  await expect
+    .poll(async () => (await active.boundingBox())!.height)
+    .toBeGreaterThan((await inactive.boundingBox())!.height)
+})
+
 test("Mobile project tabs stay reachable while reading and return to the new chapter", async ({
   page,
 }, testInfo) => {

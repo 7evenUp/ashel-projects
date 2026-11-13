@@ -1,19 +1,37 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+
+@source ".";
+@source "../index.html";
 
 @theme {
   --font-body: Commons, "Trebuchet MS", sans-serif;
   --font-commons: Commons, sans-serif;
   --font-code: monospace;
   --font-book: Georgia, serif;
-  --animate-table-starlight: table-starlight 7s ease-in-out infinite alternate;
+}
 
-  @keyframes table-starlight {
-    from {
-      opacity: 0.28;
-    }
-    to {
-      opacity: 0.55;
-    }
+@media (min-width: 1360px) and (min-height: 1080px) {
+  .game-world {
+    display: grid;
+    grid-template-rows: minmax(56px, 1fr) auto minmax(0, 1fr);
+  }
+
+  .game-world > header {
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .game-world > .desk {
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .game-world > .intro-desk {
+    padding-block: 28px;
+  }
+
+  .game-world > .project-desk {
+    padding-block: 108px 24px;
   }
 }
 

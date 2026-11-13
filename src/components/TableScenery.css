@@ -1,0 +1,39 @@
+@media (prefers-reduced-motion: no-preference) {
+  .scenery-image {
+    --drift-x: 14px;
+    --drift-y: 5px;
+    animation: scenery-drift 5.6s ease-in-out -1.8s infinite alternate;
+  }
+
+  .scenery-image:nth-of-type(2n) {
+    animation-duration: 6.8s;
+    animation-delay: -3.2s;
+    animation-direction: alternate-reverse;
+  }
+
+  .scenery-image:nth-of-type(3n) {
+    animation-duration: 7.4s;
+    animation-delay: -4.6s;
+  }
+
+  .code-symbol {
+    --drift-x: 5px;
+    --drift-y: 3px;
+    animation: scenery-drift 6.4s ease-in-out -2.1s infinite alternate;
+  }
+
+  .code-symbol:nth-of-type(2n) {
+    animation-duration: 8.2s;
+    animation-delay: -4.7s;
+    animation-direction: alternate-reverse;
+  }
+}
+
+@keyframes scenery-drift {
+  from {
+    transform: translate(calc(-1 * var(--drift-x)), var(--drift-y));
+  }
+  to {
+    transform: translate(var(--drift-x), calc(-1 * var(--drift-y)));
+  }
+}

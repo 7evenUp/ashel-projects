@@ -1,13 +1,7 @@
-import type { SymbolName } from "../types"
+import type { ProjectBookmark } from "../types"
 
-export interface PersonalProject {
-  id: string
-  name: string
+export interface PersonalProject extends ProjectBookmark {
   description: string
-  label: string
-  symbol: SymbolName
-  color: string
-  pale: string
   category: string
   tagline: string
   summary: string
@@ -16,6 +10,7 @@ export interface PersonalProject {
   preview: string
   previewLabel: string
   repository: string
+  illustration: "gym" | "skill" | "portfolio"
   installCommand?: string
 }
 
@@ -31,6 +26,7 @@ export const profile = {
 export const personalProjects: PersonalProject[] = [
   {
     id: "ashel-gym",
+    illustration: "gym",
     name: "Ashel Gym",
     label: "Ashel Gym",
     symbol: "dumbbell",
@@ -70,6 +66,7 @@ export const personalProjects: PersonalProject[] = [
   },
   {
     id: "ashel-front-style",
+    illustration: "skill",
     name: "Личный Skill",
     label: "Личный Skill",
     symbol: "code",
@@ -100,5 +97,37 @@ export const personalProjects: PersonalProject[] = [
     repository: "https://github.com/7evenUp/ashel-skills",
     installCommand:
       "npx skills add 7evenUp/ashel-skills --skill ashel-front-style",
+  },
+  {
+    id: "julia-portfolio",
+    illustration: "portfolio",
+    name: "Сайт-Портфолио",
+    label: "Портфолио",
+    symbol: "spark",
+    color: "#667543",
+    pale: "#e5edce",
+    category: "ЛИЧНЫЙ ПРОЕКТ · NEXT.JS",
+    description: "Портфолио для веб-дизайнера",
+    tagline: "Портфолио для веб-дизайнера",
+    summary:
+      "Собрал требования, утвердил дизайн-концепт, разработал сайт-портфолио с нуля, где собраны работы дизайнера по веб-дизайну, графическому дизайну и даже кейсы со свадебной полиграфией",
+    features: [
+      [
+        "Анимированная арка",
+        "На первом экране яркие карточки движутся по дуге, ловят взгляд и сразу знакомят с работами. Любой кейс можно открыть прямо из арки.",
+      ],
+      [
+        "Страницы проектов",
+        "Кейс открывается поверх сетки работ, поэтому легко вернуться к тому же месту. Серии постеров и баннеров можно пролистать в карусели, а любой работой поделиться по прямой ссылке.",
+      ],
+      [
+        "Два языка",
+        "Интерфейс и кейсы переведены на русский и английский. Сайт запоминает выбор, а новые языки можно добавлять без переделки страниц.",
+      ],
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    preview: "https://iuliia-design.vercel.app/",
+    previewLabel: "Открыть сайт",
+    repository: "https://github.com/7evenUp/Julie-Portfolio",
   },
 ]

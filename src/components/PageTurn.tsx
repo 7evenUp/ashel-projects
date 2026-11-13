@@ -1,9 +1,10 @@
 import { useLayoutEffect, useRef } from "react"
+import type { RefObject } from "react"
 import type { ThemeStyle } from "../types"
 
 // Copies are purely visual: keep them out of focus order and the accessibility tree.
 let copySerial = 0
-export function copyPage(page: Element) {
+function copyPage(page: Element) {
   const copy = page.cloneNode(true) as HTMLElement
   const prefix = `leaf-${++copySerial}-`
   const svgIds = new Map<string, string>()
@@ -46,13 +47,35 @@ export type Turn = {
   style: ThemeStyle
 }
 
+export function captureTurn(
+  book: HTMLDivElement,
+  direction: number,
+  style: ThemeStyle,
+  serial: number,
+  isMobile: boolean
+): Turn | null {
+  const front = book.querySelector(direction > 0 ? ".page-right" : ".page-left")
+  const resting = book.querySelector(
+    direction > 0 ? ".page-left" : ".page-right"
+  )
+  if (!front || !resting) return null
+
+  return {
+    direction,
+    style,
+    serial,
+    front: copyPage(isMobile ? book : front),
+    resting: copyPage(resting),
+  }
+}
+
 export function PageTurn({
   turn,
   book,
   onFinish,
 }: {
   turn: Turn
-  book: HTMLDivElement | null
+  book: RefObject<HTMLDivElement | null>
   onFinish: () => void
 }) {
   const front = useRef<HTMLDivElement>(null)
@@ -61,7 +84,7 @@ export function PageTurn({
   useLayoutEffect(() => {
     front.current?.replaceChildren(turn.front)
     resting.current?.replaceChildren(turn.resting)
-    const destination = book?.querySelector(
+    const destination = book.current?.querySelector(
       turn.direction > 0 ? ".page-left" : ".page-right"
     )
     if (destination) back.current?.replaceChildren(copyPage(destination))

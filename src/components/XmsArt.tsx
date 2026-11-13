@@ -1,7 +1,7 @@
+import { assetUrl } from "../lib/assetUrl"
 import { cn } from "../lib/cn"
 
-const asset = (name: string) =>
-  `${import.meta.env.BASE_URL}assets/xms/${name}.png`
+const asset = (name: string) => assetUrl(`assets/xms/${name}.png`)
 
 function PrizePhoto({
   name,
@@ -32,7 +32,7 @@ function PrizePhoto({
         x={x + 27}
         y="238"
         textAnchor="middle"
-        className="xms-art-small font-commons text-[6.5px] leading-[normal] font-normal tracking-[0.4px] not-italic"
+        className="font-commons text-[6.5px] leading-[normal] font-normal tracking-[0.4px] not-italic"
         fill="#817461"
       >
         {label}
@@ -45,14 +45,14 @@ export function XmsArt() {
   return (
     <div
       className={cn(
-        "illustration illustration-winter-quest pointer-events-none relative mx-0 mt-3.75 mb-3 h-73.75 max-w-115",
+        "pointer-events-none relative mx-0 mt-3.75 mb-3 h-73.75 max-w-115",
         "max-[801px]:isolate max-[801px]:mx-auto max-[801px]:mt-5.5 max-[801px]:mb-4 max-[801px]:[aspect-ratio:440/295] max-[801px]:h-auto max-[801px]:w-full max-[801px]:max-w-105 max-[801px]:overflow-visible",
         "min-[801px]:max-[1101px]:h-60"
       )}
       aria-hidden="true"
     >
       <svg
-        className="xms-collage block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
+        className="block size-full overflow-visible [filter:drop-shadow(1px_3px_2px_#50432c14)]"
         viewBox="0 0 440 295"
         fill="none"
       >
@@ -105,7 +105,7 @@ export function XmsArt() {
           <text
             x="28"
             y="72"
-            className="xms-art-label font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
+            className="font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
             fill="#5b8079"
           >
             WEB3 XMS / WINTER QUEST
@@ -121,7 +121,7 @@ export function XmsArt() {
             x="128"
             y="220"
             textAnchor="middle"
-            className="xms-art-small font-commons text-[6.5px] leading-[normal] font-normal tracking-[0.4px] not-italic"
+            className="font-commons text-[6.5px] leading-[normal] font-normal tracking-[0.4px] not-italic"
             fill="#5b8079"
           >
             FORD MUSTANG · РОЗЫГРЫШ
@@ -144,7 +144,7 @@ export function XmsArt() {
           x="330"
           y="262"
           textAnchor="middle"
-          className="xms-art-label font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
+          className="font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
           fill="#8b806b"
         >
           ПОДАРКИ ЗА УЧАСТИЕ
@@ -181,7 +181,7 @@ export function XmsArt() {
           x="120"
           y="289"
           textAnchor="middle"
-          className="xms-art-label font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
+          className="font-commons text-[8px] leading-[normal] font-normal tracking-[1px] not-italic"
           fill="#8b806b"
         >
           XP → КЕЙСЫ → ПОДАРКИ

@@ -1,6 +1,10 @@
 import { useState } from "react"
-import { Icon } from "./Art"
+
+import { Icon } from "./Icon"
+
 import { favicons } from "../data/favicons"
+import { assetUrl } from "../lib/assetUrl"
+
 import type { SymbolName } from "../types"
 
 export function ProjectFavicon({
@@ -10,20 +14,22 @@ export function ProjectFavicon({
   id: string
   symbol: SymbolName
 }) {
-  const [failed, setFailed] = useState(false)
+  const path = favicons[id]
+  const [failedPath, setFailedPath] = useState<string | null>(null)
+
   return (
     <span
       className="bookmark-favicon flex size-5 flex-none items-center justify-center max-[801px]:size-4 [&_img]:size-full [&_img]:object-contain"
       aria-hidden="true"
     >
-      {failed ? (
-        <Icon name={symbol} />
-      ) : (
+      {path && failedPath !== path ? (
         <img
-          src={import.meta.env.BASE_URL + favicons[id]}
+          src={assetUrl(path)}
           alt=""
-          onError={() => setFailed(true)}
+          onError={() => setFailedPath(path)}
         />
+      ) : (
+        <Icon name={symbol} />
       )}
     </span>
   )
