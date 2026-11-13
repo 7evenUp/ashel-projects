@@ -9,4 +9,5 @@ export const favicons: Partial<Record<string, string>> = {
   "academy-mini": "assets/projects/academy-mini.png",
   "ashel-gym": "assets/projects/ashel-gym.png",
   "ashel-front-style": "assets/projects/ashel-front-style.ico",
+  "julia-portfolio": "assets/projects/julia-portfolio.svg",
 }

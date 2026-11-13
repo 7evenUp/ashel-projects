@@ -4,10 +4,17 @@ import { Icon } from "../Icon"
 import AgentSkillArt from "./AgentSkillArt"
 import GymArt from "./GymArt"
 import InstallCommand from "./InstallCommand"
+import PortfolioArt from "./PortfolioArt"
 
 import type { PersonalProject } from "../../data/profile"
 
 import { cn } from "../../lib/cn"
+
+const illustrations = {
+  gym: GymArt,
+  skill: AgentSkillArt,
+  portfolio: PortfolioArt,
+}
 
 const PersonalSpread = ({
   project,
@@ -16,6 +23,8 @@ const PersonalSpread = ({
   project: PersonalProject
   index: number
 }) => {
+  const Illustration = illustrations[project.illustration]
+
   return (
     <>
       <PaperPage
@@ -63,7 +72,7 @@ const PersonalSpread = ({
           {project.tagline}
         </p>
 
-        {project.illustration === "gym" ? <GymArt /> : <AgentSkillArt />}
+        <Illustration />
 
         <section
           className={cn(

@@ -25,8 +25,8 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
     name: "Личные проекты",
     exact: true,
   })
-  await expect(nav.getByRole("button")).toHaveCount(2)
-  await expect(nav.locator("img")).toHaveCount(2)
+  await expect(nav.getByRole("button")).toHaveCount(3)
+  await expect(nav.locator("img")).toHaveCount(3)
   await expect
     .poll(() =>
       nav
@@ -72,11 +72,27 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
       .locator("#spread")
       .getByRole("link", { name: "Исходный код", exact: true })
   ).toHaveAttribute("href", "https://github.com/7evenUp/ashel-skills")
+  await page.keyboard.press("ArrowRight")
+  await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
+  await expect(page.locator("#spread h1")).toHaveText("Сайт-Портфолио")
+  await expect(
+    page.locator("#spread").getByRole("link", { name: "Открыть сайт" })
+  ).toHaveAttribute("href", "https://iuliia-design.vercel.app/")
+  await expect(
+    page.locator("#spread").getByRole("link", { name: "Исходный код" })
+  ).toHaveAttribute("href", "https://github.com/7evenUp/Julie-Portfolio")
+  await expect
+    .poll(() =>
+      page.locator("#spread figure img").evaluate((img) => img.naturalWidth)
+    )
+    .toBeGreaterThan(0)
   await expect(
     page.getByRole("button", { name: "Следующий проект", includeHidden: true })
   ).toBeDisabled()
   await page.keyboard.press("ArrowRight")
-  await expect(page).toHaveURL(/#personal\/ashel-front-style$/)
+  await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
+  await page.goBack()
+  await expect(page.locator("#spread h1")).toHaveText("Личный Skill")
   await page.goBack()
   await expect(page.locator("#spread h1")).toHaveText("Ashel Gym")
   await nav.getByRole("button", { name: "Личный Skill", exact: true }).click()
@@ -88,6 +104,15 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
   )
   await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await expect(page).toHaveURL(/#intro$/)
+  await page
+    .getByRole("button", { name: "Открыть личный проект Сайт-Портфолио" })
+    .click()
+  await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
+  await page.reload()
+  await expect(nav.locator('[aria-current="page"]')).toHaveAccessibleName(
+    "Сайт-Портфолио"
+  )
+  await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await page
     .getByRole("button", {
       name: "Открыть личный проект Личный Skill",
@@ -153,7 +178,11 @@ test("Personal chapter layouts fit both book pages and all target widths", async
     testInfo.project.name === "mobile" ? [320, 375, 800] : [801, 1024, 1440]
   for (const width of widths) {
     await page.setViewportSize({ width, height: 1000 })
-    for (const chapter of ["ashel-gym", "ashel-front-style"]) {
+    for (const chapter of [
+      "ashel-gym",
+      "ashel-front-style",
+      "julia-portfolio",
+    ]) {
       await page.goto("/#personal/" + chapter)
       await expect(page.locator("#spread h1")).toBeVisible()
       await expect(page.locator(".turn-scene")).toHaveCount(0)
@@ -607,7 +636,9 @@ test("Printed page faces turn in both directions and cancel safely", async ({
   await page.emulateMedia({ reducedMotion: "reduce" })
   await expect(scene).toHaveCount(0)
 })
-test("The active project tab is taller on desktop", async ({ page }, testInfo) => {
+test("The active project tab is taller on desktop", async ({
+  page,
+}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Desktop bookmark layout")
   await page.goto("/#in-prime")
 
