@@ -6,19 +6,19 @@ import "./TableScenery.css"
 const sceneryByMode = {
   design: [
     {
-      image: "design-paper-form.webp",
+      image: "design-figma.webp",
       placement: "top-[13%] left-[calc(50%_-_390px)] w-54 -rotate-12",
     },
     {
-      image: "design-ink-collage.webp",
+      image: "design-photoshop.webp",
       placement: "top-[43%] left-[calc(50%_-_650px)] w-48 rotate-11",
     },
     {
-      image: "design-fabric-study.webp",
+      image: "design-illustrator.webp",
       placement: "top-[94%] left-[calc(50%_-_265px)] w-57 -rotate-7",
     },
     {
-      image: "design-glass-loop.webp",
+      image: "design-blender.webp",
       placement: "top-[35%] left-[calc(50%_+_715px)] w-46 rotate-14",
     },
     {
@@ -28,23 +28,23 @@ const sceneryByMode = {
   ],
   code: [
     {
-      image: "code-network-switch.webp",
+      image: "code-vscode.webp",
       placement: "top-[37%] left-[calc(50%_-_620px)] w-56 -rotate-13",
     },
     {
-      image: "code-processor.webp",
+      image: "code-terminal.webp",
       placement: "top-[92%] left-[calc(50%_-_348px)] w-43 rotate-15",
     },
     {
-      image: "code-web-globe.webp",
+      image: "code-codex.webp",
       placement: "top-[13%] left-[calc(50%_+_310px)] w-47 rotate-8",
     },
     {
-      image: "code-network-nodes.webp",
+      image: "code-claude.webp",
       placement: "top-[49%] left-[calc(50%_+_710px)] w-52 -rotate-12",
     },
     {
-      image: "code-terminal-keys.webp",
+      image: "code-github.webp",
       placement: "top-[77%] left-[calc(50%_+_648px)] w-48 rotate-9",
     },
   ],
