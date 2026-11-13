@@ -607,6 +607,18 @@ test("Printed page faces turn in both directions and cancel safely", async ({
   await page.emulateMedia({ reducedMotion: "reduce" })
   await expect(scene).toHaveCount(0)
 })
+test("The active project tab is taller on desktop", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "Desktop bookmark layout")
+  await page.goto("/#in-prime")
+
+  const active = page.getByRole("button", { name: "In-Prime", exact: true })
+  const inactive = page.getByRole("button", { name: "Crypton ID", exact: true })
+  await expect(active).toHaveAttribute("aria-current", "page")
+  await expect
+    .poll(async () => (await active.boundingBox())!.height)
+    .toBeGreaterThan((await inactive.boundingBox())!.height)
+})
+
 test("Mobile project tabs stay reachable while reading and return to the new chapter", async ({
   page,
 }, testInfo) => {
