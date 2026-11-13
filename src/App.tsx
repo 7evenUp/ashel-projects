@@ -108,7 +108,6 @@ export function App() {
       </a>
       <ModeSwitch isDesign={isDesign} onChange={handleModeChange} />
       <TableScenery isDesign={isDesign} />
-      <div className="mode-ripple" aria-hidden="true" />
       <main
         className={cn(
           "desk relative m-auto max-w-325 px-10.5 pt-20 pb-6.25",

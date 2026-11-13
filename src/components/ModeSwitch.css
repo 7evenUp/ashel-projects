@@ -1,44 +1,51 @@
-.mode-ripple {
-  display: none;
-}
-
-:root[data-mode-ripple] .mode-ripple {
-  display: block;
-  position: fixed;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
-  width: 144vmax;
-  height: 144vmax;
-  translate: -50% -50%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle closest-side,
-    transparent 77%,
-    #fff9ec00 81%,
-    #fff9ec50 83%,
-    #67514d13 85%,
-    transparent 87%,
-    transparent 91%,
-    #69534f28 95%,
-    #fff9ec90 97%,
-    transparent 100%
-  );
-  view-transition-name: mode-ripple;
-}
-
 :root[data-mode-transition] {
-  --mode-duration: 720ms;
+  --mode-duration: 600ms;
+  --mode-reveal-start: polygon(
+    0 -100%,
+    100% -100%,
+    100% -64%,
+    80% -60%,
+    60% -45%,
+    40% -23%,
+    20% -8%,
+    0 -4%
+  );
+  --mode-reveal-end: polygon(
+    0 -100%,
+    100% -100%,
+    100% 104%,
+    80% 108%,
+    60% 123%,
+    40% 145%,
+    20% 160%,
+    0 164%
+  );
+}
+
+@supports (clip-path: shape(from 0 0, line to 100% 100%, close)) {
+  :root[data-mode-transition] {
+    --mode-reveal-start: shape(
+      from 0 -100%,
+      line to 100% -100%,
+      line to 100% -64%,
+      curve to 0 -4% with 66% -70% / 34% 2%,
+      close
+    );
+    --mode-reveal-end: shape(
+      from 0 -100%,
+      line to 100% -100%,
+      line to 100% 104%,
+      curve to 0 164% with 66% 98% / 34% 170%,
+      close
+    );
+  }
 }
 
 :root[data-mode-transition]::view-transition {
   pointer-events: none;
 }
 
-:root[data-mode-transition]::view-transition-group(*) {
-  animation: none;
-}
-
+:root[data-mode-transition]::view-transition-group(root),
 :root[data-mode-transition]::view-transition-old(root),
 :root[data-mode-transition]::view-transition-new(root) {
   animation: none;
@@ -48,44 +55,18 @@
 :root[data-mode-transition="open"]::view-transition-new(root),
 :root[data-mode-transition="close"]::view-transition-old(root) {
   z-index: 1;
-  animation: mode-circle var(--mode-duration) var(--ease-page) both;
+  animation: mode-reveal var(--mode-duration) var(--ease-page) both;
 }
 
 :root[data-mode-transition="close"]::view-transition-old(root) {
   animation-direction: reverse;
 }
 
-:root[data-mode-transition]::view-transition-group(mode-ripple) {
-  z-index: 2;
-}
-
-:root[data-mode-transition]::view-transition-new(mode-ripple) {
-  animation: mode-wave var(--mode-duration) var(--ease-page) both;
-  mix-blend-mode: normal;
-}
-
-@keyframes mode-circle {
+@keyframes mode-reveal {
   from {
-    clip-path: circle(0 at center);
+    clip-path: var(--mode-reveal-start);
   }
   to {
-    clip-path: circle(72vmax at center);
-  }
-}
-
-@keyframes mode-wave {
-  0% {
-    transform: scale(0.035);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  68% {
-    opacity: 0.65;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
+    clip-path: var(--mode-reveal-end);
   }
 }

@@ -455,7 +455,6 @@ test("The mode switch reveals and closes Design, then restores the Code chapter"
   await mode.click()
   await expect(mode).toBeChecked()
   await expect(root).not.toHaveAttribute("data-mode-transition")
-  await expect(page.locator(".mode-ripple")).toBeHidden()
 })
 
 test("The work period is computed once per site load", async ({ page }) => {

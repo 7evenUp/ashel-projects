@@ -198,13 +198,11 @@ export function useBookNavigation({
       if (location.hash !== fromHash) return
 
       flushSync(changeMode)
-      root.dataset.modeRipple = ""
     })
     modeTransition.current = transition
 
     const finish = () => {
       delete root.dataset.modeTransition
-      delete root.dataset.modeRipple
       modeTransition.current = null
     }
     void transition.finished.then(finish, finish)
