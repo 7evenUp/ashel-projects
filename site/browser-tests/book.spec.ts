@@ -10,6 +10,113 @@ const chapters = [
   "academy/mini",
 ]
 
+test("Arrow shortcuts leave focused controls alone", async ({ page }) => {
+  await page.goto("/#academy")
+  for (const control of [
+    page.getByRole("switch"),
+    page.getByRole("button", { name: "Telegram + Base", exact: true }),
+    page.getByRole("button", { name: "Academy", exact: true }),
+  ]) {
+    await control.focus()
+    await page.keyboard.press("ArrowLeft")
+    await expect(page).toHaveURL(/#academy$/)
+    await expect(control).toBeFocused()
+  }
+  await page.locator("#spread").focus()
+  await page.keyboard.press("ArrowLeft")
+  await expect(page).toHaveURL(/#nutsfarm$/)
+})
+
+test("Mobile project actions open early and All projects stays reachable", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Mobile action placement")
+  for (const width of [320, 390, 800]) {
+    await page.setViewportSize({ width, height: 844 })
+    await page.goto("/#personal/ashel-front-style")
+    const preview = page.getByRole("link", {
+      name: "Открыть на skills.sh",
+      exact: true,
+    })
+    await expect(preview).toBeInViewport()
+    await expect(
+      page.getByRole("link", { name: "Исходный код", exact: true })
+    ).toBeInViewport()
+    await page.evaluate(() => window.scrollTo(0, 900))
+    const home = page.getByRole("button", { name: "Все проекты", exact: true })
+    await expect(home).toBeInViewport()
+    const bookmarks = page.getByRole("navigation", {
+      name: "Личные проекты",
+      exact: true,
+    })
+    const homeBox = (await home.boundingBox())!
+    const navBox = (await bookmarks.boundingBox())!
+    expect(homeBox.x + homeBox.width).toBeLessThanOrEqual(navBox.x)
+    await bookmarks.evaluate((el) =>
+      el.scrollTo({ left: el.scrollWidth, behavior: "instant" })
+    )
+    expect((await home.boundingBox())!.x + homeBox.width).toBeLessThanOrEqual(
+      (await bookmarks.boundingBox())!.x
+    )
+    await home.click()
+    await expect(page).toHaveURL(/#intro$/)
+    await expect.poll(() => page.evaluate(() => scrollY)).toBe(0)
+  }
+})
+
+test("Empty Design album offers a return to the last Code chapter", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await page.goto("/#personal/ashel-front-style")
+  await page.getByRole("switch").click()
+  await expect(page).toHaveURL(/#design$/)
+  await page.getByRole("button", { name: "Вернуться к проектам" }).click()
+  await expect(page).toHaveURL(/#personal\/ashel-front-style$/)
+  await expect(page.locator("#spread")).toBeFocused()
+  await expect(page.locator(".copy-command")).toHaveText("Копировать")
+})
+
+test("Keyboard chapter changes return the reader to the new content", async ({
+  page,
+}) => {
+  await page.goto("/#crypton-id")
+  await page.evaluate(() => {
+    const range = document.createRange()
+    range.selectNodeContents(document.querySelector(".about-note")!)
+    window.getSelection()?.addRange(range)
+  })
+  await page.keyboard.press("ArrowRight")
+  await expect(page).toHaveURL(/#crypton-id$/)
+  await page.evaluate(() => window.getSelection()?.removeAllRanges())
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+  await page.keyboard.press("ArrowRight")
+  await expect(page).toHaveURL(/#x-program$/)
+  await expect(page.locator("#spread")).toBeFocused()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+})
+
+test("Visible mobile chapter buttons navigate without gestures", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Mobile chapter controls")
+  await page.setViewportSize({ width: 320, height: 812 })
+  await page.goto("/#personal/ashel-gym")
+  const controls = page.locator(".book-controls")
+  await expect(controls).toContainText("Глава 1 из 3")
+  await controls.getByRole("button", { name: "Следующий проект" }).click()
+  await expect(page).toHaveURL(/#personal\/ashel-front-style$/)
+  await controls.getByRole("button", { name: "Предыдущий проект" }).click()
+  await expect(page).toHaveURL(/#personal\/ashel-gym$/)
+  await controls.getByRole("button", { name: "Вернуться к выбору" }).click()
+  await expect(page.locator("#personal-title")).toHaveText("Артём")
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth
+    )
+  ).toBe(true)
+})
+
 test("Personal projects open their own book, tabs, links, history, and keyboard navigation", async ({
   page,
 }) => {
@@ -25,7 +132,7 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
     name: "Личные проекты",
     exact: true,
   })
-  await expect(nav.getByRole("button")).toHaveCount(3)
+  await expect(nav.locator(".bookmark")).toHaveCount(3)
   await expect(nav.locator("img")).toHaveCount(3)
   await expect
     .poll(() =>
@@ -74,7 +181,7 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
   ).toHaveAttribute("href", "https://github.com/7evenUp/ashel-skills")
   await page.keyboard.press("ArrowRight")
   await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
-  await expect(page.locator("#spread h1")).toHaveText("Сайт-Портфолио")
+  await expect(page.locator("#spread h1")).toHaveText("Портфолио веб-дизайнера")
   await expect(
     page.locator("#spread").getByRole("link", { name: "Открыть сайт" })
   ).toHaveAttribute("href", "https://iuliia-design.vercel.app/")
@@ -105,12 +212,14 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
   await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await expect(page).toHaveURL(/#intro$/)
   await page
-    .getByRole("button", { name: "Открыть личный проект Сайт-Портфолио" })
+    .getByRole("button", {
+      name: "Открыть личный проект Портфолио веб-дизайнера",
+    })
     .click()
   await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
   await page.reload()
   await expect(nav.locator('[aria-current="page"]')).toHaveAccessibleName(
-    "Сайт-Портфолио"
+    "Портфолио веб-дизайнера"
   )
   await page.getByRole("button", { name: "Начало книги", exact: true }).click()
   await page
@@ -134,7 +243,7 @@ test("The skill install command copies to the clipboard and reports denied acces
   await context.grantPermissions(["clipboard-read", "clipboard-write"])
   await page.goto("/#personal/ashel-front-style")
   const copyButton = page.locator(".copy-command")
-  await expect(copyButton).toHaveText("")
+  await expect(copyButton).toHaveText("Копировать")
   const copyIcon = await copyButton.locator("svg").innerHTML()
   await page
     .getByRole("button", { name: "Копировать команду установки", exact: true })
@@ -146,9 +255,11 @@ test("The skill install command copies to the clipboard and reports denied acces
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
     command
   )
-  await expect(copyButton).toHaveText("")
+  await expect(copyButton).toHaveText("Скопировано")
   expect(await copyButton.locator("svg").innerHTML()).not.toBe(copyIcon)
-  await expect(page.locator('.install-command [role="status"]')).toHaveCount(0)
+  await expect(page.locator('.install-command [role="status"]')).toHaveText(
+    "Команда скопирована"
+  )
   await expect(copyButton).toHaveAccessibleName("Копировать команду установки")
   expect(await copyButton.locator("svg").innerHTML()).toBe(copyIcon)
 
@@ -227,7 +338,7 @@ test("The introductory spread opens first and links both sides to real projects"
     intro.locator(".difficulty, .mode-eyebrow, .intro-folio")
   ).toHaveCount(0)
   await expect(intro).not.toContainText("Задачи со звёздочкой")
-  await expect(intro.locator(".personal-page .campaign-project")).toHaveCount(2)
+  await expect(intro.locator(".personal-page .campaign-project")).toHaveCount(3)
   await expect(
     intro.getByRole("button", { name: "Открыть личные проекты", exact: true })
   ).toBeVisible()
@@ -455,7 +566,9 @@ test("The mode switch reveals and closes Design, then restores the Code chapter"
   page,
 }) => {
   await page.goto("/#academy/mini")
-  const mode = page.getByRole("switch", { name: "Режим Design" })
+  const mode = page.getByRole("switch", {
+    name: "Дизайн-работы (Design); выключено — проекты (Code)",
+  })
   const root = page.locator("html")
 
   await expect(mode).not.toBeChecked()
@@ -463,7 +576,7 @@ test("The mode switch reveals and closes Design, then restores the Code chapter"
   await expect(root).toHaveAttribute("data-mode-transition", "open")
   await expect(mode).toBeChecked()
   await expect(page).toHaveURL(/#design$/)
-  await expect(page.getByText("Место для проекта")).toHaveCount(2)
+  await expect(page.getByText("Иллюстрация раздела")).toHaveCount(2)
   await expect(root).not.toHaveAttribute("data-mode-transition")
   await page.keyboard.press("ArrowRight")
   await expect(page).toHaveURL(/#design$/)
@@ -522,7 +635,7 @@ test("The home ribbon sits beside the book and returns to the opening spread", a
     await expect(page.locator(".turn-scene")).toHaveCount(0)
     const home = page.getByRole("button", { name: "Начало книги", exact: true })
     const nav = page.getByRole("navigation", { name: "Проекты" })
-    await expect(nav.getByRole("button")).toHaveCount(7)
+    await expect(nav.locator(".bookmark")).toHaveCount(7)
     await expect(
       nav.getByRole("button", { name: "Начало книги", exact: true })
     ).toHaveCount(0)
@@ -673,7 +786,7 @@ test("Mobile project tabs stay reachable while reading and return to the new cha
     expect((await home.boundingBox())!.y).toBeGreaterThanOrEqual(
       (await nav.boundingBox())!.height
     )
-    await expect(page.locator(".book-controls")).toBeHidden()
+    await expect(page.locator(".book-controls")).toBeVisible()
     await nav.evaluate((el) => el.scrollTo({ left: 0, behavior: "instant" }))
     await nav.getByRole("button", { name: "Crypton ID", exact: true }).click()
     await expect(page.locator("#spread h1")).toHaveText("Crypton ID")
@@ -893,6 +1006,9 @@ test("Horizontal swipes navigate, vertical gestures and buttons do not", async (
   await expect(page).toHaveURL(/#x-program$/)
   await swipe(".all-notes", -120, 5)
   await expect(page).toHaveURL(/#x-program$/)
+  await page.goto("/#personal/ashel-front-style")
+  await swipe(".install-command code", -120, 5)
+  await expect(page).toHaveURL(/#personal\/ashel-front-style$/)
 })
 
 test("Book cover and direction stay correct throughout forward and backward turns", async ({

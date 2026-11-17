@@ -81,6 +81,10 @@ export function App() {
   const handleOpenPersonalProject = (index: number) =>
     navigate({ page: "personal", index }, { scroll: true })
   const handleOpenIntro = () => navigate({ page: "intro" }, { scroll: true })
+  const handleReturnToCode = () => {
+    handleModeChange()
+    book.current?.focus({ preventScroll: true })
+  }
   const handleVariantChange = (mode: Variant) => {
     if (route.page === "project") navigate({ ...route, mode })
   }
@@ -123,6 +127,7 @@ export function App() {
           {isChapter && (
             <Bookmarks
               projects={bookProjects}
+              onHome={handleOpenIntro}
               activeIndex={chapterIndex}
               isPersonal={route.page === "personal"}
               variant={variant}
@@ -141,7 +146,7 @@ export function App() {
             onTurnFinish={finishTurn}
             touchHandlers={isDesign ? undefined : touchHandlers}
           >
-            {isDesign && <DesignSpread />}
+            {isDesign && <DesignSpread onReturnToCode={handleReturnToCode} />}
             {isIntro && (
               <IntroSpread
                 onOpenProject={handleOpenProject}

@@ -118,11 +118,9 @@ export function NotesDialog({
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="text-[10px] tracking-[2px] text-[#a19a83]">
-          ЗАПИСИ РАЗРАБОТЧИКА
-        </span>
+        <span className="text-[13px] text-[#68614e]">Заметки о разработке</span>
         <button
-          className="size-8.5 rounded-full border border-solid border-[rgb(217,_210,_189)] bg-[#eee9da] text-[#7b7b6a]"
+          className="size-11 shrink-0 rounded-full border border-solid border-[rgb(217,_210,_189)] bg-[#eee9da] text-[#555b49]"
           aria-label="Закрыть заметки"
           onClick={onClose}
         >
@@ -139,7 +137,7 @@ export function NotesDialog({
             доступны описание проекта, мой вклад, интересные задачи и стек
             технологий.
           </p>
-          <p>Веб-платформу можно посмотреть по кнопке «Открыть проект».</p>
+          <p>Ссылка на веб-платформу находится в разделе ссылок проекта.</p>
         </>
       ) : (
         <NotesMarkdown text={body} />

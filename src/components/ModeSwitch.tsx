@@ -15,7 +15,7 @@ export function ModeSwitch({
         type="button"
         role="switch"
         aria-checked={isDesign}
-        aria-label="Режим Design"
+        aria-label="Переключить режим просмотра книги"
         aria-controls="spread"
         onClick={onChange}
         className={cn(

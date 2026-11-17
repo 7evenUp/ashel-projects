@@ -1,6 +1,6 @@
 import PaperPage from "./PaperPage"
 
-const DesignSpread = () => (
+const DesignSpread = ({ onReturnToCode }: { onReturnToCode: () => void }) => (
   <>
     <PaperPage
       side="left"
@@ -16,8 +16,16 @@ const DesignSpread = () => (
         работы
       </h1>
       <p className="mt-5 max-w-64 text-base leading-relaxed text-[#cfbcc7]">
-        Здесь появятся мои дизайн-проекты.
+        Альбом пока пуст. Готовые проекты и мой вклад в их разработку можно
+        посмотреть в разделе Code.
       </p>
+      <button
+        type="button"
+        onClick={onReturnToCode}
+        className="mt-6 min-h-11 self-start rounded-sm bg-[#e6a996] px-4 py-3 text-sm font-medium text-[#30202a] focus-visible:outline-[#e6a996]"
+      >
+        Вернуться к проектам
+      </button>
 
       <figure className="mt-9 min-[801px]:mt-auto min-[801px]:pt-12">
         <div
@@ -30,7 +38,7 @@ const DesignSpread = () => (
         </div>
         <figcaption className="mt-3 flex gap-4 font-book text-sm text-[#cfbcc7]">
           <span>01</span>
-          <span>Место для проекта</span>
+          <span>Иллюстрация раздела</span>
         </figcaption>
       </figure>
     </PaperPage>
@@ -52,7 +60,7 @@ const DesignSpread = () => (
         </div>
         <figcaption className="mt-3 flex gap-4 font-book text-sm text-[#cfbcc7]">
           <span>02</span>
-          <span>Место для проекта</span>
+          <span>Иллюстрация раздела</span>
         </figcaption>
       </figure>
     </PaperPage>

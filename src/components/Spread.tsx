@@ -100,6 +100,74 @@ export function Spread({
     () => () => animations.current.forEach((animation) => animation.cancel()),
     []
   )
+  const projectLinks = (
+    <nav
+      className={cn(
+        "mx-0 mt-0 mb-6.25 flex flex-wrap items-center justify-start gap-2.5 text-[10px] tracking-[normal] text-[#555d4c] normal-case max-[801px]:mb-6.25",
+        "[&_span:last-child]:text-[11px] [&_span:last-child]:tracking-[0.8px]"
+      )}
+      aria-label="Ссылки проекта"
+    >
+      <a
+        className={cn(
+          "primary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[#606c51] bg-[#687458] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#fffdf3] shadow-[inset_0_-3px_0_#4c5741] [transition:transform_0.18s,_box-shadow_0.18s]",
+          "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+          "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+          "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+          "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
+          "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#4c5741]",
+          "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#625747] [&.nda]:shadow-none",
+          "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
+        )}
+        href={source.deploy}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="arrow" />
+        {variant === "mini" ? "Сайт Academy" : "Открыть проект"}
+      </a>
+      {source.code === "NDA" ? (
+        <button
+          className={cn(
+            "nda inline-flex h-11 min-h-11 cursor-help items-center justify-center gap-2.5 rounded-[4px] border border-dashed border-[rgb(189,_179,_161)] bg-[#eee9df] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#625747] shadow-none [transition:transform_0.18s,_box-shadow_0.18s]",
+            "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+            "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+            "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+            "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
+            "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
+            "hover:[transform:translateY(-2px)] hover:shadow-[0_5px_0_#4c574133]",
+            "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]",
+            "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
+          )}
+          onClick={() => onNotes("nda")}
+          aria-label="Исходный код закрыт по NDA"
+        >
+          <Icon name="lock" />
+          Код под NDA
+        </button>
+      ) : (
+        <a
+          className={cn(
+            "secondary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[rgba(138,_145,_121,_0.286)] bg-[#f8f5ec] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap shadow-[inset_0_-3px_0_#d9d7cb] [transition:transform_0.18s,_box-shadow_0.18s]",
+            "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+            "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+            "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+            "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
+            "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#d9d7cb]",
+            "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#625747] [&.nda]:shadow-none",
+            "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]"
+          )}
+          href={source.code}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="code" />
+          Исходный код
+        </a>
+      )}
+    </nav>
+  )
+
   return (
     <>
       <PaperPage
@@ -129,9 +197,9 @@ export function Spread({
           </div>
           <span
             className={cn(
-              "status inline-flex items-center gap-1.5 rounded-[20px] bg-[#e9eddd] px-2.25 py-1 text-[11px]! tracking-[0]! text-[#638051]",
+              "status inline-flex items-center gap-1.5 rounded-[20px] bg-[#e9eddd] px-2.25 py-1 text-[11px]! tracking-[0]! text-[#466237]",
               "before:size-1.25 before:rounded-full before:bg-[#819862] before:content-['']",
-              "[&.archived]:bg-[#efebe1] [&.archived]:text-[#8a8070]",
+              "[&.archived]:bg-[#efebe1] [&.archived]:text-[#665d4e]",
               "[&.archived:before]:bg-[#b5a891]",
               !source.active && "archived"
             )}
@@ -170,6 +238,7 @@ export function Spread({
         >
           {p.tagline}
         </p>
+        <div className="mt-5 min-[801px]:hidden">{projectLinks}</div>
         <Art project={p} variant={variant} />
         <section
           className={cn(
@@ -187,7 +256,7 @@ export function Spread({
         <section className="stack">
           <h2
             className={cn(
-              "mx-0 mt-0 mb-2.75 flex items-center gap-2 text-[10px] font-medium tracking-[1.7px] text-[#797b6b] uppercase",
+              "mx-0 mt-0 mb-2.75 flex items-center gap-2 text-[12px] font-medium tracking-[1px] text-[#555b4e] uppercase",
               "[&_.icon]:size-3.75"
             )}
           >
@@ -198,7 +267,7 @@ export function Spread({
             data-variant-content
             className={cn(
               "flex flex-wrap gap-1.5",
-              "[&_span]:inline-block [&_span]:rounded-[3px] [&_span]:border [&_span]:border-solid [&_span]:border-[rgb(220,218,204)] [&_span]:bg-[#eeecdf] [&_span]:px-2 [&_span]:pt-1 [&_span]:pb-0.75 [&_span]:text-[11px] [&_span]:text-[#777869]"
+              "[&_span]:inline-block [&_span]:rounded-[3px] [&_span]:border [&_span]:border-solid [&_span]:border-[rgb(220,218,204)] [&_span]:bg-[#eeecdf] [&_span]:px-2 [&_span]:pt-1 [&_span]:pb-0.75 [&_span]:text-[12px] [&_span]:text-[#555b4e]"
             )}
           >
             {p.stack.map((s) => (
@@ -227,71 +296,7 @@ export function Spread({
         >
           ✦<span>✧</span>
         </div>
-        <nav
-          className={cn(
-            "mx-0 mt-0 mb-6.25 flex flex-wrap items-center justify-start gap-2.5 text-[10px] tracking-[normal] text-[#848377] normal-case max-[801px]:mb-6.25",
-            "[&_span:last-child]:text-[11px] [&_span:last-child]:tracking-[0.8px]"
-          )}
-          aria-label="Ссылки проекта"
-        >
-          <a
-            className={cn(
-              "primary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[#606c51] bg-[#687458] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#fffdf3] shadow-[inset_0_-3px_0_#4c5741] [transition:transform_0.18s,_box-shadow_0.18s]",
-              "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
-              "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
-              "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
-              "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
-              "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#4c5741]",
-              "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#83796b] [&.nda]:shadow-none",
-              "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
-            )}
-            href={source.deploy}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="arrow" />
-            {variant === "mini" ? "Сайт Academy" : "Открыть проект"}
-          </a>
-          {source.code === "NDA" ? (
-            <button
-              className={cn(
-                "nda inline-flex h-11 min-h-11 cursor-help items-center justify-center gap-2.5 rounded-[4px] border border-dashed border-[rgb(189,_179,_161)] bg-[#eee9df] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#83796b] shadow-none [transition:transform_0.18s,_box-shadow_0.18s]",
-                "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
-                "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
-                "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
-                "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
-                "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
-                "hover:[transform:translateY(-2px)] hover:shadow-[0_5px_0_#4c574133]",
-                "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]",
-                "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
-              )}
-              onClick={() => onNotes("nda")}
-              aria-label="Исходный код закрыт по NDA"
-            >
-              <Icon name="lock" />
-              Код под NDA
-            </button>
-          ) : (
-            <a
-              className={cn(
-                "secondary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[rgba(138,_145,_121,_0.286)] bg-[#f8f5ec] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap shadow-[inset_0_-3px_0_#d9d7cb] [transition:transform_0.18s,_box-shadow_0.18s]",
-                "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
-                "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
-                "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
-                "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
-                "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#d9d7cb]",
-                "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#83796b] [&.nda]:shadow-none",
-                "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]"
-              )}
-              href={source.code}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon name="code" />
-              Исходный код
-            </a>
-          )}
-        </nav>
+        <div className="max-[801px]:hidden">{projectLinks}</div>
         <section
           className={cn(
             "note tape relative mx-0.5 mt-8.25 mb-6 [transform:rotate(var(--contribution-angle))] border border-solid border-[rgba(117,_98,_68,_0.075)] bg-[#fffdf5] px-6 pt-6.25 pb-4.75 shadow-[0_1px_1px_#66533112,_2px_5px_7px_-3px_#66533128]",
@@ -306,7 +311,7 @@ export function Spread({
           <Heading icon="sword">Мой вклад</Heading>
           <p
             data-variant-content
-            className="mx-0 mt-0 mb-4.25 text-[12px] text-[#949082]"
+            className="mx-0 mt-0 mb-4.25 text-[12px] text-[#676354]"
           >
             {p.role}
           </p>
@@ -342,7 +347,7 @@ export function Spread({
             "[&_.section-heading_h2]:text-[22px]"
           )}
         >
-          <Heading icon="spark">Уникальные задачи и решения к ним</Heading>
+          <Heading icon="spark">Задачи и решения</Heading>
           <ol
             data-variant-content
             className={cn(

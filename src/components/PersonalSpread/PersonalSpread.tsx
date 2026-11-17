@@ -25,6 +25,53 @@ const PersonalSpread = ({
 }) => {
   const Illustration = illustrations[project.illustration]
 
+  const projectLinks = (
+    <nav
+      className={cn(
+        "mx-0 mt-0 mb-6.25 flex flex-wrap items-center justify-start gap-2.5 text-[10px] tracking-[normal] text-[#555d4c] normal-case max-[801px]:mb-6.25",
+        "[&_span:last-child]:text-[11px] [&_span:last-child]:tracking-[0.8px]"
+      )}
+      aria-label="Ссылки проекта"
+    >
+      <a
+        className={cn(
+          "primary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[#606c51] bg-[#687458] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#fffdf3] shadow-[inset_0_-3px_0_#4c5741] [transition:transform_0.18s,_box-shadow_0.18s]",
+          "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+          "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+          "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+          "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
+          "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#4c5741]",
+          "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#625747] [&.nda]:shadow-none",
+          "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
+        )}
+        href={project.preview}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="arrow" />
+        {project.previewLabel}
+      </a>
+      <a
+        className={cn(
+          "secondary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[rgba(138,_145,_121,_0.286)] bg-[#f8f5ec] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap shadow-[inset_0_-3px_0_#d9d7cb] [transition:transform_0.18s,_box-shadow_0.18s]",
+          "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
+          "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
+          "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
+          "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
+          "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#d9d7cb]",
+          "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#625747] [&.nda]:shadow-none",
+          "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]"
+        )}
+        href={project.repository}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="code" />
+        Исходный код
+      </a>
+    </nav>
+  )
+
   return (
     <>
       <PaperPage
@@ -72,6 +119,7 @@ const PersonalSpread = ({
           {project.tagline}
         </p>
 
+        <div className="mt-5 min-[801px]:hidden">{projectLinks}</div>
         <Illustration />
 
         <section
@@ -91,7 +139,7 @@ const PersonalSpread = ({
         <section className="stack">
           <h2
             className={cn(
-              "mx-0 mt-0 mb-2.75 flex items-center gap-2 text-[10px] font-medium tracking-[1.7px] text-[#797b6b] uppercase",
+              "mx-0 mt-0 mb-2.75 flex items-center gap-2 text-[12px] font-medium tracking-[1px] text-[#555b4e] uppercase",
               "[&_.icon]:size-3.75"
             )}
           >
@@ -101,7 +149,7 @@ const PersonalSpread = ({
           <div
             className={cn(
               "flex flex-wrap gap-1.5",
-              "[&_span]:inline-block [&_span]:rounded-[3px] [&_span]:border [&_span]:border-solid [&_span]:border-[rgb(220,_218,_204)] [&_span]:bg-[#eeecdf] [&_span]:px-2 [&_span]:pt-1 [&_span]:pb-0.75 [&_span]:text-[11px] [&_span]:text-[#777869]"
+              "[&_span]:inline-block [&_span]:rounded-[3px] [&_span]:border [&_span]:border-solid [&_span]:border-[rgb(220,_218,_204)] [&_span]:bg-[#eeecdf] [&_span]:px-2 [&_span]:pt-1 [&_span]:pb-0.75 [&_span]:text-[12px] [&_span]:text-[#555b4e]"
             )}
           >
             {project.stack.map((item) => (
@@ -132,50 +180,7 @@ const PersonalSpread = ({
           ✦<span>✧</span>
         </div>
 
-        <nav
-          className={cn(
-            "mx-0 mt-0 mb-6.25 flex flex-wrap items-center justify-start gap-2.5 text-[10px] tracking-[normal] text-[#848377] normal-case max-[801px]:mb-6.25",
-            "[&_span:last-child]:text-[11px] [&_span:last-child]:tracking-[0.8px]"
-          )}
-          aria-label="Ссылки проекта"
-        >
-          <a
-            className={cn(
-              "primary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[#606c51] bg-[#687458] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap text-[#fffdf3] shadow-[inset_0_-3px_0_#4c5741] [transition:transform_0.18s,_box-shadow_0.18s]",
-              "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
-              "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
-              "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
-              "[&.secondary]:bg-[#f8f5ec] [&.secondary]:shadow-[inset_0_-3px_0_#d9d7cb]",
-              "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#4c5741]",
-              "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#83796b] [&.nda]:shadow-none",
-              "[&.secondary:hover]:shadow-[inset_0_-5px_0_#d9d7cb]"
-            )}
-            href={project.preview}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="arrow" />
-            {project.previewLabel}
-          </a>
-          <a
-            className={cn(
-              "secondary inline-flex h-11 min-h-11 items-center justify-center gap-2.5 rounded-[4px] border border-solid border-[rgba(138,_145,_121,_0.286)] bg-[#f8f5ec] px-4.25 pt-2.75 pb-2.5 text-[14px] leading-[20px] whitespace-nowrap shadow-[inset_0_-3px_0_#d9d7cb] [transition:transform_0.18s,_box-shadow_0.18s]",
-              "max-[1101px]:pt-2.5 max-[1101px]:pr-3 max-[1101px]:pl-3 max-[1101px]:text-[13px]",
-              "max-[801px]:px-4 max-[801px]:py-2.75 max-[801px]:text-[14px]",
-              "max-[391px]:px-3 max-[391px]:py-2.5 max-[391px]:text-[13px]",
-              "[&.primary]:border-[#606c51] [&.primary]:bg-[#687458] [&.primary]:text-[#fffdf3] [&.primary]:shadow-[inset_0_-3px_0_#4c5741]",
-              "hover:[transform:translateY(-2px)] hover:shadow-[inset_0_-5px_0_#d9d7cb]",
-              "[&.nda]:cursor-help [&.nda]:border [&.nda]:border-dashed [&.nda]:border-[rgb(189,_179,_161)] [&.nda]:bg-[#eee9df] [&.nda]:text-[#83796b] [&.nda]:shadow-none",
-              "[&.primary:hover]:shadow-[inset_0_-5px_0_#4c5741]"
-            )}
-            href={project.repository}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="code" />
-            Исходный код
-          </a>
-        </nav>
+        <div className="max-[801px]:hidden">{projectLinks}</div>
 
         <section
           className={cn(
@@ -187,8 +192,8 @@ const PersonalSpread = ({
             "before:absolute before:-top-2.5 before:left-[calc(35px_+_var(--art-x))] before:h-5.5 before:w-18.75 before:[transform:rotate(var(--contribution-tape))] before:[border-inline-width:1px] before:[border-inline-style:dashed] before:[border-inline-color:rgba(161,_140,_88,_0.19)] before:bg-[#d2c7a670] before:shadow-[inset_0_0_8px_#e6dbb365] before:[backdrop-filter:blur(0.2px)] before:content-[''] before:[clip-path:polygon(0_4%,_97%_0,_100%_93%,_3%_100%,_0_76%,_3%_54%)]",
             "[&>h2]:mx-0 [&>h2]:mt-0 [&>h2]:mb-2.5 [&>h2]:text-[12px] [&>h2]:font-medium [&>h2]:tracking-[1.7px] [&>h2]:uppercase",
             "[&_.case-list]:mt-5.5 [&_.case-list]:gap-5.25",
-            "[&_.case-list_p]:mt-1.25 [&_.case-list_p]:text-[14px] [&_.case-list_p]:leading-[1.5] [&_.case-list_p]:text-[#76786a]",
-            "[&_.case-list_strong]:text-[16px] [&_.case-list_strong]:text-[#555b4e]"
+            "[&_.case-list_p]:mt-1.25 [&_.case-list_p]:text-[15px] [&_.case-list_p]:leading-[1.5] [&_.case-list_p]:text-[#555b4e]",
+            "max-[801px]:[&_.case-list_p]:text-[16px] [&_.case-list_strong]:text-[16px] [&_.case-list_strong]:text-[#555b4e]"
           )}
         >
           <div
@@ -234,7 +239,7 @@ const PersonalSpread = ({
               "[&_.section-heading_.icon]:text-[var(--accent)]",
               "[&_.section-heading_h2]:text-[22px]",
               "[&_p]:text-[14px] [&_p]:text-[#767181]",
-              "[&_.copy-feedback]:m-0 [&_.copy-feedback]:px-3 [&_.copy-feedback]:pt-0 [&_.copy-feedback]:pb-2 [&_.copy-feedback]:text-[11px] [&_.copy-feedback]:leading-[1.4] [&_.copy-feedback]:text-[#72617e]"
+              "[&_.copy-feedback]:m-0 [&_.copy-feedback]:px-3 [&_.copy-feedback]:pt-0 [&_.copy-feedback]:pb-2 [&_.copy-feedback]:text-[13px] [&_.copy-feedback]:leading-[1.4] [&_.copy-feedback]:text-[#72617e]"
             )}
           >
             <div

@@ -131,9 +131,9 @@ const IntroSpread = ({
         >
           <h2>Обо мне</h2>
           <p>
-            Разрабатываю веб-интерфейсы, занимаюсь UI-дизайном. В личных
-            проектах делаю приложение для тренировок и собираю соглашения по
-            коду для AI-агентов.
+            Разрабатываю и проектирую веб-интерфейсы. Среди личных проектов —
+            дневник тренировок, портфолио дизайнера и правила написания кода для
+            AI-агентов.
           </p>
           <div className="mt-4 flex items-center justify-between gap-3">
             <span className="text-[14px] text-[var(--mode-muted)]">
@@ -281,7 +281,7 @@ const IntroSpread = ({
               className="m-0 text-[16px] leading-[1.5] font-medium text-[var(--mode-ink)]"
               id="work-projects-title"
             >
-              Кликни на проект, чтобы изучить его подробнее
+              Рабочие проекты
             </h3>
             <span className="text-[14px] whitespace-nowrap text-[var(--mode-muted)]">
               {projects.length} проектов

@@ -9,7 +9,9 @@ export function useBookSwipe(onSwipe: (step: number) => void) {
     touch.current =
       event.touches.length === 1 &&
       event.target instanceof Element &&
-      !event.target.closest("a,button")
+      !event.target.closest(
+        'a,button,code,pre,input,textarea,select,[contenteditable="true"]'
+      )
         ? { id: point.identifier, x: point.clientX, y: point.clientY }
         : null
   }

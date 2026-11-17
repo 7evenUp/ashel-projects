@@ -155,22 +155,25 @@ export function useBookNavigation({
         event.altKey ||
         event.ctrlKey ||
         event.metaKey ||
-        target?.closest('input,textarea,select,[contenteditable="true"]')
+        event.shiftKey ||
+        window.getSelection()?.isCollapsed === false ||
+        target?.closest(
+          'a,button,input,textarea,select,[role="switch"],[contenteditable="true"]'
+        )
       )
         return
 
       event.preventDefault()
       const step = event.key === "ArrowRight" ? 1 : -1
+      const previous = currentRoute.current
       navigateChapter(routePosition(currentRoute.current) + step, {
         animate: false,
       })
 
-      target
-        ?.closest(".bookmark")
-        ?.parentElement?.querySelector<HTMLButtonElement>(
-          `[data-project="${routePosition(currentRoute.current)}"]`
-        )
-        ?.focus()
+      if (currentRoute.current !== previous) {
+        book.current?.focus({ preventScroll: true })
+        window.scrollTo({ top: 0, behavior: "instant" })
+      }
     }
 
     document.addEventListener("keydown", handleKeyDown)
