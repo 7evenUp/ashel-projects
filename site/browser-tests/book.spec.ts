@@ -96,27 +96,6 @@ test("Keyboard chapter changes return the reader to the new content", async ({
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
 })
 
-test("Visible mobile chapter buttons navigate without gestures", async ({
-  page,
-}, testInfo) => {
-  test.skip(testInfo.project.name !== "mobile", "Mobile chapter controls")
-  await page.setViewportSize({ width: 320, height: 812 })
-  await page.goto("/#personal/ashel-gym")
-  const controls = page.locator(".book-controls")
-  await expect(controls).toContainText("Глава 1 из 3")
-  await controls.getByRole("button", { name: "Следующий проект" }).click()
-  await expect(page).toHaveURL(/#personal\/ashel-front-style$/)
-  await controls.getByRole("button", { name: "Предыдущий проект" }).click()
-  await expect(page).toHaveURL(/#personal\/ashel-gym$/)
-  await controls.getByRole("button", { name: "Вернуться к выбору" }).click()
-  await expect(page.locator("#personal-title")).toHaveText("Артём")
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth
-    )
-  ).toBe(true)
-})
-
 test("Personal projects open their own book, tabs, links, history, and keyboard navigation", async ({
   page,
 }) => {
@@ -193,9 +172,6 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
       page.locator("#spread figure img").evaluate((img) => img.naturalWidth)
     )
     .toBeGreaterThan(0)
-  await expect(
-    page.getByRole("button", { name: "Следующий проект", includeHidden: true })
-  ).toBeDisabled()
   await page.keyboard.press("ArrowRight")
   await expect(page).toHaveURL(/#personal\/julia-portfolio$/)
   await page.goBack()
@@ -786,7 +762,6 @@ test("Mobile project tabs stay reachable while reading and return to the new cha
     expect((await home.boundingBox())!.y).toBeGreaterThanOrEqual(
       (await nav.boundingBox())!.height
     )
-    await expect(page.locator(".book-controls")).toBeVisible()
     await nav.evaluate((el) => el.scrollTo({ left: 0, behavior: "instant" }))
     await nav.getByRole("button", { name: "Crypton ID", exact: true }).click()
     await expect(page.locator("#spread h1")).toHaveText("Crypton ID")
@@ -916,20 +891,11 @@ test("Navigation, history, Academy variants, notes, and NDA", async ({
   page,
 }) => {
   await page.goto("/#crypton-id")
-  await expect(
-    page.getByRole("button", {
-      name: "Вернуться к выбору",
-      includeHidden: true,
-    })
-  ).toBeEnabled()
   await page.keyboard.press("ArrowRight")
   await expect(page).toHaveURL(/#x-program$/)
   await page.goBack()
   await expect(page.locator("#spread h1")).toHaveText("Crypton ID")
   await page.getByRole("button", { name: "Academy", exact: true }).click()
-  await expect(
-    page.getByRole("button", { name: "Следующий проект", includeHidden: true })
-  ).toBeDisabled()
   await page
     .getByRole("button", { name: "Telegram + Base", exact: true })
     .click()

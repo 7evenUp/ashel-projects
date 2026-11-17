@@ -4,7 +4,6 @@ import type { MouseEvent } from "react"
 import { BookCover } from "./components/Book/BookCover"
 import { Bookmarks } from "./components/Book/Bookmarks"
 import { BookRibbon } from "./components/Book/BookRibbon"
-import { ChapterControls } from "./components/Book/ChapterControls"
 import { useBookNavigation } from "./components/Book/useBookNavigation"
 import DesignSpread from "./components/DesignSpread"
 import IntroSpread from "./components/IntroSpread/IntroSpread"
@@ -32,7 +31,6 @@ export function App() {
     turn,
     isReduced,
     navigate,
-    navigateChapter,
     handleModeChange,
     touchHandlers,
     finishTurn,
@@ -174,16 +172,6 @@ export function App() {
             onHome={handleOpenIntro}
           />
         </div>
-        {isChapter && (
-          <ChapterControls
-            activeIndex={chapterIndex}
-            bookProjects={bookProjects}
-            onPrevious={() =>
-              navigateChapter(chapterIndex - 1, { scroll: true })
-            }
-            onNext={() => navigateChapter(chapterIndex + 1, { scroll: true })}
-          />
-        )}
       </main>
 
       <p

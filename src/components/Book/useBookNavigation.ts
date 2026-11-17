@@ -226,7 +226,6 @@ export function useBookNavigation({
     turn,
     isReduced,
     navigate,
-    navigateChapter,
     handleModeChange,
     finishTurn,
     touchHandlers,
