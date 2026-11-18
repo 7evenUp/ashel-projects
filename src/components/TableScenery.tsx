@@ -7,45 +7,45 @@ const sceneryByMode = {
   design: [
     {
       image: "design-figma.webp",
-      placement: "top-[13%] left-[calc(50%_-_390px)] w-54 -rotate-12",
+      placement: "top-[8%] left-[calc(50%_-_390px)] w-34 -rotate-12",
     },
     {
       image: "design-photoshop.webp",
-      placement: "top-[43%] left-[calc(50%_-_650px)] w-48 rotate-11",
+      placement: "top-[43%] left-[calc(50%_-_700px)] w-48 rotate-11",
     },
     {
       image: "design-illustrator.webp",
-      placement: "top-[94%] left-[calc(50%_-_265px)] w-57 -rotate-7",
+      placement: "top-[94%] left-[calc(50%_-_265px)] w-40 -rotate-7",
     },
     {
       image: "design-blender.webp",
-      placement: "top-[35%] left-[calc(50%_+_715px)] w-46 rotate-14",
+      placement: "top-[35%] left-[calc(50%_+_740px)] w-46 rotate-14",
     },
     {
       image: "design-sculpture.webp",
-      placement: "top-[72%] left-[calc(50%_+_640px)] w-55 -rotate-6",
+      placement: "top-[72%] left-[calc(50%_+_710px)] w-55 -rotate-6",
     },
   ],
   code: [
     {
       image: "code-vscode.webp",
-      placement: "top-[37%] left-[calc(50%_-_620px)] w-56 -rotate-13",
+      placement: "top-1/2 left-[calc(50%_-_720px)] w-56 -rotate-13",
     },
     {
       image: "code-terminal.webp",
-      placement: "top-[92%] left-[calc(50%_-_348px)] w-43 rotate-15",
+      placement: "top-[96%] left-[calc(50%_-_348px)] w-43 rotate-15",
     },
     {
       image: "code-codex.webp",
-      placement: "top-[13%] left-[calc(50%_+_310px)] w-47 rotate-8",
+      placement: "top-[7%] left-[calc(50%_+_310px)] w-47 rotate-8",
     },
     {
       image: "code-claude.webp",
-      placement: "top-[49%] left-[calc(50%_+_710px)] w-52 -rotate-12",
+      placement: "top-[40%] left-[calc(50%_+_710px)] w-52 -rotate-12",
     },
     {
       image: "code-github.webp",
-      placement: "top-[77%] left-[calc(50%_+_648px)] w-48 rotate-9",
+      placement: "top-[77%] left-[calc(50%_+_720px)] w-48 rotate-9",
     },
   ],
 }
