@@ -56,7 +56,8 @@ export function BookCover({
           "min-[801px]:grid-cols-2",
           "min-[1450px]:min-h-191.5",
           "max-[1101px]:min-h-188.75",
-          "max-[801px]:min-h-0 max-[801px]:scroll-mt-[calc(78px+env(safe-area-inset-top,0px))] max-[801px]:grid-cols-[1fr]",
+          "max-[1101px]:scroll-mt-[calc(112px+env(safe-area-inset-top,0px))]",
+          "max-[801px]:min-h-0 max-[801px]:grid-cols-[1fr]",
           "after:pointer-events-none after:absolute after:top-0 after:bottom-0 after:left-[50%] after:z-6 after:w-17.5 after:transform-[translateX(-50%)] after:content-[''] after:[background:linear-gradient(90deg,transparent,#7d6d4820_30%,#51462d45_47%,#4038224d_49%,#fffbeccc_51%,#ac997135_56%,transparent)]",
           "max-[801px]:after:hidden",
           isDesign &&

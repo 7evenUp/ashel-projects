@@ -1,4 +1,12 @@
 import { test, expect } from "@playwright/test"
+import type { Page } from "@playwright/test"
+
+const bookHome = (page: Page) =>
+  page.getByRole("button", {
+    name: page.viewportSize()!.width <= 1100 ? "Все проекты" : "Начало книги",
+    exact: true,
+  })
+
 const chapters = [
   "crypton-id",
   "x-program",
@@ -51,12 +59,13 @@ test("Mobile project actions open early and All projects stays reachable", async
     })
     const homeBox = (await home.boundingBox())!
     const navBox = (await bookmarks.boundingBox())!
-    expect(homeBox.x + homeBox.width).toBeLessThanOrEqual(navBox.x)
+    expect(homeBox.y + homeBox.height).toBeLessThanOrEqual(navBox.y)
     await bookmarks.evaluate((el) =>
       el.scrollTo({ left: el.scrollWidth, behavior: "instant" })
     )
-    expect((await home.boundingBox())!.x + homeBox.width).toBeLessThanOrEqual(
-      (await bookmarks.boundingBox())!.x
+    expect((await home.boundingBox())!.x).toBe(homeBox.x)
+    expect((await home.boundingBox())!.y + homeBox.height).toBeLessThanOrEqual(
+      (await bookmarks.boundingBox())!.y
     )
     await home.click()
     await expect(page).toHaveURL(/#intro$/)
@@ -185,7 +194,7 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
   await expect(nav.locator('[aria-current="page"]')).toHaveAccessibleName(
     "Личный Skill"
   )
-  await page.getByRole("button", { name: "Начало книги", exact: true }).click()
+  await bookHome(page).click()
   await expect(page).toHaveURL(/#intro$/)
   await page
     .getByRole("button", {
@@ -197,7 +206,7 @@ test("Personal projects open their own book, tabs, links, history, and keyboard 
   await expect(nav.locator('[aria-current="page"]')).toHaveAccessibleName(
     "Портфолио веб-дизайнера"
   )
-  await page.getByRole("button", { name: "Начало книги", exact: true }).click()
+  await bookHome(page).click()
   await page
     .getByRole("button", {
       name: "Открыть личный проект Личный Skill",
@@ -362,7 +371,7 @@ test("The introductory spread opens first and links both sides to real projects"
   await expect(
     intro.getByRole("heading", { name: "Crypton ID", exact: true })
   ).toBeVisible()
-  await page.getByRole("button", { name: "Начало книги", exact: true }).click()
+  await bookHome(page).click()
   await expect(page).toHaveURL(/#intro$/)
   await page.reload()
   await expect(intro.getByRole("heading", { name: "Артём" })).toBeVisible()
@@ -588,7 +597,7 @@ test("The work period is computed once per site load", async ({ page }) => {
   await page
     .getByRole("button", { name: "Открыть рабочие проекты", exact: true })
     .click()
-  await page.getByRole("button", { name: "Начало книги", exact: true }).click()
+  await bookHome(page).click()
   await expect(period).toHaveText("ноябрь 2022 - октябрь 2026")
 
   await page.reload()
@@ -599,51 +608,64 @@ test("The work period is computed once per site load", async ({ page }) => {
   await expect(period).toHaveText("ноябрь 2022 - январь 2027")
 })
 
-test("The home ribbon sits beside the book and returns to the opening spread", async ({
+test("Home navigation sits above compact tabs or beside the desktop book", async ({
   page,
 }, testInfo) => {
   const widths =
-    testInfo.project.name === "mobile" ? [320, 375, 800] : [801, 1024, 1440]
+    testInfo.project.name === "mobile"
+      ? [320, 375, 768, 800]
+      : [801, 1024, 1100, 1101, 1440]
   for (const width of widths) {
     await page.setViewportSize({ width, height: 1000 })
     await page.goto("/#crypton-id")
     await expect(page.locator("#spread h1")).toHaveText("Crypton ID")
     await expect(page.locator(".turn-scene")).toHaveCount(0)
-    const home = page.getByRole("button", { name: "Начало книги", exact: true })
+    const home = bookHome(page)
     const nav = page.getByRole("navigation", { name: "Проекты" })
     await expect(nav.locator(".bookmark")).toHaveCount(7)
     await expect(
-      nav.getByRole("button", { name: "Начало книги", exact: true })
+      nav.getByRole("button", { name: /^(Все проекты|Начало книги)$/ })
     ).toHaveCount(0)
-    const ribbonBox = (await home.boundingBox())!
+    const homeBox = (await home.boundingBox())!
     const bookBox = (await page.locator(".book-cover").boundingBox())!
-    expect(ribbonBox.x).toBeLessThan(bookBox.x)
-    expect(ribbonBox.x + ribbonBox.width).toBeGreaterThan(bookBox.x)
-    expect(ribbonBox.x).toBeGreaterThanOrEqual(0)
-    expect(ribbonBox.width).toBeGreaterThan(ribbonBox.height)
-    expect(
-      await home
-        .locator("span")
-        .evaluate((el) => getComputedStyle(el).writingMode)
-    ).toBe("horizontal-tb")
-    expect(ribbonBox.x + ribbonBox.width).toBeLessThanOrEqual(width)
-    expect(
-      await page.evaluate(
-        ({ x, y }) =>
-          Boolean(document.elementFromPoint(x, y)?.closest(".home-ribbon")),
-        {
-          x: bookBox.x + 2,
-          y: ribbonBox.y + ribbonBox.height / 2,
+    const navBox = (await nav.boundingBox())!
+    if (width <= 1100) {
+      await expect(page.locator(".home-ribbon")).toBeHidden()
+      expect(homeBox.y + homeBox.height).toBeLessThanOrEqual(navBox.y)
+      expect(navBox.y + navBox.height).toBeLessThanOrEqual(bookBox.y)
+      const desk = await page.locator("main").evaluate((el) => {
+        const style = getComputedStyle(el)
+        return {
+          x: el.getBoundingClientRect().x,
+          width: el.clientWidth,
+          left: parseFloat(style.paddingLeft),
+          right: parseFloat(style.paddingRight),
         }
-      )
-    ).toBe(false)
+      })
+      expect(desk.left).toBe(width <= 800 ? 12 : 25)
+      expect(desk.left).toBe(desk.right)
+      expect(bookBox.x).toBeCloseTo(desk.x + desk.left, 1)
+      expect(bookBox.width).toBeCloseTo(desk.width - desk.left - desk.right, 1)
+    } else {
+      expect(homeBox.x).toBeLessThan(bookBox.x)
+      expect(homeBox.x + homeBox.width).toBeGreaterThan(bookBox.x)
+      expect(
+        await page.evaluate(
+          ({ x, y }) =>
+            Boolean(document.elementFromPoint(x, y)?.closest(".home-ribbon")),
+          { x: bookBox.x + 2, y: homeBox.y + homeBox.height / 2 }
+        )
+      ).toBe(false)
+    }
+    expect(homeBox.x).toBeGreaterThanOrEqual(0)
+    expect(homeBox.x + homeBox.width).toBeLessThanOrEqual(width)
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth
       )
     ).toBe(true)
     await page.screenshot({
-      path: testInfo.outputPath(`home-ribbon-${width}.png`),
+      path: testInfo.outputPath(`home-navigation-${width}.png`),
       fullPage: true,
     })
     await home.focus()
@@ -739,11 +761,12 @@ test("The active project tab is taller on desktop", async ({
     .toBeGreaterThan((await inactive.boundingBox())!.height)
 })
 
-test("Mobile project tabs stay reachable while reading and return to the new chapter", async ({
+test("Compact project tabs stay reachable while reading and return to the new chapter", async ({
   page,
 }, testInfo) => {
-  test.skip(testInfo.project.name !== "mobile", "Mobile navigation layout")
-  for (const width of [320, 375, 800]) {
+  const widths =
+    testInfo.project.name === "mobile" ? [320, 375, 800] : [801, 1024, 1100]
+  for (const width of widths) {
     await page.setViewportSize({ width, height: 812 })
     await page.goto("/#academy/mini")
     const nav = page.getByRole("navigation", { name: "Проекты" })
@@ -756,11 +779,14 @@ test("Mobile project tabs stay reachable while reading and return to the new cha
       navBox.x + navBox.width
     )
     await page.evaluate(() => window.scrollTo(0, 900))
-    await expect.poll(async () => (await nav.boundingBox())!.y).toBe(0)
-    const home = page.getByRole("button", { name: "Начало книги", exact: true })
+    await expect
+      .poll(async () => (await nav.locator("..").boundingBox())!.y)
+      .toBe(0)
+    const home = bookHome(page)
     await expect(home).toBeInViewport()
-    expect((await home.boundingBox())!.y).toBeGreaterThanOrEqual(
-      (await nav.boundingBox())!.height
+    const homeBox = (await home.boundingBox())!
+    expect(homeBox.y + homeBox.height).toBeLessThanOrEqual(
+      (await nav.boundingBox())!.y
     )
     await nav.evaluate((el) => el.scrollTo({ left: 0, behavior: "instant" }))
     await nav.getByRole("button", { name: "Crypton ID", exact: true }).click()
@@ -999,7 +1025,7 @@ test("Book cover and direction stay correct throughout forward and backward turn
   for (const pair of chapterPairs) {
     await page.goto("/#" + pair.from)
     const cover = page.locator(".book-cover")
-    await expect(page.locator("main")).toHaveClass(/\bproject-desk\b/)
+    await expect(page.locator("main")).toHaveCSS("z-index", "1")
     await expect(cover).toBeVisible()
     const border = await cover.evaluate((element) => {
       const style = getComputedStyle(element)

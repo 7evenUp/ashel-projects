@@ -10,7 +10,7 @@ export function ModeSwitch({
   onChange: () => void
 }) {
   return (
-    <header className="relative z-[2] flex justify-center pt-[max(12px,env(safe-area-inset-top))]">
+    <header className="relative z-2 flex justify-center pt-[max(12px,env(safe-area-inset-top))] min-[1360px]:row-start-1 min-[1360px]:self-start">
       <button
         type="button"
         role="switch"

@@ -15,17 +15,16 @@ export function BookRibbon({
     <div
       className={cn(
         "pointer-events-none absolute top-27.5 bottom-0 -left-22 z-[-1] w-26",
-        "max-[801px]:top-25 max-[801px]:-left-9.5 max-[801px]:w-12"
+        "max-[1101px]:hidden"
       )}
     >
       <button
+        type="button"
         className={cn(
           "home-ribbon pointer-events-auto relative flex h-11 w-26 touch-manipulation items-center justify-center gap-2 border-0 border-none border-[currentcolor] bg-[#8d789c] py-2 pr-3 pl-5 text-[#fff5e7] shadow-[inset_-3px_0_5px_#44334f40] select-none [clip-path:polygon(0_0,_100%_0,_100%_100%,_0_100%,_12%_50%)]",
-          "max-[801px]:sticky max-[801px]:top-[calc(84px_+_env(safe-area-inset-top,_0px))] max-[801px]:h-10 max-[801px]:w-12 max-[801px]:pr-2 max-[801px]:pl-3.5",
           "before:pointer-events-none before:absolute before:top-1.25 before:right-0 before:bottom-1.25 before:left-3 before:[border-block-width:1px] before:[border-block-style:solid] before:[border-block-color:rgba(210,_194,_221,_0.44)] before:content-['']",
           "[&_.icon]:size-4.25 [&_.icon]:shrink-0",
           "[&_span]:text-[12px] [&_span]:tracking-[0.4px]",
-          "max-[801px]:[&_span]:hidden",
           "focus-visible:bg-[#6b537f] focus-visible:[outline:none]",
           "[&:focus-visible:before]:[outline:2px_solid_#fff5e7] [&:focus-visible:before]:[outline-offset:-3px]",
           "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#756086]"

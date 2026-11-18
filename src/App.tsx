@@ -90,7 +90,8 @@ export function App() {
   return (
     <div
       className={cn(
-        "game-world relative isolate min-h-svh [&_>_.desk]:z-1",
+        "relative isolate min-h-svh",
+        "min-[1360px]:grid min-[1360px]:grid-rows-[minmax(56px,1fr)_auto_minmax(0,1fr)]",
         isDesign &&
           "bg-[#15131a] [background-image:var(--paper-grain),radial-gradient(ellipse_at_50%_25%,#352837,transparent_75%)] text-[#f5e9e5] scheme-dark [background-blend-mode:soft-light,normal]"
       )}
@@ -111,13 +112,13 @@ export function App() {
       <TableScenery isDesign={isDesign} />
       <main
         className={cn(
-          "desk relative m-auto max-w-325 px-10.5 pt-20 pb-6.25",
-          "min-[1450px]:pt-22",
+          "relative z-1 m-auto max-w-325 px-10.5 pt-20 pb-6.25",
+          "min-[1360px]:row-start-2 min-[1360px]:w-full",
           "max-[1101px]:pt-19 max-[1101px]:pr-6.25 max-[1101px]:pl-6.25",
           "max-[801px]:max-w-152.5 max-[801px]:px-4 max-[801px]:pt-0 max-[801px]:pb-5.75",
           isIntro || isDesign
-            ? "intro-desk pt-6 pb-12 max-[1101px]:pt-6 max-[801px]:pt-5 min-[1450px]:pt-6"
-            : "project-desk pl-[clamp(42px,_calc(746px_-_50vw),_96px)] max-[1101px]:pl-[clamp(42px,calc(746px-50vw),96px)] max-[801px]:pl-12",
+            ? "pt-6 pb-12 max-[1101px]:pt-6 max-[801px]:pt-5 min-[1360px]:py-7"
+            : "pl-[clamp(42px,_calc(746px_-_50vw),_96px)] max-[1101px]:px-6.25 max-[1101px]:pt-2 max-[801px]:px-0 max-[801px]:pt-0 min-[1360px]:pt-27 min-[1360px]:pb-6",
           isDesign && "max-[801px]:pb-12"
         )}
       >

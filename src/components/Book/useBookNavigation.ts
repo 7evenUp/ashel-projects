@@ -22,6 +22,7 @@ import type { Turn } from "../PageTurn"
 import type { Route } from "../../types"
 
 export const mobileBookQuery = "(max-width: 800px)"
+export const compactBookQuery = "(max-width: 1100px)"
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)"
 
 const subscribeToReducedMotion = (onChange: () => void) => {
@@ -107,7 +108,7 @@ export function useBookNavigation({
       history.pushState(null, "", hash)
       applyRoute(next, animate)
 
-      if (scroll && window.matchMedia(mobileBookQuery).matches) {
+      if (scroll && window.matchMedia(compactBookQuery).matches) {
         window.scrollTo({ top: 0, behavior: isReduced ? "instant" : "smooth" })
       }
     },
